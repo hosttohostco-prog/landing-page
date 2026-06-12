@@ -113,6 +113,7 @@ Built 1:1 from James's reference board (attached in chat; full-board copy at `mo
 - Verified: 1440 desktop screenshots all pages, zero console errors.
 
 ## What's next
+- **DEPLOY — next session (2026-06-12): plan and execute.** Pages are static HTML + brand.css in concepts/; repo exists (GitHub Pages/Netlify/Vercel all viable). Decide host, URL mapping (/ → concept-a-main, /recursos, /coaching), and compress hero images first (hero-cocina 1.5MB, coaching-hero 2MB, recursos-hero 2MB)
 - **Recursos card images** — James to supply the 6 card photos (filenames above)
 - Recursos card links — `#` placeholders (download/checklist destinations TBD)
 - Coaching booking link — both CTAs are placeholders (Calendly? WhatsApp?); WhatsApp links sitewide pending setup
