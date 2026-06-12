@@ -1,5 +1,5 @@
 # Landing Page Concepts — Status
-Last updated: 2026-06-11 (coaching page built — **the site now has TWO main pages: `concepts/concept-a-main.html` (home) + `concepts/coaching.html` (coaching)**)
+Last updated: 2026-06-11 (recursos page built — **the site now has THREE main pages: `concepts/concept-a-main.html` (home) + `concepts/coaching.html` (coaching) + `concepts/recursos.html` (recursos)**)
 
 ## Git repo (NEW 2026-06-11)
 - This folder is now a git repo: **https://github.com/hosttohostco-prog/landing-page** (branch `main`)
@@ -8,14 +8,13 @@ Last updated: 2026-06-11 (coaching page built — **the site now has TWO main pa
 - Keep this repo separate from the `hosttohostco-prog/shopify` theme repo
 
 ## Main pages (the site)
-**TWO main HTML pages** — both self-contained, same design system (Cormorant Garamond + Space Grotesk, cream + coral, GSAP + Lenis motion with nomotion/no-JS fallbacks):
+**THREE main HTML pages** — all self-contained, same design system (Cormorant Garamond + Space Grotesk, cream + coral, GSAP + Lenis motion with nomotion/no-JS fallbacks):
 
 | File | Page / URL | Status |
 |------|-----------|--------|
 | **concepts/concept-a-main.html** | Home — hosttohost.co | Active, James reviewing |
 | **concepts/coaching.html** | Coaching — /coaching | Built + approved 2026-06-11 |
-
-A **Recursos** page is planned next (James to brief).
+| **concepts/recursos.html** | Recursos — /recursos | Built + approved 2026-06-11 (card images pending) |
 
 ## What exists
 Concept exploration files at `/landing page/concepts/`:
@@ -67,6 +66,17 @@ Built 1:1 from James's reference board. Colombian Spanish (voseo), same tokens/f
 - Verified in headless Chrome: desktop 1440, true 390px mobile (iframe harness — headless has a 500px min window), zero console errors.
 - **Open:** real booking link (both CTAs placeholder), compress coaching-hero.png (2MB).
 
+## Recursos page (concepts/recursos.html, NEW 2026-06-11 — approved)
+Built 1:1 from James's reference board (attached in chat; full-board copy at `mock-ups/resources-background.png`). Colombian Spanish (voseo), same tokens/fonts/footer as home/coaching.
+1. **Hero — light variant** — cream, photo full-bleed behind (`assets/recursos-hero.png`, from `mock-ups/resources-background1.png`: warm interior, shelving, doorway to pool), cream legibility wash strongest top-left (extended right 2026-06-11 because the bright doorway sat under the side paragraph). Coral "Recursos" eyebrow, 4-line serif headline "Todo lo que me hubiera gustado tener antes de lanzar mi *primer Airbnb.*", side paragraph right. Nav = ink variant from home (cream frosted glass on scroll). Graceful plain-cream fallback if the image fails.
+2. **Resource library** — 6 white cards, 3×2, hairline borders, image inset + badge bottom-left. Live row: Empezá tu Airbnb (Gratis) · Checklist de esenciales Host-to-Host (Pago) · Manual de bienvenida para huéspedes (Gratis), coral arrow links. Coming-soon row (dark scrim + lock + "Muy pronto"): El playbook de lanzamiento · Framework de precios y ocupación · Base de proveedores.
+3. **CTA banner** — same dark rounded card as coaching, 3 columns: "Tu próxima buena decisión *empieza acá.*" · "Acompañamiento 1:1" + sub · pill "Agendá tu sesión" → /coaching.
+4. **Footer** — identical to home/coaching.
+- **New badge tones** (derived from board, not in base palette): `--badge-free: #3E4232` (deep olive-ink) · `--badge-paid: #BC5B2E` (burnt coral; also card-link color — coral-d too light on white).
+- Motion: hero photo fade/scale-settle + parallax, SplitText headline reveals, card cascade, banner line reveal + magnetic CTA. Same reduced-motion/no-JS safety as the other pages.
+- Verified in headless Chrome: desktop 1440, true 390px mobile, zero console errors.
+- **Open:** 6 card images pending (placeholders show a cream-d block): `assets/recurso-empeza-tu-airbnb.png`, `recurso-checklist-esenciales.png`, `recurso-manual-bienvenida.png`, `recurso-playbook-lanzamiento.png`, `recurso-precios-ocupacion.png`, `recurso-proveedores.png`. Card links are `#` placeholders (download/checklist destinations TBD). Compress recursos-hero.png (2MB).
+
 ## Visual system changes (2026-06-11)
 - **Dark section background:** new token `--ink-bg: #2B2826` applied to `.lead`, `.problem`, `.footer`. `--ink` (#403E3F) unchanged — still used for text and button fills. Ecosystem deliberately stays #3B393A (lighter, differentiated) — open question whether to unify.
 - All images now local in `concepts/assets/` (logos copied from Home Page so the repo is self-contained). concept-a has NO external image dependencies left except Google Fonts.
@@ -74,6 +84,7 @@ Built 1:1 from James's reference board. Colombian Spanish (voseo), same tokens/f
 ## Files
 - `concepts/concept-a-main.html` — **MAIN PAGE: home** (GSAP motion redesign, 2026-06-11)
 - `concepts/coaching.html` — **MAIN PAGE: coaching** (built + approved 2026-06-11)
+- `concepts/recursos.html` — **MAIN PAGE: recursos** (built + approved 2026-06-11, card images pending)
 - `concepts/concept-a.html` — static predecessor, kept as reference. Do not edit
 - `concepts/concept-a-updated.html` — externally-created draft, superseded. Can be deleted
 - `concepts/assets/` — all images: 4 product photos, 3 problema diagram jpgs (no longer referenced by concept-a after rebuild — kept for history), problema-still-life.png, hero-cocina.png, sobre-mafe.jpg, logo-lockup-ink.png, logo-lockup-cream.png
@@ -94,7 +105,9 @@ Built 1:1 from James's reference board. Colombian Spanish (voseo), same tokens/f
 | Footer "Sobre Mafe" | Removed from nav; footer link also removed. Nav "Recursos" label kept | Done unless James revisits |
 
 ## What's next
-- **Recursos page** — James to brief next (third main page; when it lands, consider extracting shared nav/footer/token CSS into a brand.css)
+- **Recursos card images** — James to supply the 6 card photos (filenames above)
+- **Cross-page hygiene check** before deploy — consistency pass across the three pages (fonts, tokens, nav/footer, hero treatment; consider extracting shared nav/footer/token CSS into a brand.css). James raised: home hero treatment differs from coaching/recursos (photo-behind heroes) — review whether home should match
+- Recursos card links — `#` placeholders (download/checklist destinations TBD)
 - Coaching booking link — both CTAs are placeholders (Calendly? WhatsApp?)
 - James reviews concept-a-main.html in browser (GSAP motion + all 2026-06-11 changes)
 - Confirm pétalos price (25.000 COP placeholder) and gold-vs-black cubiertos naming (carried over, still open)
