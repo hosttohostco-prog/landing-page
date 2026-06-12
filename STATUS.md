@@ -124,16 +124,19 @@ Four-expert copy audit (competitor / ideal customer / UI-UX / Hormozi-Priestley 
 - **Real links wired:** home nav/footer (`/recursos`, `/coaching`, tienda); product cards → tienda.hosttohost.co/products/{vasos-irrompibles, petalos, toallas-desmaquillantes, cuberteria} (verified via Shopify API); pétalos price corrected 25.000→**30.000 COP** (store price — closes that open question); "Ver toda la tienda" ×2 → store; footer Instagram → instagram.com/demafetohost (all pages); footer FAQ → #faq / /#faq. WhatsApp still `#` (not set up yet).
 - Verified: 1440 desktop screenshots all pages, zero console errors.
 
+## Deploy (DONE 2026-06-12)
+- **Live at hosttohost.co** — Netlify connected to `hosttohostco-prog/landing-page`, branch `main`, publish dir `site/`
+- Auto-deploy: every push to `main` goes live in ~30s
+- URL structure: `/` → home, `/coaching/` → coaching, `/recursos/` → recursos
+- Hero images compressed PNG→JPEG (~2MB → 200-300KB each); product photos resized to 900px
+- Lead form wired to Kit form `2849293ee1` (checklist delivery)
+- Recursos cards: image-free text-only design (no card images to maintain)
+
 ## What's next
-- **DEPLOY — next session (2026-06-12): plan and execute.** Pages are static HTML + brand.css in concepts/; repo exists (GitHub Pages/Netlify/Vercel all viable). Decide host, URL mapping (/ → concept-a-main, /recursos, /coaching), and compress hero images first (hero-cocina 1.5MB, coaching-hero 2MB, recursos-hero 2MB)
-- **Recursos card images** — James to supply the 6 card photos (filenames above)
-- Recursos card links — `#` placeholders (download/checklist destinations TBD)
-- Coaching booking link — both CTAs are placeholders (Calendly? WhatsApp?); WhatsApp links sitewide pending setup
-- James reviews concept-a-main.html in browser (GSAP motion + all 2026-06-11 changes)
-- Confirm pétalos price (25.000 COP placeholder) and gold-vs-black cubiertos naming (carried over, still open)
-- Font decision (Cormorant vs Outfit set)
-- Decide deploy host (page is static HTML; GitHub Pages/Netlify/Vercel all work from the repo) — repo exists, deployment not set up
-- Compress hero-cocina.png (1.5MB) and sobre-mafe.jpg (1.6MB) before launch
+- **WhatsApp links** — sitewide `href="#"` placeholders; wire once WhatsApp Business is set up
+- **Coaching booking link** — both CTAs on `/coaching/` are `#` placeholders; needs Calendly or WhatsApp link
+- **Recursos card links** — 3 live resources still point to `#`; wire once download/checklist destinations confirmed
+- Confirm pétalos price (30.000 COP — already on store, double-check page matches) and gold-vs-black cubiertos naming
 
 ## What NOT to do
 - Do not rebuild these as Shopify store homepages with collection grids / category tiles
