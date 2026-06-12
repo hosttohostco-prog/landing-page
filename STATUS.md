@@ -1,5 +1,5 @@
 # Landing Page Concepts — Status
-Last updated: 2026-06-11 (recursos page built — **the site now has THREE main pages: `concepts/concept-a-main.html` (home) + `concepts/coaching.html` (coaching) + `concepts/recursos.html` (recursos)**)
+Last updated: 2026-06-12 (copy audit pass on home page — approved; see "Copy audit pass" section)
 
 ## Git repo (NEW 2026-06-11)
 - This folder is now a git repo: **https://github.com/hosttohostco-prog/landing-page** (branch `main`)
@@ -44,8 +44,8 @@ Concept exploration files at `/landing page/concepts/`:
 
 ## Page structure (concept-a — current 2026-06-11 evening)
 1. **Nav** — Recursos · Tienda · Coaching · "Ir a la tienda" CTA ("Sobre Mafe" removed 2026-06-11). Logo enlarged 50% (4.2rem). Hero padding-top raised to 10rem so the fixed nav no longer overlaps the hero image.
-2. **Hero** — Mafe's voice first. Headline: "Te voy a contar todo lo que aprendí siendo Superhost". Two CTAs. Hero image = `assets/hero-cocina.png` (James's Cocina_New photo, replaced Unsplash 2026-06-11). **Copy APPROVED — do not modify**
-3. **Lead magnet** — "9 años de errores caros. Resumidos en 5 productos." — email capture. **APPROVED — do not modify.** Now the page's ONLY email capture (newsletter + coaching forms removed).
+2. **Hero** — Mafe's voice first. Headline (2026-06-12, outcome-led): "Mejores reseñas, menos plata quemada. Te cuento cómo lo logré siendo Superhost." Two CTAs. Hero image = `assets/hero-cocina.png`. **Copy APPROVED 2026-06-12 — do not modify**
+3. **Lead magnet** — "La checklist de los 5 esenciales que tu propiedad necesita antes del próximo check-in." (2026-06-12, checklist reframe) — email capture. **APPROVED 2026-06-12 — do not modify.** The page's ONLY email capture (newsletter + coaching forms removed).
 4. **Products** — "Lo que uso en mis propios Airbnbs" — 4 products + "Ver toda la tienda" link. **APPROVED — do not modify**
 5. **El Problema** (`#problema`, dark) — REBUILT 2026-06-11 to match James's reference mock-up (`mock-ups/El Problema_new.png` board): two-column editorial layout. Left ~40%: headline "Ser buen anfitrión **no alcanza.**" + subline. Right: three stacked editorial blocks (large italic coral numbers 01/02/03, hairline dividers, vertical rule beside numbers) — NO cards, NO thumbnails, NO lightbox. Still-life product photo (`assets/problema-still-life.png`) anchored bottom-left as decorative background with top mask-fade into the section. Mobile: headline → problems → image stacked.
 6. **Ecosystem reveal** (`#que-es`, #3B393A) — "Una forma más simple de ser anfitrión." Three pillar cards now each have an outlined CTA button (2026-06-11): Productos → https://tienda.hosttohost.co/ · Recursos → /recursos · Coaching → /coaching (placeholder paths — confirm real URLs).
@@ -76,6 +76,18 @@ Built 1:1 from James's reference board (attached in chat; full-board copy at `mo
 - Motion: hero photo fade/scale-settle + parallax, SplitText headline reveals, card cascade, banner line reveal + magnetic CTA. Same reduced-motion/no-JS safety as the other pages.
 - Verified in headless Chrome: desktop 1440, true 390px mobile, zero console errors.
 - **Open:** 6 card images pending (placeholders show a cream-d block): `assets/recurso-empeza-tu-airbnb.png`, `recurso-checklist-esenciales.png`, `recurso-manual-bienvenida.png`, `recurso-playbook-lanzamiento.png`, `recurso-precios-ocupacion.png`, `recurso-proveedores.png`. Card links are `#` placeholders (download/checklist destinations TBD). Compress recursos-hero.png (2MB).
+
+## Copy audit pass (2026-06-12 — APPROVED, home page only)
+Four-expert copy audit (competitor / ideal customer / UI-UX / Hormozi-Priestley offer strategist) scored the page 5.5/10 average; James approved these fixes in `concept-a-main.html`:
+- **Hero headline → outcome-led (Option B):** "Mejores reseñas, menos plata quemada. Te cuento cómo lo logré siendo Superhost." — 5 controlled lines desktop, `<title>` updated to match. CSS: `.hero-content` max-width 56rem→66rem (line 2 didn't fit); mobile `.hero-h1 br { display:none }` (natural wrap; markup has spaces before each `<br>` so hidden breaks don't jam words).
+- **Lead magnet → checklist reframe (Option C):** "La checklist de los 5 esenciales que tu propiedad necesita antes del próximo check-in." + body adjusted ("Te mando la checklist gratis…"). Button stays "Quiero la lista →".
+- **Coaching FAQ contradiction resolved** (coaching is LIVE): "¿Cuándo empieza…?"/waitlist answer → "¿Cómo funciona el coaching?" + 1:1 60-min Zoom + link to /coaching. New CSS rule `.faq-a a` (underline, inherit color).
+- **English product badges → Spanish:** La elección de Mafe · Lo volvería a comprar · Disponible en Colombia · Favorito de anfitriones.
+- **"Sin importaciones" → buyer benefit:** hero subline now "Te llegan en días, desde Colombia — sin aranceles ni esperas de importación."; marquee item → "Sin aranceles sorpresa" (×2).
+- **Unit counts on product cards** (verified against live store): Copas "Pack de 2 ·", Pétalos "100 por pack ·", Cubiertos "4 puestos completos ·". Toallas sold individually — no count.
+- **Post-submit expectation:** form small print now starts "Te llega al correo en minutos." (true only once the form is wired to an ESP).
+- **Guarantee:** deliberately NOT on the landing page (James 2026-06-12) — lives on the Shopify store. NOTE: store refund policy is unedited English boilerplate with "[INSERT RETURN ADDRESS]" — logged with payments setup in parent `docs/build-status.md` → "Store Operations — Pre-Launch".
+- **Open from audit (next session): section ORDER of the home page** (products-before-problem inversion). Hero CTA hierarchy confirmed correct as-is (lead magnet primary, store secondary).
 
 ## Visual system changes (2026-06-11)
 - **Dark section background:** new token `--ink-bg: #2B2826` applied to `.lead`, `.problem`, `.footer`. `--ink` (#403E3F) unchanged — still used for text and button fills. Ecosystem deliberately stays #3B393A (lighter, differentiated) — open question whether to unify.
