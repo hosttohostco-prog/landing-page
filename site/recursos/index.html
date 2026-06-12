@@ -119,76 +119,33 @@
       background: var(--white);
       border: 1px solid rgba(64,62,63,0.1);
       border-radius: 0.6rem;
-      padding: 1.6rem 1.6rem 2.4rem;
+      padding: 3.2rem 2.8rem;
       display: flex;
       flex-direction: column;
     }
 
-    .card-media {
-      position: relative;
-      aspect-ratio: 4 / 3;
-      background: var(--cream-d);
-      border-radius: 0.3rem;
-      overflow: hidden;
-      margin-bottom: 2.8rem;
-    }
-    .card-media img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.8s cubic-bezier(0.32,0.72,0,1);
-    }
-    .card:hover .card-media img { transform: scale(1.04); }
-    /* PLACEHOLDER images — onerror hides the img, leaving the cream-d block */
-    .card-media img.is-missing { display: none; }
-
     .badge {
-      position: absolute;
-      left: 1.6rem;
-      bottom: 1.6rem;
-      z-index: 2;
+      display: inline-block;
+      align-self: flex-start;
       font-size: 1.1rem;
       font-weight: 600;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--cream);
-      padding: 0.7rem 1.5rem;
+      padding: 0.5rem 1.2rem;
       border-radius: 0.4rem;
+      margin-bottom: 2rem;
     }
     .badge--free { background: var(--badge-free); }
     .badge--paid { background: var(--badge-paid); }
 
-    /* Coming-soon scrim + lock */
-    .card--soon .card-media::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(43,40,38,0.55);
-    }
-    .card-soon-mark {
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1.4rem;
-      color: var(--cream);
-    }
-    .card-soon-mark svg {
-      width: 5.2rem;
-      height: 5.2rem;
-      stroke-width: 1;
-    }
-    .card-soon-mark span {
-      font-size: 1.15rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
+    .badge--soon {
+      background: transparent;
+      border: 1px solid rgba(64,62,63,0.2);
+      color: var(--ink-s);
     }
 
-    .card-body { padding: 0 0.8rem; display: flex; flex-direction: column; flex-grow: 1; }
+    .card-body { display: flex; flex-direction: column; flex-grow: 1; }
 
     .card-h {
       font-size: 1.6rem;
@@ -366,13 +323,7 @@
     <div class="library-grid">
 
       <article class="card" data-stagger>
-        <div class="card-media">
-          <!-- PLACEHOLDER — James supplies assets/recurso-empeza-tu-airbnb.png -->
-          <img src="../assets/recurso-empeza-tu-airbnb.png"
-            alt="Portátil con la guía Empezá tu Airbnb abierta, sobre un escritorio de madera"
-            onerror="this.classList.add('is-missing')">
-          <span class="badge badge--free">Gratis</span>
-        </div>
+        <span class="badge badge--free">Gratis</span>
         <div class="card-body">
           <h3 class="card-h">Empezá tu Airbnb</h3>
           <p class="card-p">La guía paso a paso para lanzar tu primer alquiler de corta estadía sin tener que aprender todo por las malas.</p>
@@ -387,13 +338,7 @@
       </article>
 
       <article class="card" data-stagger>
-        <div class="card-media">
-          <!-- PLACEHOLDER — James supplies assets/recurso-checklist-esenciales.png -->
-          <img src="../assets/recurso-checklist-esenciales.png"
-            alt="Esenciales para huéspedes organizados sobre una superficie: toalla, vasos, cubiertos y platos"
-            onerror="this.classList.add('is-missing')">
-          <span class="badge badge--paid">Pago</span>
-        </div>
+        <span class="badge badge--paid">Pago</span>
         <div class="card-body">
           <h3 class="card-h">Checklist de esenciales Host-to-Host</h3>
           <p class="card-p">Cada producto que tu Airbnb necesita, organizado espacio por espacio: cocina, habitaciones, baños y esenciales para huéspedes.</p>
@@ -408,13 +353,7 @@
       </article>
 
       <article class="card" data-stagger>
-        <div class="card-media">
-          <!-- PLACEHOLDER — James supplies assets/recurso-manual-bienvenida.png -->
-          <img src="../assets/recurso-manual-bienvenida.png"
-            alt="Manual de bienvenida Host-to-Host de pie sobre una cama tendida"
-            onerror="this.classList.add('is-missing')">
-          <span class="badge badge--free">Gratis</span>
-        </div>
+        <span class="badge badge--free">Gratis</span>
         <div class="card-body">
           <h3 class="card-h">Manual de bienvenida para huéspedes</h3>
           <p class="card-p">Un manual de bienvenida escrito profesionalmente, listo para personalizar y entregar a tus huéspedes desde ya.</p>
@@ -429,20 +368,7 @@
       </article>
 
       <article class="card card--soon" data-stagger>
-        <div class="card-media">
-          <!-- PLACEHOLDER — James supplies assets/recurso-playbook-lanzamiento.png -->
-          <img src="../assets/recurso-playbook-lanzamiento.png"
-            alt=""
-            onerror="this.classList.add('is-missing')">
-          <div class="card-soon-mark" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="11"></circle>
-              <rect x="8.5" y="11" width="7" height="5.5" rx="0.8"></rect>
-              <path d="M10 11V9.2a2 2 0 0 1 4 0V11"></path>
-            </svg>
-            <span>Muy pronto</span>
-          </div>
-        </div>
+        <span class="badge badge--soon">Muy pronto</span>
         <div class="card-body">
           <h3 class="card-h">El playbook de lanzamiento</h3>
           <p class="card-p">El paso a paso completo para dejar tu propiedad lista para huéspedes y lanzar con confianza.</p>
@@ -450,20 +376,7 @@
       </article>
 
       <article class="card card--soon" data-stagger>
-        <div class="card-media">
-          <!-- PLACEHOLDER — James supplies assets/recurso-precios-ocupacion.png -->
-          <img src="../assets/recurso-precios-ocupacion.png"
-            alt=""
-            onerror="this.classList.add('is-missing')">
-          <div class="card-soon-mark" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="11"></circle>
-              <rect x="8.5" y="11" width="7" height="5.5" rx="0.8"></rect>
-              <path d="M10 11V9.2a2 2 0 0 1 4 0V11"></path>
-            </svg>
-            <span>Muy pronto</span>
-          </div>
-        </div>
+        <span class="badge badge--soon">Muy pronto</span>
         <div class="card-body">
           <h3 class="card-h">Framework de precios y ocupación</h3>
           <p class="card-p">Un método probado para ponerle el precio justo a tu propiedad y aumentar la ocupación y los ingresos.</p>
@@ -471,20 +384,7 @@
       </article>
 
       <article class="card card--soon" data-stagger>
-        <div class="card-media">
-          <!-- PLACEHOLDER — James supplies assets/recurso-proveedores.png -->
-          <img src="../assets/recurso-proveedores.png"
-            alt=""
-            onerror="this.classList.add('is-missing')">
-          <div class="card-soon-mark" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="11"></circle>
-              <rect x="8.5" y="11" width="7" height="5.5" rx="0.8"></rect>
-              <path d="M10 11V9.2a2 2 0 0 1 4 0V11"></path>
-            </svg>
-            <span>Muy pronto</span>
-          </div>
-        </div>
+        <span class="badge badge--soon">Muy pronto</span>
         <div class="card-body">
           <h3 class="card-h">Base de proveedores</h3>
           <p class="card-p">Mi lista de proveedores y aliados de confianza que entregan calidad, cumplimiento y buen precio.</p>
