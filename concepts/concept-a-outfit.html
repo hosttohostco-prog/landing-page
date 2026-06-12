@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Host-to-Host — Te cuento todo lo que aprendí siendo Superhost</title>
+  <meta name="description" content="9 años como Superhost en Colombia. Productos seleccionados por experiencia real. Descargá los 5 esenciales gratis.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Archivo:ital,wght@0,400;0,500;0,600;1,400&family=Shantell+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* —— CONCEPT A: THE EDITORIAL ——
+       Structure: Mafe-voice hero → lead magnet → 4 products → founder → coaching → newsletter → FAQ
+       Archetype: Kinfolk / Cereal · founder-led editorial landing page
+       Type: Cormorant Garamond display + Space Grotesk body
+       Colour: Cream base · coral accents · ink text
+    */
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:   #FCF3E9;
+      --cream-d: #F0E2CF;
+      --coral:   #F39878;
+      --coral-d: #E8825F;
+      --periw:   #96A1D2;
+      --olive:   #989C6F;
+      --ink:     #403E3F;
+      --ink-s:   #6B6869;
+      --white:   #FDFCFA;
+    }
+
+    html { font-size: 62.5%; scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Archivo', sans-serif;
+      font-size: 1.6rem;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.025;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      padding: 2.4rem 6.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo img { height: 2.8rem; }
+
+    .nav-links { display: flex; align-items: center; gap: 3.6rem; list-style: none; }
+    .nav-links a {
+      font-size: 1.3rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0.6;
+      transition: opacity 0.3s;
+    }
+    .nav-links a:hover { opacity: 1; }
+
+    .nav-cta {
+      font-size: 1.35rem;
+      font-weight: 500;
+      padding: 1rem 2.6rem;
+      background: var(--ink);
+      color: var(--cream) !important;
+      opacity: 1 !important;
+      border-radius: 10rem;
+      transition: background 0.4s cubic-bezier(0.32,0.72,0,1) !important;
+    }
+    .nav-cta:hover { background: var(--coral-d) !important; }
+
+    /* ── HERO — Mafe's voice, full editorial spread ── */
+    .hero {
+      height: 100dvh;
+      max-height: 92rem;
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      align-items: stretch;
+      padding-top: 6rem;
+    }
+
+    .hero-left {
+      padding: 4rem 5.6rem 5.6rem 6.4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      opacity: 0;
+      animation: fadeUp 1.2s cubic-bezier(0.32,0.72,0,1) 0.2s forwards;
+    }
+
+    .eyebrow {
+      font-size: 1.15rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-s);
+      margin-bottom: 3.2rem;
+    }
+
+    .hero-h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(4.4rem, 5.2vw, 7.2rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-wrap: balance;
+      margin-bottom: 2.4rem;
+    }
+
+    .hero-h1 em { font-style: italic; color: var(--coral-d); }
+
+    .hero-sub {
+      font-size: 1.75rem;
+      color: var(--ink-s);
+      line-height: 1.7;
+      max-width: 40ch;
+      margin-bottom: 3.6rem;
+    }
+
+    .hero-ctas {
+      display: flex;
+      flex-direction: row;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 1.4rem 2.4rem;
+      background: var(--coral-d);
+      color: var(--white);
+      font-size: 1.5rem;
+      font-weight: 500;
+      border-radius: 2px;
+      transition: background 0.4s cubic-bezier(0.32,0.72,0,1), transform 0.25s;
+    }
+    .btn-primary:hover { background: var(--ink); transform: translateY(-1px); }
+    .btn-primary:active { transform: scale(0.98); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 1.4rem 2.4rem;
+      background: transparent;
+      color: var(--ink);
+      font-size: 1.5rem;
+      font-weight: 400;
+      border: 1px solid rgba(64,62,63,0.2);
+      border-radius: 2px;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .btn-secondary:hover { border-color: var(--ink); background: rgba(64,62,63,0.04); }
+
+    /* Hero right — photo + annotation */
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      animation: scaleIn 1.4s cubic-bezier(0.32,0.72,0,1) 0.3s forwards;
+    }
+
+    .hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      min-height: 50vh;
+    }
+
+    .hero-img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, var(--cream) 0%, transparent 15%);
+    }
+
+    .hero-note {
+      position: absolute;
+      bottom: 4.8rem;
+      right: 4.8rem;
+      background: var(--white);
+      padding: 2rem 2.8rem;
+      border-left: 3px solid var(--coral);
+      max-width: 28rem;
+    }
+    .hero-note-q {
+      font-family: 'Shantell Sans', cursive;
+      font-size: 1.9rem;
+      line-height: 1.35;
+      color: var(--ink);
+    }
+    .hero-note-a {
+      font-size: 1.2rem;
+      color: var(--ink-s);
+      margin-top: 0.8rem;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── SECTION BASE ── */
+    .section { padding: 12rem 6.4rem; }
+
+    .s-label {
+      font-size: 1.15rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-s);
+      margin-bottom: 2.4rem;
+    }
+
+    .s-h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(3.6rem, 4vw, 5.6rem);
+      font-weight: 300;
+      line-height: 1.08;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      text-wrap: balance;
+    }
+    .s-h2 em { font-style: italic; color: var(--coral-d); }
+
+    .s-body {
+      font-size: 1.7rem;
+      color: var(--ink-s);
+      line-height: 1.75;
+      max-width: 54ch;
+    }
+
+    /* ── LEAD MAGNET ── */
+    .lead {
+      background: var(--ink);
+      padding: 10rem 6.4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8rem;
+      align-items: center;
+    }
+
+    .lead-left { opacity: 0; transform: translateY(3rem); transition: opacity 0.9s cubic-bezier(0.32,0.72,0,1), transform 0.9s; }
+    .lead-left.in { opacity: 1; transform: translateY(0); }
+
+    .lead-label { color: rgba(252,243,233,0.45); margin-bottom: 2.4rem; }
+
+    .lead-h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(3.6rem, 4vw, 5.6rem);
+      font-weight: 300;
+      line-height: 1.08;
+      letter-spacing: -0.015em;
+      color: var(--cream);
+      text-wrap: balance;
+      margin-bottom: 2.4rem;
+    }
+    .lead-h2 em { font-style: italic; color: var(--coral); }
+
+    .lead-p { font-size: 1.7rem; color: rgba(252,243,233,0.6); line-height: 1.75; max-width: 46ch; }
+
+    .lead-right { opacity: 0; transform: translateY(3rem); transition: opacity 0.9s cubic-bezier(0.32,0.72,0,1) 0.1s, transform 0.9s 0.1s; }
+    .lead-right.in { opacity: 1; transform: translateY(0); }
+
+    .lead-form-wrap {
+      padding: 0;
+    }
+
+    .lead-form-hand {
+      font-family: 'Shantell Sans', cursive;
+      font-size: 2.4rem;
+      color: var(--coral);
+      margin-bottom: 2.8rem;
+      line-height: 1.2;
+    }
+
+    .form-row { display: flex; gap: 1.2rem; align-items: flex-end; }
+
+    .form-field { flex: 1; display: flex; flex-direction: column; gap: 0.6rem; }
+
+    .form-field label {
+      font-size: 1.1rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(252,243,233,0.35);
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 1.2rem 0;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(252,243,233,0.25);
+      color: var(--cream);
+      font-family: 'Archivo', sans-serif;
+      font-size: 1.6rem;
+      outline: none;
+      border-radius: 0;
+      transition: border-color 0.3s;
+    }
+    .form-input::placeholder { color: rgba(252,243,233,0.25); }
+    .form-input:focus { border-bottom-color: var(--coral); }
+
+    .form-btn {
+      padding: 1.4rem 2.4rem;
+      background: var(--coral-d);
+      color: var(--white);
+      font-family: 'Archivo', sans-serif;
+      font-size: 1.45rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.4s cubic-bezier(0.32,0.72,0,1);
+      flex-shrink: 0;
+    }
+    .form-btn:hover { background: var(--coral); }
+
+    .form-privacy { font-size: 1.2rem; color: rgba(252,243,233,0.3); margin-top: 1.6rem; }
+    .form-privacy a { text-decoration: underline; color: rgba(252,243,233,0.4); }
+
+    /* ── PRODUCTS — "Lo que uso en mis Airbnbs" ── */
+    .products-section { background: var(--cream); }
+
+    .products-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: end;
+      margin-bottom: 8rem;
+    }
+
+    .products-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+
+    .prod {
+      opacity: 0;
+      transform: translateY(3rem);
+      transition: opacity 0.75s cubic-bezier(0.32,0.72,0,1), transform 0.75s cubic-bezier(0.32,0.72,0,1);
+    }
+    .prod.in { opacity: 1; transform: translateY(0); }
+    .prod:nth-child(2) { transition-delay: 0.08s; }
+    .prod:nth-child(3) { transition-delay: 0.16s; }
+    .prod:nth-child(4) { transition-delay: 0.24s; }
+
+    .prod-img-wrap { overflow: hidden; background: var(--cream-d); }
+    .prod-img {
+      width: 100%;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.9s cubic-bezier(0.32,0.72,0,1);
+    }
+    .prod:hover .prod-img { transform: scale(1.04); }
+
+    .prod-body { padding: 2rem 0 2.8rem; }
+
+    .prod-tag {
+      font-family: 'Shantell Sans', cursive;
+      font-size: 1.5rem;
+      color: var(--coral-d);
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+
+    .prod-name {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 0.6rem;
+      line-height: 1.2;
+    }
+
+    .prod-note { font-size: 1.4rem; font-style: italic; color: var(--ink-s); margin-bottom: 1.6rem; }
+
+    .prod-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1.4rem;
+      border-top: 1px solid rgba(64,62,63,0.08);
+    }
+
+    .prod-price { font-size: 1.4rem; font-weight: 500; color: var(--ink); }
+
+    .prod-cta {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--coral-d);
+      text-decoration: underline;
+      text-decoration-color: var(--coral-d);
+      text-underline-offset: 3px;
+      transition: color 0.3s, text-decoration-color 0.3s;
+    }
+    .prod-cta:hover { color: var(--ink); text-decoration-color: var(--ink); }
+
+    .products-footer {
+      margin-top: 6.4rem;
+      text-align: center;
+    }
+
+    .btn-shop {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 1.6rem 3.6rem;
+      border: 1px solid var(--ink);
+      color: var(--ink);
+      font-size: 1.5rem;
+      font-weight: 500;
+      border-radius: 2px;
+      transition: background 0.4s cubic-bezier(0.32,0.72,0,1), color 0.4s;
+    }
+    .btn-shop:hover { background: var(--ink); color: var(--cream); }
+
+    /* ── FOUNDER ── */
+    .founder {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: 10rem;
+      align-items: center;
+      padding: 14rem 6.4rem;
+    }
+
+    .founder-img-wrap {
+      position: relative;
+      opacity: 0;
+      transform: translateY(3rem);
+      transition: opacity 1s cubic-bezier(0.32,0.72,0,1), transform 1s;
+    }
+    .founder-img-wrap.in { opacity: 1; transform: translateY(0); }
+
+    .founder-img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+    }
+
+    .founder-badge {
+      position: absolute;
+      bottom: -3.2rem;
+      right: -3.2rem;
+      width: 13rem;
+      height: 13rem;
+      border-radius: 50%;
+      background: var(--periw);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+    .badge-n {
+      font-family: 'Outfit', sans-serif;
+      font-size: 3.2rem;
+      font-weight: 300;
+      line-height: 1;
+      color: var(--white);
+    }
+    .badge-l { font-size: 1.1rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(253,252,250,0.75); margin-top: 0.3rem; }
+
+    .founder-content {
+      opacity: 0;
+      transform: translateY(3rem);
+      transition: opacity 1s cubic-bezier(0.32,0.72,0,1) 0.12s, transform 1s 0.12s;
+    }
+    .founder-content.in { opacity: 1; transform: translateY(0); }
+
+    .founder-h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(3.4rem, 3.8vw, 5.2rem);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      margin-bottom: 3.2rem;
+    }
+    .founder-h2 em { font-style: italic; }
+
+    .founder-p { font-size: 1.7rem; color: var(--ink-s); line-height: 1.8; max-width: 50ch; margin-bottom: 2.4rem; }
+
+    .founder-hand {
+      display: block;
+      font-family: 'Shantell Sans', cursive;
+      font-size: 2.2rem;
+      color: var(--coral-d);
+      margin: 3.2rem 0;
+    }
+
+    .btn-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 1.6rem 3.2rem;
+      background: var(--coral-d);
+      color: var(--white);
+      font-size: 1.5rem;
+      font-weight: 500;
+      border-radius: 2px;
+      transition: background 0.4s cubic-bezier(0.32,0.72,0,1);
+    }
+    .btn-whatsapp:hover { background: var(--ink); }
+
+    /* ── COACHING TEASER ── */
+    .coaching {
+      background: var(--cream-d);
+      padding: 12rem 6.4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8rem;
+      align-items: center;
+    }
+
+    .coaching-pill {
+      display: inline-block;
+      background: var(--periw);
+      color: var(--white);
+      font-size: 1.15rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.6rem 1.6rem;
+      border-radius: 10rem;
+      margin-bottom: 3.2rem;
+    }
+
+    .coaching-h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(3.6rem, 4vw, 5.6rem);
+      font-weight: 300;
+      line-height: 1.08;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      text-wrap: balance;
+      margin-bottom: 2.4rem;
+    }
+    .coaching-h2 em { font-style: italic; }
+
+    .coaching-p { font-size: 1.7rem; color: var(--ink-s); line-height: 1.75; max-width: 44ch; }
+
+    .coaching-right {
+      background: var(--white);
+      padding: 4.8rem;
+      border-left: 3px solid var(--periw);
+    }
+
+    .coaching-list {
+      list-style: none;
+      margin-bottom: 4rem;
+    }
+    .coaching-list li {
+      font-size: 1.6rem;
+      color: var(--ink-s);
+      padding: 1.4rem 0;
+      border-bottom: 1px solid rgba(64,62,63,0.08);
+      padding-left: 2rem;
+      position: relative;
+    }
+    .coaching-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--periw);
+    }
+
+    .coaching-form { display: flex; flex-direction: column; gap: 1.2rem; }
+    .coaching-input {
+      padding: 1.4rem 2rem;
+      background: var(--cream);
+      border: 1px solid rgba(64,62,63,0.15);
+      font-family: 'Archivo', sans-serif;
+      font-size: 1.5rem;
+      color: var(--ink);
+      outline: none;
+      border-radius: 2px;
+      transition: border-color 0.3s;
+    }
+    .coaching-input::placeholder { color: var(--ink-s); }
+    .coaching-input:focus { border-color: var(--ink); }
+
+    .coaching-btn {
+      padding: 1.5rem 2.4rem;
+      background: var(--ink);
+      color: var(--cream);
+      font-family: 'Archivo', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.4s cubic-bezier(0.32,0.72,0,1);
+    }
+    .coaching-btn:hover { background: var(--coral-d); }
+
+    /* ── NEWSLETTER ── */
+    .newsletter {
+      padding: 12rem 6.4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8rem;
+      align-items: center;
+      border-top: 1px solid rgba(64,62,63,0.1);
+    }
+
+    .nl-h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(3.6rem, 4vw, 5.6rem);
+      font-weight: 300;
+      line-height: 1.08;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      text-wrap: balance;
+      margin-bottom: 2.4rem;
+    }
+    .nl-h2 em { font-style: italic; color: var(--coral-d); }
+
+    .nl-p { font-size: 1.7rem; color: var(--ink-s); line-height: 1.75; max-width: 46ch; }
+
+    .nl-form { display: flex; gap: 1.2rem; align-items: stretch; }
+    .nl-input {
+      flex: 1;
+      padding: 1.4rem 2rem;
+      background: var(--white);
+      border: 1px solid rgba(64,62,63,0.15);
+      font-family: 'Archivo', sans-serif;
+      font-size: 1.5rem;
+      color: var(--ink);
+      outline: none;
+      border-radius: 2px;
+      transition: border-color 0.3s;
+    }
+    .nl-input::placeholder { color: var(--ink-s); }
+    .nl-input:focus { border-color: var(--ink); }
+
+    .nl-btn {
+      padding: 1.4rem 2.8rem;
+      background: var(--coral-d);
+      color: var(--white);
+      font-family: 'Archivo', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.4s cubic-bezier(0.32,0.72,0,1);
+      white-space: nowrap;
+    }
+    .nl-btn:hover { background: var(--ink); }
+
+    .nl-privacy { font-size: 1.2rem; color: var(--ink-s); margin-top: 1.4rem; }
+    .nl-privacy a { color: var(--ink); text-decoration: underline; }
+
+    /* ── FAQ ── */
+    .faq {
+      padding: 12rem 6.4rem;
+      background: var(--cream-d);
+    }
+
+    .faq-grid {
+      max-width: 80rem;
+      margin: 6.4rem auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+    }
+
+    .faq-item {
+      background: #fff;
+      border-radius: 1.4rem;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(2rem);
+      transition: opacity 0.7s cubic-bezier(0.32,0.72,0,1), transform 0.7s;
+    }
+    .faq-item.in { opacity: 1; transform: translateY(0); }
+    .faq-item:nth-child(even) { transition-delay: 0.08s; }
+
+    .faq-btn {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2.4rem 3.2rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      gap: 2.4rem;
+    }
+
+    .faq-q {
+      font-family: 'Archivo', sans-serif;
+      font-size: 1.7rem;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.4;
+    }
+
+    .faq-chevron {
+      flex-shrink: 0;
+      width: 2rem;
+      height: 2rem;
+      color: var(--coral);
+      transition: transform 0.35s cubic-bezier(0.32,0.72,0,1);
+    }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+
+    .faq-body {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.35s cubic-bezier(0.32,0.72,0,1);
+    }
+    .faq-item.open .faq-body { grid-template-rows: 1fr; }
+
+    .faq-body-inner { overflow: hidden; }
+
+    .faq-a {
+      font-size: 1.55rem;
+      color: var(--ink-s);
+      line-height: 1.7;
+      padding: 0 3.2rem 2.4rem;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--ink);
+      padding: 8rem 6.4rem 4.8rem;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 6.4rem;
+      padding-bottom: 5.6rem;
+      border-bottom: 1px solid rgba(252,243,233,0.08);
+      margin-bottom: 3.6rem;
+    }
+
+    .footer-logo img { height: 2.6rem; margin-bottom: 2.4rem; }
+    .footer-tag { font-size: 1.55rem; color: rgba(252,243,233,0.45); line-height: 1.7; max-width: 38ch; }
+
+    .f-h { font-size: 1.1rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(252,243,233,0.28); margin-bottom: 2.8rem; }
+    .f-links { list-style: none; }
+    .f-links li { margin-bottom: 1.4rem; }
+    .f-links a { font-size: 1.5rem; color: rgba(252,243,233,0.55); transition: color 0.3s; }
+    .f-links a:hover { color: var(--cream); }
+
+    .footer-bt { display: flex; justify-content: space-between; align-items: center; }
+    .f-copy { font-size: 1.3rem; color: rgba(252,243,233,0.25); }
+    .f-leg { display: flex; gap: 2.4rem; }
+    .f-leg a { font-size: 1.3rem; color: rgba(252,243,233,0.25); transition: color 0.3s; }
+    .f-leg a:hover { color: rgba(252,243,233,0.5); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    @keyframes scaleIn { from { opacity: 0; transform: scale(1.02); } to { opacity: 1; transform: scale(1); } }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      html { font-size: 56.25%; }
+      .nav { padding: 2rem 2.4rem; }
+      .nav-links { display: none; }
+
+      .hero { grid-template-columns: 1fr; padding-top: 6rem; height: auto; max-height: none; }
+      .hero-left { padding: 3.2rem 2.4rem 4rem; }
+      .hero-right { min-height: 52vw; }
+      .hero-ctas { flex-direction: column; }
+      .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+      .hero-img-overlay { background: linear-gradient(to bottom, transparent 50%, var(--cream) 100%); }
+      .hero-note { right: 2rem; bottom: 2rem; }
+
+      .section { padding: 8rem 2.4rem; }
+
+      .lead { grid-template-columns: 1fr; padding: 8rem 2.4rem; }
+      .form-row { flex-direction: column; }
+
+      .products-header { grid-template-columns: 1fr; }
+      .products-row { grid-template-columns: 1fr 1fr; }
+
+      .founder { grid-template-columns: 1fr; padding: 8rem 2.4rem; }
+      .founder-badge { right: 0; }
+
+      .coaching { grid-template-columns: 1fr; padding: 8rem 2.4rem; }
+      .newsletter { grid-template-columns: 1fr; padding: 8rem 2.4rem; }
+      .nl-form { flex-direction: column; }
+
+      .faq { padding: 8rem 2.4rem; }
+      .faq-grid { margin-top: 4rem; }
+      .faq-btn { padding: 2rem 2.4rem; }
+      .faq-a { padding: 0 2.4rem 2rem; }
+
+      .footer { padding: 6rem 2.4rem 4rem; }
+      .footer-top { grid-template-columns: 1fr; gap: 4rem; }
+      .footer-bt { flex-direction: column; gap: 1.6rem; }
+      .f-leg { flex-direction: column; align-items: center; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="/" class="nav-logo"><img src="../../Home Page/assets/logo-lockup-ink.png" alt="Host-to-Host"></a>
+    <ul class="nav-links">
+      <li><a href="#">Recursos</a></li>
+      <li><a href="#">Tienda</a></li>
+      <li><a href="#">Sobre Mafe</a></li>
+      <li><a href="#">Coaching</a></li>
+      <li><a href="#" class="nav-cta">Ir a la tienda</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO — Mafe's voice -->
+  <header class="hero">
+    <div class="hero-left">
+      <span class="eyebrow">Superhost · Medellín · 9 años</span>
+      <h1 class="hero-h1">
+        Te voy a contar todo<br>lo que aprendí siendo<br><em>Superhost.</em>
+      </h1>
+      <p class="hero-sub">
+        Para simplificar tu vida como anfitrión. Productos seleccionados por experiencia real. Sin importaciones. Disponibles en Colombia.
+      </p>
+      <div class="hero-ctas">
+        <a href="#lead" class="btn-primary">Descargá los 5 esenciales ↓</a>
+        <a href="#tienda" class="btn-secondary">Ver la tienda →</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <img class="hero-img"
+        src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200&auto=format&fit=crop&q=80"
+        alt="Interior de Airbnb en Colombia">
+      <div class="hero-img-overlay"></div>
+      <div class="hero-note">
+        <p class="hero-note-q">"Aprendí a las malas — para que vos no tengas que aprender solo."</p>
+        <p class="hero-note-a">— Mafe</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- LEAD MAGNET -->
+  <section class="lead" id="lead">
+    <div class="lead-left">
+      <p class="s-label lead-label">Guía gratuita</p>
+      <h2 class="lead-h2">9 años de errores caros.<br><em>Resumidos en 5 productos.</em></h2>
+      <p class="lead-p">Cada uno de estos productos lo aprendí después de una estadía que salió mal. Te los mando gratis — para que no tengas que descubrirlos a las malas.</p>
+    </div>
+    <div class="lead-right">
+      <div class="lead-form-wrap">
+        <p class="lead-form-hand">"Ojalá alguien me los hubiese dicho al principio."</p>
+        <form>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="lead-email">Tu correo</label>
+              <input class="form-input" id="lead-email" type="email" placeholder="mafe@ejemplo.com" aria-label="Correo electrónico">
+            </div>
+            <button class="form-btn" type="submit">Quiero la lista →</button>
+          </div>
+        </form>
+        <p class="form-privacy">Al suscribirte aceptás la <a href="#">política de privacidad</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS — "Lo que uso en mis Airbnbs" -->
+  <section class="section products-section" id="tienda">
+    <div class="products-header">
+      <div>
+        <p class="s-label">La tienda</p>
+        <h2 class="s-h2">Lo que uso en<br>mis propios <em>Airbnbs.</em></h2>
+      </div>
+      <p class="s-body">Cada producto pasó por mis propiedades antes de llegar a la tuya. Si no lo volvería a comprar, no está en la tienda.</p>
+    </div>
+
+    <div class="products-row">
+      <article class="prod">
+        <div class="prod-img-wrap">
+          <img class="prod-img"
+            src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&auto=format&fit=crop&q=80"
+            alt="Copas irrompibles">
+        </div>
+        <div class="prod-body">
+          <span class="prod-tag">Mafe's Pick</span>
+          <h3 class="prod-name">Copas sin drama</h3>
+          <p class="prod-note">Sobreviven cientos de estadías.</p>
+          <div class="prod-foot">
+            <span class="prod-price">100.000 COP</span>
+            <a href="#" class="prod-cta">Ver →</a>
+          </div>
+        </div>
+      </article>
+      <article class="prod">
+        <div class="prod-img-wrap">
+          <img class="prod-img"
+            src="https://images.unsplash.com/photo-1616464916356-3a777b87d3b8?w=500&auto=format&fit=crop&q=80"
+            alt="Velas decorativas">
+        </div>
+        <div class="prod-body">
+          <span class="prod-tag">Would Buy Again</span>
+          <h3 class="prod-name">Velas que venden</h3>
+          <p class="prod-note">Primera impresión = aroma.</p>
+          <div class="prod-foot">
+            <span class="prod-price">80.000 COP</span>
+            <a href="#" class="prod-cta">Ver →</a>
+          </div>
+        </div>
+      </article>
+      <article class="prod">
+        <div class="prod-img-wrap">
+          <img class="prod-img"
+            src="https://images.unsplash.com/photo-1607006344380-b6775a0824a7?w=500&auto=format&fit=crop&q=80"
+            alt="Toallas desmaquilladoras">
+        </div>
+        <div class="prod-body">
+          <span class="prod-tag">Available Locally</span>
+          <h3 class="prod-name">Toallas desmaquilladoras</h3>
+          <p class="prod-note">Sin manchas permanentes.</p>
+          <div class="prod-foot">
+            <span class="prod-price">15.000 COP</span>
+            <a href="#" class="prod-cta">Ver →</a>
+          </div>
+        </div>
+      </article>
+      <article class="prod">
+        <div class="prod-img-wrap">
+          <img class="prod-img"
+            src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=500&auto=format&fit=crop&q=80"
+            alt="Cubiertos negros">
+        </div>
+        <div class="prod-body">
+          <span class="prod-tag">Host Favourite</span>
+          <h3 class="prod-name">Cubiertos negros</h3>
+          <p class="prod-note">El detalle que diferencia.</p>
+          <div class="prod-foot">
+            <span class="prod-price">98.000 COP</span>
+            <a href="#" class="prod-cta">Ver →</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="products-footer">
+      <a href="#" class="btn-shop">Ver toda la tienda →</a>
+    </div>
+  </section>
+
+  <!-- FOUNDER -->
+  <section class="founder" id="sobre">
+    <div class="founder-img-wrap">
+      <img class="founder-img"
+        src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=700&auto=format&fit=crop&q=80"
+        alt="Mafe, fundadora de Host-to-Host">
+      <div class="founder-badge"><span class="badge-n">9</span><span class="badge-l">Años</span></div>
+    </div>
+    <div class="founder-content">
+      <p class="s-label">Sobre Mafe</p>
+      <h2 class="founder-h2">
+        Estudié arquitectura para<br>diseñar edificios. <em>Hoy diseño<br>experiencias.</em>
+      </h2>
+      <p class="founder-p">
+        Después de 5 años como arquitecta, entendí que un espacio bonito y un espacio que funciona no son lo mismo. Empecé con Kabine en Guatapé y hoy opero 4 propiedades en Medellín.
+      </p>
+      <p class="founder-p">
+        Host-to-Host es lo que nació de ese proceso. Cada producto en esta tienda pasó por mis propiedades antes de llegar a la tuya.
+      </p>
+      <span class="founder-hand">"Un espacio bonito y un espacio que funciona no son lo mismo."</span>
+      <a href="#" class="btn-whatsapp">Escribime por WhatsApp →</a>
+    </div>
+  </section>
+
+  <!-- COACHING -->
+  <section class="coaching" id="coaching">
+    <div>
+      <span class="coaching-pill">Próximamente</span>
+      <h2 class="coaching-h2">Coaching 1:1 para anfitriones que quieren <em>crecer.</em></h2>
+      <p class="coaching-p">Para hosts con 1 a 5 propiedades que quieren mejorar su operación, sus reseñas, y sus resultados. Anotate para ser de los primeros.</p>
+    </div>
+    <div class="coaching-right">
+      <ul class="coaching-list">
+        <li>Revisión completa de tu propiedad</li>
+        <li>Selección de productos para tu perfil</li>
+        <li>Estrategia de precios y ocupación</li>
+        <li>Optimización de foto y listado</li>
+      </ul>
+      <form class="coaching-form">
+        <input class="coaching-input" type="email" placeholder="tu@correo.com" aria-label="Correo para lista de espera">
+        <button class="coaching-btn" type="submit">Anotarme en la lista de espera</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter section" id="newsletter">
+    <div>
+      <p class="s-label">Newsletter</p>
+      <h2 class="nl-h2">10 productos<br>en <em>10 días.</em></h2>
+      <p class="nl-p">Cada día, un producto. Por qué lo elegí, dónde lo conseguí, y cuánto cuesta. Después, tips semanales de operación. Sin spam.</p>
+    </div>
+    <div>
+      <form>
+        <div class="nl-form">
+          <input class="nl-input" type="email" placeholder="tu@correo.com" aria-label="Correo electrónico">
+          <button class="nl-btn" type="submit">Suscribirme</button>
+        </div>
+        <p class="nl-privacy">Al suscribirte aceptás la <a href="#">política de privacidad</a>. Darte de baja es fácil.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <p class="s-label">Preguntas frecuentes</p>
+    <h2 class="s-h2">Lo que más<br>nos <em>preguntan.</em></h2>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          <span class="faq-q">¿Hacen envíos a toda Colombia?</span>
+          <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"/></svg>
+        </button>
+        <div class="faq-body"><div class="faq-body-inner"><p class="faq-a">Sí. Trabajamos con operadores logísticos que cubren las principales ciudades. Los tiempos varían según el destino.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          <span class="faq-q">¿Tienen precios especiales para volumen?</span>
+          <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"/></svg>
+        </button>
+        <div class="faq-body"><div class="faq-body-inner"><p class="faq-a">Si tenés más de una propiedad o necesitás cantidades mayores, escribinos por WhatsApp y te armamos una cotización.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          <span class="faq-q">¿Qué métodos de pago aceptan?</span>
+          <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"/></svg>
+        </button>
+        <div class="faq-body"><div class="faq-body-inner"><p class="faq-a">Tarjeta de crédito, débito, y transferencias bancarias. Todo procesado de forma segura a través de la plataforma.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          <span class="faq-q">¿Cómo sé que los productos son de buena calidad?</span>
+          <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"/></svg>
+        </button>
+        <div class="faq-body"><div class="faq-body-inner"><p class="faq-a">Cada producto pasó por nuestras propias propiedades antes de entrar a la tienda. Si no lo volvería a comprar, no lo vendemos.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          <span class="faq-q">¿Qué garantías tienen los productos?</span>
+          <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"/></svg>
+        </button>
+        <div class="faq-body"><div class="faq-body-inner"><p class="faq-a">Si algún producto llega en mal estado o no es lo que esperabas, nos escribís y lo resolvemos. Sin vueltas.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          <span class="faq-q">¿Cuándo empieza el coaching?</span>
+          <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"/></svg>
+        </button>
+        <div class="faq-body"><div class="faq-body-inner"><p class="faq-a">Estamos armando el programa. Anotate en la lista de espera y te avisamos antes que a nadie con el precio de lanzamiento.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo"><img src="../../Home Page/assets/logo-lockup-cream.png" alt="Host-to-Host"></div>
+        <p class="footer-tag">Productos para anfitriones en Colombia. Seleccionados por una Superhost con 9 años de experiencia real.</p>
+      </div>
+      <div>
+        <p class="f-h">Recursos</p>
+        <ul class="f-links">
+          <li><a href="#">Tienda</a></li>
+          <li><a href="#">Newsletter</a></li>
+          <li><a href="#">Coaching</a></li>
+          <li><a href="#">Sobre Mafe</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="f-h">Contacto</p>
+        <ul class="f-links">
+          <li><a href="#">WhatsApp</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bt">
+      <p class="f-copy">© 2024 Host-to-Host · Medellín, Colombia</p>
+      <nav class="f-leg"><a href="#">Política de privacidad</a><a href="#">Términos</a></nav>
+    </div>
+  </footer>
+
+  <script>
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.lead-left, .lead-right, .prod, .founder-img-wrap, .founder-content, .faq-item').forEach(el => obs.observe(el));
+
+    document.querySelectorAll('.faq-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(el => {
+          el.classList.remove('open');
+          el.querySelector('.faq-btn').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

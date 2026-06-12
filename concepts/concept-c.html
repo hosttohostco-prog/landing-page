@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Host-to-Host — Cada pieza, seleccionada.</title>
+  <meta name="description" content="9 años como Superhost en Colombia. Productos seleccionados por experiencia real. Descargá los 5 esenciales gratis.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* —— CONCEPT C: THE OBJECT ROOM ——
+       Structure: Mafe-voice hero → lead magnet → 4 products → founder → coaching → newsletter → FAQ
+       Archetype: Gallery restraint · Farmhouse Pottery · The Row
+       Type: Space Grotesk only — lowercase, heavy, tight tracking
+       Colour: Near-white base · olive as sole accent
+       Motion: Hairline scale reveals, maximum restraint
+    */
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white:   #FDFCF8;
+      --off:     #F5F0E8;
+      --rule:    rgba(64,62,63,0.1);
+      --ink:     #403E3F;
+      --ink-s:   #726F70;
+      --ink-f:   #A9A5A6;
+      --olive:   #989C6F;
+      --olive-l: #C2C5A5;
+      --coral:   #E8825F;
+      --periw:   #96A1D2;
+      --cream:   #FCF3E9;
+    }
+
+    html { font-size: 62.5%; scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--ink);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.6rem;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV — hairline minimal ── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      padding: 2rem 4.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(253,252,248,0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .nav-logo img { height: 2.4rem; }
+
+    .nav-links { display: flex; gap: 3.6rem; list-style: none; }
+    .nav-links a {
+      font-size: 1.3rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--ink-s);
+      transition: color 0.3s;
+      text-transform: lowercase;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    .nav-meta { font-size: 1.2rem; color: var(--ink-f); letter-spacing: 0.08em; }
+
+    /* ── HERO — radically simple, type-forward ── */
+    .hero {
+      min-height: 100dvh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--rule);
+      padding-top: 6rem;
+    }
+
+    .hero-left {
+      padding: 8rem 4.8rem 8rem 4.8rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-right: 1px solid var(--rule);
+      opacity: 0;
+      animation: fadeUp 1.2s cubic-bezier(0.32,0.72,0,1) 0.2s forwards;
+    }
+
+    .hero-label {
+      font-size: 1.15rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--olive);
+      margin-bottom: 4rem;
+    }
+
+    .hero-h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(5.2rem, 7vw, 10rem);
+      font-weight: 700;
+      line-height: 0.90;
+      letter-spacing: -0.05em;
+      color: var(--ink);
+      text-transform: lowercase;
+      text-wrap: balance;
+      margin-bottom: 4.8rem;
+    }
+
+    .hero-h1 em {
+      font-style: normal;
+      color: var(--olive);
+    }
+
+    .hero-sub {
+      font-size: 1.7rem;
+      font-weight: 400;
+      line-height: 1.7;
+      color: var(--ink-s);
+      max-width: 40ch;
+      margin-bottom: 5.6rem;
+    }
+
+    .hero-ctas { display: flex; flex-direction: column; gap: 1.2rem; max-width: 40rem; }
+
+    .btn-solid {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.8rem 2.4rem;
+      background: var(--ink);
+      color: var(--white);
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      text-transform: lowercase;
+      border-radius: 0;
+      transition: background 0.4s cubic-bezier(0.32,0.72,0,1);
+    }
+    .btn-solid:hover { background: var(--olive); }
+    .btn-solid:active { transform: scale(0.98); }
+
+    .btn-outline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.8rem 2.4rem;
+      background: transparent;
+      color: var(--ink);
+      font-size: 1.5rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      text-transform: lowercase;
+      border: 1px solid var(--rule);
+      border-radius: 0;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .btn-outline:hover { border-color: var(--ink); background: rgba(64,62,63,0.03); }
+
+    .hero-stats {
+      display: flex;
+      gap: 4rem;
+      margin-top: 6.4rem;
+      padding-top: 4rem;
+      border-top: 1px solid var(--rule);
+    }
+
+    .hs-n {
+      font-size: 4.8rem;
+      font-weight: 700;
+      letter-spacing: -0.05em;
+      line-height: 1;
+      color: var(--ink);
+    }
+    .hs-l { font-size: 1.3rem; color: var(--ink-f); margin-top: 0.4rem; letter-spacing: 0.04em; }
+
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      animation: scaleIn 1.6s cubic-bezier(0.32,0.72,0,1) 0.1s forwards;
+    }
+
+    .hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      min-height: 70vh;
+    }
+
+    .hero-annotation {
+      position: absolute;
+      bottom: 4rem;
+      right: 4rem;
+      text-align: right;
+    }
+
+    .ann-hand {
+      font-family: 'Caveat', cursive;
+      font-size: 2rem;
+      color: var(--white);
+      line-height: 1.35;
+      display: block;
+      margin-bottom: 0.6rem;
+    }
+
+    .ann-attr {
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: rgba(253,252,248,0.7);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── SECTION BASE ── */
+    .section { padding: 12rem 4.8rem; }
+
+    .s-label {
+      font-size: 1.15rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--olive);
+      margin-bottom: 2.4rem;
+    }
+
+    .s-h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(3.4rem, 4.2vw, 6rem);
+      font-weight: 700;
+      line-height: 0.94;
+      letter-spacing: -0.04em;
+      color: var(--ink);
+      text-transform: lowercase;
+      text-wrap: balance;
+    }
+    .s-h2 em { font-style: normal; color: var(--olive); }
+
+    .s-body { font-size: 1.7rem; color: var(--ink-s); line-height: 1.75; max-width: 50ch; }
+
+    /* ── LEAD MAGNET ── */
+    .lead {
+      background: var(--off);
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      padding: 10rem 4.8rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8rem;
+      align-items: center;
+    }
+
+    .lead-left { opacity: 0; transform: translateY(3rem); transition: opacity 0.9s cubic-bezier(0.32,0.72,0,1), transform 0.9s; }
+    .lead-left.in { opacity: 1; transform: translateY(0); }
+
+    .lead-h2 {
+      font-size: clamp(3.4rem, 4.2vw, 6rem);
+      font-weight: 700;
+      line-height: 0.94;
+      letter-spacing: -0.04em;
+      color: var(--ink);
+      text-transform: lowercase;
+      text-wrap: balance;
+      margin-bottom: 2.4rem;
+    }
+    .lead-h2 em { font-style: normal; color: var(--olive); }
+
+    .lead-p { font-size: 1.7rem; color: var(--ink-s); line-height: 1.75; max-width: 44ch; }
+
+    .lead-right { opacity: 0; transform: translateY(3rem); transition: opacity 0.9s cubic-bezier(0.32,0.72,0,1) 0.1s, transform 0.9s 0.1s; }
+    .lead-right.in { opacity: 1; transform: translateY(0); }
+
+    .lead-form-wrap {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      padding: 4rem;
+    }
+
+    .lf-title {
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      text-transform: lowercase;
+      margin-bottom: 0.8rem;
+    }
+
+    .lf-sub { font-size: 1.5rem; color: var(--ink-s); margin-bottom: 3.2rem; line-height: 1.55; }
+
+    .form-row { display: flex; gap: 1.2rem; }
+    .form-input {
+      flex: 1;
+      padding: 1.4rem 2rem;
+      background: var(--off);
+      border: 1px solid var(--rule);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      color: var(--ink);
+      outline: none;
+      border-radius: 0;
+      transition: border-color 0.3s;
+    }
+    .form-input::placeholder { color: var(--ink-f); }
+    .form-input:focus { border-color: var(--ink); }
+
+    .form-btn {
+      padding: 1.4rem 2.4rem;
+      background: var(--olive);
+      color: var(--white);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.45rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      text-transform: lowercase;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      transition: background 0.4s cubic-bezier(0.32,0.72,0,1);
+      white-space: nowrap;
+    }
+    .form-btn:hover { background: var(--ink); }
+
+    .form-privacy { font-size: 1.2rem; color: var(--ink-f); margin-top: 1.6rem; }
+    .form-privacy a { text-decoration: underline; color: var(--ink-s); }
+
+    /* ── PRODUCTS — square object tiles ── */
+    .products-section { padding: 12rem 0; }
+
+    .prod-header {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 3.2rem;
+      padding: 0 4.8rem 6.4rem;
+    }
+
+    .prod-header-rule { height: 1px; background: var(--rule); }
+    .prod-header-count { font-size: 1.2rem; color: var(--ink-f); letter-spacing: 0.08em; white-space: nowrap; }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--rule);
+      border-left: 1px solid var(--rule);
+    }
+
+    .prod {
+      border-right: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      transform: translateY(2rem);
+      transition: opacity 0.7s cubic-bezier(0.32,0.72,0,1), transform 0.7s;
+    }
+    .prod.in { opacity: 1; transform: translateY(0); }
+    .prod:nth-child(2) { transition-delay: 0.07s; }
+    .prod:nth-child(3) { transition-delay: 0.14s; }
+    .prod:nth-child(4) { transition-delay: 0.21s; }
+
+    .prod-img-wrap { overflow: hidden; background: var(--off); }
+    .prod-img {
+      width: 100%;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      display: block;
+      transition: transform 1s cubic-bezier(0.32,0.72,0,1);
+    }
+    .prod:hover .prod-img { transform: scale(1.03); }
+
+    .prod-body {
+      padding: 2.4rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid var(--rule);
+    }
+
+    .prod-tag {
+      font-family: 'Caveat', cursive;
+      font-size: 1.5rem;
+      color: var(--olive);
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .prod-name {
+      font-size: 1.8rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-transform: lowercase;
+      line-height: 1.15;
+      margin-bottom: 0.8rem;
+    }
+
+    .prod-note { font-size: 1.4rem; color: var(--ink-s); line-height: 1.5; flex: 1; margin-bottom: 2rem; }
+
+    .prod-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1.6rem;
+      border-top: 1px solid var(--rule);
+    }
+
+    .prod-price { font-size: 1.4rem; font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
+
+    .prod-cta {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--olive);
+      text-decoration: underline;
+      text-decoration-color: var(--olive);
+      text-underline-offset: 3px;
+      transition: color 0.3s, text-decoration-color 0.3s;
+    }
+    .prod-cta:hover { color: var(--ink); text-decoration-color: var(--ink); }
+
+    .products-footer {
+      padding: 4rem 4.8rem 0;
+      text-align: center;
+    }
+
+    .btn-shop {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 1.6rem 3.6rem;
+      border: 1px solid var(--rule);
+      color: var(--ink-s);
+      font-size: 1.5rem;
+      font-weight: 400;
+      text-transform: lowercase;
+      border-radius: 0;
+      transition: border-color 0.3s, color 0.3s;
+    }
+    .btn-shop:hover { border-color: var(--ink); color: var(--ink); }
+
+    /* ── FOUNDER — full-bleed split ── */
+    .founder {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .founder-img-side {
+      overflow: hidden;
+      opacity: 0;
+      transform: translateX(-2rem);
+      transition: opacity 1s cubic-bezier(0.32,0.72,0,1), transform 1s;
+    }
+    .founder-img-side.in { opacity: 1; transform: translateX(0); }
+
+    .founder-img { width: 100%; height: 100%; object-fit: cover; object-position: top; min-height: 64rem; }
+
+    .founder-text-side {
+      padding: 8rem 4.8rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-left: 1px solid var(--rule);
+      opacity: 0;
+      transform: translateX(2rem);
+      transition: opacity 1s cubic-bezier(0.32,0.72,0,1) 0.1s, transform 1s 0.1s;
+    }
+    .founder-text-side.in { opacity: 1; transform: translateX(0); }
+
+    .founder-h2 {
+      font-size: clamp(3.2rem, 3.8vw, 5.6rem);
+      font-weight: 700;
+      line-height: 0.94;
+      letter-spacing: -0.04em;
+      color: var(--ink);
+      text-transform: lowercase;
+      text-wrap: balance;
+      margin-bottom: 3.6rem;
+    }
+    .founder-h2 em { font-style: normal; color: var(--olive); }
+
+    .founder-p { font-size: 1.7rem; color: var(--ink-s); line-height: 1.8; max-width: 46ch; margin-bottom: 2.4rem; }
+
+    .founder-hand {
+      display: block;
+      font-family: 'Caveat', cursive;
+      font-size: 2.2rem;
+      color: var(--ink-s);
+      margin: 3.6rem 0;
+    }
+
+    .founder-stats {
+      display: flex;
+      gap: 4.8rem;
+      padding: 3.6rem 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 4.8rem;
+    }
+
+    .fst-n { font-size: 4.4rem; font-weight: 700; letter-spacing: -0.05em; line-height: 1; color: var(--ink); }
+    .fst-l { font-size: 1.3rem; color: var(--ink-f); margin-top: 0.4rem; letter-spacing: 0.04em; }
+
+    .btn-wa {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 1.6rem 3.2rem;
+      background: var(--ink);
+      color: var(--white);
+      font-size: 1.5rem;
+      font-weight: 600;
+      text-transform: lowercase;
+      border-radius: 0;
+      align-self: flex-start;
+      transition: background 0.4s cubic-bezier(0.32,0.72,0,1);
+    }
+    .btn-wa:hover { background: var(--olive); }
+
+    /* ── COACHING ── */
+    .coaching {
+      background: var(--off);
+      border-bottom: 1px solid var(--rule);
+      padding: 12rem 4.8rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8rem;
+      align-items: center;
+    }
+
+    .coming-tag {
+      display: inline-block;
+      font-size: 1.1rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--periw);
+      border: 1px solid var(--periw);
+      padding: 0.5rem 1.4rem;
+      margin-bottom: 3.2rem;
+    }
+
+    .coaching-h2 {
+      font-size: clamp(3.2rem, 3.8vw, 5.2rem);
+      font-weight: 700;
+      line-height: 0.94;
+      letter-spacing: -0.04em;
+      color: var(--ink);
+      text-transform: lowercase;
+      text-wrap: balance;
+      margin-bottom: 2.4rem;
+    }
+
+    .coaching-p { font-size: 1.7rem; color: var(--ink-s); line-height: 1.75; max-width: 44ch; }
+
+    .coaching-card {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      padding: 4rem;
+    }
+
+    .coaching-list { list-style: none; margin-bottom: 4rem; }
+    .coaching-list li {
+      font-size: 1.55rem;
+      color: var(--ink-s);
+      padding: 1.4rem 0 1.4rem 2.2rem;
+      border-bottom: 1px solid var(--rule);
+      position: relative;
+    }
+    .coaching-list li::before { content: '—'; position: absolute; left: 0; color: var(--olive); }
+
+    .coaching-form { display: flex; flex-direction: column; gap: 1.2rem; }
+    .coaching-input {
+      padding: 1.4rem 2rem;
+      background: var(--off);
+      border: 1px solid var(--rule);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      color: var(--ink);
+      outline: none;
+      border-radius: 0;
+      transition: border-color 0.3s;
+    }
+    .coaching-input::placeholder { color: var(--ink-f); }
+    .coaching-input:focus { border-color: var(--olive); }
+
+    .coaching-btn {
+      padding: 1.5rem 2.4rem;
+      background: var(--ink);
+      color: var(--white);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      text-transform: lowercase;
+      letter-spacing: -0.01em;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      transition: background 0.4s cubic-bezier(0.32,0.72,0,1);
+    }
+    .coaching-btn:hover { background: var(--olive); }
+
+    /* ── NEWSLETTER ── */
+    .newsletter {
+      padding: 12rem 4.8rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8rem;
+      align-items: center;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .nl-h2 {
+      font-size: clamp(3.2rem, 3.8vw, 5.2rem);
+      font-weight: 700;
+      line-height: 0.94;
+      letter-spacing: -0.04em;
+      color: var(--ink);
+      text-transform: lowercase;
+      text-wrap: balance;
+      margin-bottom: 2.4rem;
+    }
+    .nl-h2 em { font-style: normal; color: var(--olive); }
+
+    .nl-p { font-size: 1.7rem; color: var(--ink-s); line-height: 1.75; max-width: 46ch; }
+
+    .nl-form { display: flex; gap: 1.2rem; }
+    .nl-input {
+      flex: 1;
+      padding: 1.4rem 2rem;
+      background: var(--off);
+      border: 1px solid var(--rule);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      color: var(--ink);
+      outline: none;
+      border-radius: 0;
+      transition: border-color 0.3s;
+    }
+    .nl-input::placeholder { color: var(--ink-f); }
+    .nl-input:focus { border-color: var(--ink); }
+
+    .nl-btn {
+      padding: 1.4rem 2.8rem;
+      background: var(--olive);
+      color: var(--white);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      text-transform: lowercase;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      transition: background 0.4s cubic-bezier(0.32,0.72,0,1);
+      white-space: nowrap;
+    }
+    .nl-btn:hover { background: var(--ink); }
+
+    .nl-privacy { font-size: 1.2rem; color: var(--ink-f); margin-top: 1.4rem; }
+    .nl-privacy a { color: var(--ink-s); text-decoration: underline; }
+
+    /* ── FAQ — editorial list ── */
+    .faq { padding: 12rem 4.8rem; }
+
+    .faq-inner { margin-top: 6.4rem; }
+
+    .faq-row {
+      display: grid;
+      grid-template-columns: 36rem 1fr;
+      gap: 4.8rem;
+      padding: 3.2rem 0;
+      border-top: 1px solid var(--rule);
+      align-items: start;
+      opacity: 0;
+      transform: translateY(2rem);
+      transition: opacity 0.65s cubic-bezier(0.32,0.72,0,1), transform 0.65s;
+    }
+    .faq-row.in { opacity: 1; transform: translateY(0); }
+    .faq-row:nth-child(2) { transition-delay: 0.05s; }
+    .faq-row:nth-child(3) { transition-delay: 0.10s; }
+    .faq-row:nth-child(4) { transition-delay: 0.15s; }
+    .faq-row:nth-child(5) { transition-delay: 0.20s; }
+    .faq-row:nth-child(6) { transition-delay: 0.25s; }
+    .faq-row:last-child { border-bottom: 1px solid var(--rule); }
+
+    .faq-q {
+      font-size: 1.8rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      line-height: 1.2;
+      text-transform: lowercase;
+    }
+
+    .faq-a { font-size: 1.55rem; color: var(--ink-s); line-height: 1.7; }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--off);
+      border-top: 1px solid var(--rule);
+      padding: 8rem 4.8rem 4.8rem;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 6.4rem;
+      padding-bottom: 5.6rem;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 3.6rem;
+    }
+
+    .footer-logo img { height: 2.4rem; margin-bottom: 2.4rem; }
+    .footer-tag { font-size: 1.55rem; color: var(--ink-s); line-height: 1.7; max-width: 38ch; }
+
+    .f-h { font-size: 1.1rem; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-f); margin-bottom: 2.8rem; }
+    .f-links { list-style: none; }
+    .f-links li { margin-bottom: 1.4rem; }
+    .f-links a { font-size: 1.5rem; color: var(--ink-s); text-transform: lowercase; transition: color 0.3s; }
+    .f-links a:hover { color: var(--ink); }
+
+    .footer-bt { display: flex; justify-content: space-between; align-items: center; }
+    .f-copy { font-size: 1.3rem; color: var(--ink-f); }
+    .f-leg { display: flex; gap: 2.4rem; }
+    .f-leg a { font-size: 1.3rem; color: var(--ink-f); transition: color 0.3s; }
+    .f-leg a:hover { color: var(--ink-s); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    @keyframes scaleIn { from { opacity: 0; transform: scale(1.02); } to { opacity: 1; transform: scale(1); } }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      html { font-size: 56.25%; }
+      .nav { padding: 1.8rem 2rem; }
+      .nav-links { display: none; }
+
+      .hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 8rem 2rem 5.6rem; border-right: none; border-bottom: 1px solid var(--rule); }
+      .hero-right { min-height: 60vw; }
+
+      .section { padding: 8rem 2rem; }
+      .lead { grid-template-columns: 1fr; padding: 8rem 2rem; }
+      .form-row { flex-direction: column; }
+
+      .products-section { padding: 8rem 0; }
+      .prod-header { padding: 0 2rem 4rem; grid-template-columns: auto 1fr; }
+      .prod-header-rule, .prod-header-count { display: none; }
+      .products-grid { grid-template-columns: 1fr 1fr; }
+      .products-footer { padding: 3.2rem 2rem 0; }
+
+      .founder { grid-template-columns: 1fr; }
+      .founder-img { min-height: 50vw; }
+      .founder-text-side { padding: 5.6rem 2rem; border-left: none; border-top: 1px solid var(--rule); }
+
+      .coaching { grid-template-columns: 1fr; padding: 8rem 2rem; }
+      .newsletter { grid-template-columns: 1fr; padding: 8rem 2rem; }
+      .nl-form { flex-direction: column; }
+
+      .faq { padding: 8rem 2rem; }
+      .faq-row { grid-template-columns: 1fr; gap: 1.6rem; }
+
+      .footer { padding: 6rem 2rem 4rem; }
+      .footer-top { grid-template-columns: 1fr; gap: 4rem; }
+      .footer-bt { flex-direction: column; gap: 1.6rem; }
+      .f-leg { flex-direction: column; align-items: center; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="/" class="nav-logo"><img src="../../Home Page/assets/logo-lockup-ink.png" alt="Host-to-Host"></a>
+    <ul class="nav-links">
+      <li><a href="#">recursos</a></li>
+      <li><a href="#">tienda</a></li>
+      <li><a href="#">sobre mafe</a></li>
+      <li><a href="#">coaching</a></li>
+      <li><a href="#">newsletter</a></li>
+    </ul>
+    <span class="nav-meta">Medellín · Colombia</span>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-left">
+      <p class="hero-label">Superhost · 9 años</p>
+      <h1 class="hero-h1">
+        todo lo que<br>aprendí<br>siendo<br><em>superhost.</em>
+      </h1>
+      <p class="hero-sub">
+        Para simplificar tu vida como anfitrión. Productos seleccionados por experiencia real. Sin importaciones. Disponibles en Colombia.
+      </p>
+      <div class="hero-ctas">
+        <a href="#lead" class="btn-solid">
+          descargá los 5 productos esenciales
+          <span>↓</span>
+        </a>
+        <a href="#tienda" class="btn-outline">
+          o entrá directo a la tienda
+          <span>→</span>
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div><p class="hs-n">9</p><p class="hs-l">años superhost</p></div>
+        <div><p class="hs-n">5</p><p class="hs-l">propiedades</p></div>
+        <div><p class="hs-n">100+</p><p class="hs-l">proveedores</p></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <img class="hero-img"
+        src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200&auto=format&fit=crop&q=80"
+        alt="Interior de Airbnb en Colombia">
+      <div class="hero-annotation">
+        <span class="ann-hand">"aprendí a las malas —<br>para que vos no tengas que<br>aprender solo."</span>
+        <span class="ann-attr">— mafe</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- LEAD MAGNET -->
+  <section class="lead" id="lead">
+    <div class="lead-left">
+      <p class="s-label">recurso gratuito</p>
+      <h2 class="lead-h2">el kit base que cambia las <em>primeras reseñas.</em></h2>
+      <p class="lead-p">Los 5 productos con los que empezaría si tuviese que montar un Airbnb desde cero mañana. Seleccionados después de 9 años de pruebas.</p>
+    </div>
+    <div class="lead-right">
+      <div class="lead-form-wrap">
+        <p class="lf-title">descargá gratis</p>
+        <p class="lf-sub">Te mando los 5 productos esenciales a tu correo. Sin spam. Cuando quieras te dás de baja.</p>
+        <div class="form-row">
+          <input class="form-input" type="email" placeholder="tu@correo.com" aria-label="Correo electrónico">
+          <button class="form-btn">descargá</button>
+        </div>
+        <p class="form-privacy">Al suscribirte aceptás la <a href="#">política de privacidad</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="products-section" id="tienda">
+    <div class="prod-header">
+      <h2 class="s-h2" style="font-size: clamp(2.8rem,3.5vw,4.4rem);">lo que uso en mis airbnbs.</h2>
+      <span class="prod-header-rule"></span>
+      <span class="prod-header-count">4 de 4 productos</span>
+    </div>
+    <div class="products-grid">
+      <article class="prod">
+        <div class="prod-img-wrap">
+          <img class="prod-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&auto=format&fit=crop&q=80" alt="Copas irrompibles">
+        </div>
+        <div class="prod-body">
+          <span class="prod-tag">Mafe's Pick</span>
+          <h3 class="prod-name">copas sin drama</h3>
+          <p class="prod-note">Sobreviven cientos de estadías.</p>
+          <div class="prod-foot">
+            <span class="prod-price">100.000 COP</span>
+            <a href="#" class="prod-cta">ver →</a>
+          </div>
+        </div>
+      </article>
+      <article class="prod">
+        <div class="prod-img-wrap">
+          <img class="prod-img" src="https://images.unsplash.com/photo-1616464916356-3a777b87d3b8?w=500&auto=format&fit=crop&q=80" alt="Velas decorativas">
+        </div>
+        <div class="prod-body">
+          <span class="prod-tag">Would Buy Again</span>
+          <h3 class="prod-name">velas que venden</h3>
+          <p class="prod-note">Primera impresión = aroma.</p>
+          <div class="prod-foot">
+            <span class="prod-price">80.000 COP</span>
+            <a href="#" class="prod-cta">ver →</a>
+          </div>
+        </div>
+      </article>
+      <article class="prod">
+        <div class="prod-img-wrap">
+          <img class="prod-img" src="https://images.unsplash.com/photo-1607006344380-b6775a0824a7?w=500&auto=format&fit=crop&q=80" alt="Toallas desmaquilladoras">
+        </div>
+        <div class="prod-body">
+          <span class="prod-tag">Available Locally</span>
+          <h3 class="prod-name">toallas desmaquilladoras</h3>
+          <p class="prod-note">Sin manchas. Sin reemplazos.</p>
+          <div class="prod-foot">
+            <span class="prod-price">15.000 COP</span>
+            <a href="#" class="prod-cta">ver →</a>
+          </div>
+        </div>
+      </article>
+      <article class="prod">
+        <div class="prod-img-wrap">
+          <img class="prod-img" src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=500&auto=format&fit=crop&q=80" alt="Cubiertos negros">
+        </div>
+        <div class="prod-body">
+          <span class="prod-tag">Host Favourite</span>
+          <h3 class="prod-name">cubiertos negros</h3>
+          <p class="prod-note">El detalle que diferencia.</p>
+          <div class="prod-foot">
+            <span class="prod-price">98.000 COP</span>
+            <a href="#" class="prod-cta">ver →</a>
+          </div>
+        </div>
+      </article>
+    </div>
+    <div class="products-footer">
+      <a href="#" class="btn-shop">ver toda la tienda →</a>
+    </div>
+  </section>
+
+  <!-- FOUNDER -->
+  <section class="founder" id="sobre">
+    <div class="founder-img-side">
+      <img class="founder-img" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=800&auto=format&fit=crop&q=80" alt="Mafe, fundadora de Host-to-Host">
+    </div>
+    <div class="founder-text-side">
+      <p class="s-label">sobre mafe</p>
+      <h2 class="founder-h2">estudié arquitectura para diseñar edificios.<br><em>hoy diseño experiencias.</em></h2>
+      <p class="founder-p">Un espacio bonito y un espacio que funciona no son lo mismo. Lo aprendí después de 5 años como arquitecta y 9 como Superhost.</p>
+      <p class="founder-p">Kabine en Guatapé fue la escuela real. Hoy opero 4 propiedades en Medellín y cada producto en esta tienda pasó por mis propiedades antes de llegar a la tuya.</p>
+      <span class="founder-hand">"un espacio bonito y un espacio que funciona no son lo mismo."</span>
+      <div class="founder-stats">
+        <div><p class="fst-n">9</p><p class="fst-l">años superhost</p></div>
+        <div><p class="fst-n">5</p><p class="fst-l">propiedades</p></div>
+        <div><p class="fst-n">100+</p><p class="fst-l">proveedores</p></div>
+      </div>
+      <a href="#" class="btn-wa">escribime por whatsapp →</a>
+    </div>
+  </section>
+
+  <!-- COACHING -->
+  <section class="coaching" id="coaching">
+    <div>
+      <span class="coming-tag">próximamente</span>
+      <h2 class="coaching-h2">coaching 1:1 para anfitriones que quieren crecer.</h2>
+      <p class="coaching-p">Para hosts con 1 a 5 propiedades que quieren mejorar su operación, sus reseñas, y sus resultados.</p>
+    </div>
+    <div class="coaching-card">
+      <ul class="coaching-list">
+        <li>revisión completa de tu propiedad</li>
+        <li>selección de productos para tu perfil</li>
+        <li>estrategia de precios y ocupación</li>
+        <li>optimización de foto y listado</li>
+      </ul>
+      <form class="coaching-form">
+        <input class="coaching-input" type="email" placeholder="tu@correo.com" aria-label="Correo lista de espera">
+        <button class="coaching-btn">anotarme en la lista de espera</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter" id="newsletter">
+    <div>
+      <p class="s-label">newsletter</p>
+      <h2 class="nl-h2">10 productos<br>en <em>10 días.</em></h2>
+      <p class="nl-p">Cada día, un producto. Por qué lo elegí, dónde lo conseguí, y cuánto cuesta. Después, tips semanales. Sin spam.</p>
+    </div>
+    <div>
+      <div class="nl-form">
+        <input class="nl-input" type="email" placeholder="tu@correo.com" aria-label="Correo newsletter">
+        <button class="nl-btn">suscribirme</button>
+      </div>
+      <p class="nl-privacy">Al suscribirte aceptás la <a href="#">política de privacidad</a>.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <p class="s-label">faq</p>
+    <h2 class="s-h2">lo que más<br>nos <em>preguntan.</em></h2>
+    <div class="faq-inner">
+      <div class="faq-row"><h3 class="faq-q">¿Hacen envíos a toda Colombia?</h3><p class="faq-a">Sí. Trabajamos con operadores logísticos que cubren las principales ciudades. Los tiempos varían según el destino.</p></div>
+      <div class="faq-row"><h3 class="faq-q">¿Tienen precios especiales para volumen?</h3><p class="faq-a">Si tenés más de una propiedad o necesitás cantidades mayores, escribinos por WhatsApp y te armamos una cotización.</p></div>
+      <div class="faq-row"><h3 class="faq-q">¿Qué métodos de pago aceptan?</h3><p class="faq-a">Tarjeta de crédito, débito, y transferencias bancarias. Todo procesado de forma segura.</p></div>
+      <div class="faq-row"><h3 class="faq-q">¿Cómo sé que los productos son de buena calidad?</h3><p class="faq-a">Cada producto pasó por nuestras propias propiedades antes de entrar a la tienda. Si no lo volvería a comprar, no lo vendemos.</p></div>
+      <div class="faq-row"><h3 class="faq-q">¿Qué garantías tienen los productos?</h3><p class="faq-a">Si algún producto llega en mal estado o no es lo que esperabas, nos escribís y lo resolvemos. Sin vueltas.</p></div>
+      <div class="faq-row"><h3 class="faq-q">¿Cuándo empieza el coaching?</h3><p class="faq-a">Estamos armando el programa. Anotate en la lista de espera y te avisamos antes que a nadie con el precio de lanzamiento.</p></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo"><img src="../../Home Page/assets/logo-lockup-ink.png" alt="Host-to-Host"></div>
+        <p class="footer-tag">productos para anfitriones en colombia.<br>seleccionados por experiencia real.</p>
+      </div>
+      <div>
+        <p class="f-h">recursos</p>
+        <ul class="f-links">
+          <li><a href="#">tienda</a></li>
+          <li><a href="#">newsletter</a></li>
+          <li><a href="#">coaching</a></li>
+          <li><a href="#">sobre mafe</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="f-h">contacto</p>
+        <ul class="f-links">
+          <li><a href="#">whatsapp</a></li>
+          <li><a href="#">instagram</a></li>
+          <li><a href="#">faq</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bt">
+      <p class="f-copy">© 2024 Host-to-Host · Medellín, Colombia</p>
+      <nav class="f-leg"><a href="#">política de privacidad</a><a href="#">términos</a></nav>
+    </div>
+  </footer>
+
+  <script>
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.lead-left, .lead-right, .prod, .founder-img-side, .founder-text-side, .faq-row').forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>

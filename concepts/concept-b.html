@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Host-to-Host — No probamos esto por vos. Llevamos 9 años probándolo.</title>
+  <meta name="description" content="Productos para Airbnb seleccionados por una Superhost con 9 años de experiencia en Colombia. Sin importaciones.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,700;0,900;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Caveat:wght@400&display=swap" rel="stylesheet">
+  <style>
+    /* —— CONCEPT B: AFTER DARK ——
+       Structure: Mafe-voice hero → lead magnet → 4 products → founder → coaching → newsletter → FAQ
+       Archetype: Warm dark hospitality, atmospheric editorial
+       Type: Archivo Black headline + Cormorant italic for warmth
+       Colour: Ink-deep base · coral accents · cream text
+    */
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #1A1819;
+      --bg-mid:  #252224;
+      --bg-card: #2C2A2B;
+      --cream:   #FCF3E9;
+      --cream-d: rgba(252,243,233,0.6);
+      --cream-f: rgba(252,243,233,0.1);
+      --coral:   #F39878;
+      --coral-d: #E8825F;
+      --periw:   #96A1D2;
+      --olive:   #989C6F;
+      --ink:     #403E3F;
+      --rule:    rgba(252,243,233,0.08);
+    }
+
+    html { font-size: 62.5%; scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--cream);
+      font-family: 'Archivo', sans-serif;
+      font-size: 1.6rem;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.04;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── FLOATING PILL NAV ── */
+    .nav {
+      position: fixed;
+      top: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 50;
+      background: rgba(26,24,25,0.9);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--rule);
+      border-radius: 10rem;
+      padding: 1rem 1.2rem 1rem 2.6rem;
+      display: flex;
+      align-items: center;
+      gap: 2.4rem;
+      white-space: nowrap;
+    }
+
+    .nav-logo img { height: 2.2rem; }
+
+    .nav-links { display: flex; gap: 2.8rem; list-style: none; }
+    .nav-links a {
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: rgba(252,243,233,0.55);
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--cream); }
+
+    .nav-pill {
+      background: var(--coral-d);
+      color: var(--cream) !important;
+      font-size: 1.3rem;
+      font-weight: 600;
+      padding: 0.9rem 2rem;
+      border-radius: 10rem;
+      transition: background 0.4s !important;
+    }
+    .nav-pill:hover { background: var(--coral) !important; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100dvh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: stretch;
+      padding-top: 0;
+    }
+
+    .hero-left {
+      padding: 14rem 6.4rem 8rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: var(--bg);
+      opacity: 0;
+      animation: fadeUp 1.2s cubic-bezier(0.32,0.72,0,1) 0.2s forwards;
+    }
+
+    .hero-eyebrow {
+      font-size: 1.1rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin-bottom: 3.2rem;
+    }
+
+    .hero-h1 {
+      font-family: 'Archivo', sans-serif;
+      font-size: clamp(4rem, 5.5vw, 7.6rem);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: var(--cream);
+      text-wrap: balance;
+      margin-bottom: 3.2rem;
+    }
+    .hero-h1 span { color: var(--coral); }
+
+    .hero-sub {
+      font-size: 1.7rem;
+      font-weight: 400;
+      line-height: 1.65;
+      color: var(--cream-d);
+      max-width: 42ch;
+      margin-bottom: 5.2rem;
+    }
+
+    .hero-ctas { display: flex; flex-direction: column; gap: 1.4rem; max-width: 38rem; }
+
+    .btn-coral {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.8rem 2.4rem;
+      background: var(--coral-d);
+      color: var(--cream);
+      font-size: 1.5rem;
+      font-weight: 600;
+      border-radius: 2px;
+      transition: background 0.4s cubic-bezier(0.32,0.72,0,1), transform 0.25s;
+    }
+    .btn-coral:hover { background: var(--coral); transform: translateY(-1px); }
+    .btn-coral:active { transform: scale(0.97); }
+
+    .btn-ico {
+      width: 3rem;
+      height: 3rem;
+      background: rgba(255,255,255,0.12);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      transition: transform 0.4s cubic-bezier(0.32,0.72,0,1);
+    }
+    .btn-coral:hover .btn-ico { transform: translate(2px,-2px); }
+
+    .btn-ghost {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.8rem 2.4rem;
+      background: transparent;
+      color: var(--cream-d);
+      font-size: 1.5rem;
+      font-weight: 400;
+      border: 1px solid var(--rule);
+      border-radius: 2px;
+      transition: border-color 0.3s, color 0.3s;
+    }
+    .btn-ghost:hover { border-color: rgba(252,243,233,0.25); color: var(--cream); }
+
+    .hero-stats {
+      display: flex;
+      gap: 4rem;
+      margin-top: 6.4rem;
+      padding-top: 4rem;
+      border-top: 1px solid var(--rule);
+    }
+    .stat-n {
+      font-family: 'Archivo', sans-serif;
+      font-size: 4.4rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--cream);
+    }
+    .stat-l { font-size: 1.3rem; color: rgba(252,243,233,0.4); margin-top: 0.4rem; }
+
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      animation: scaleIn 1.4s cubic-bezier(0.32,0.72,0,1) 0.3s forwards;
+    }
+    .hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      min-height: 80vh;
+      opacity: 0.7;
+    }
+    .hero-img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, var(--bg) 0%, transparent 20%);
+    }
+
+    .hero-caveat {
+      position: absolute;
+      bottom: 4.8rem;
+      right: 4.8rem;
+      font-family: 'Caveat', cursive;
+      font-size: 2.2rem;
+      color: var(--cream);
+      line-height: 1.3;
+      text-align: right;
+      max-width: 28rem;
+    }
+    .hero-caveat span { font-size: 1.3rem; font-family: 'Archivo', sans-serif; font-weight: 400; display: block; color: rgba(252,243,233,0.5); margin-top: 0.8rem; letter-spacing: 0.06em; }
+
+    /* ── SECTION BASE ── */
+    .section { padding: 12rem 6.4rem; }
+
+    .s-label {
+      font-size: 1.1rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(252,243,233,0.4);
+      margin-bottom: 2.4rem;
+    }
+
+    .s-h2 {
+      font-family: 'Archivo', sans-serif;
+      font-size: clamp(3.4rem, 4vw, 5.6rem);
+      font-weight: 900;
+      line-height: 0.96;
+      letter-spacing: -0.03em;
+      color: var(--cream);
+      text-wrap: balance;
+    }
+    .s-h2 span { color: var(--coral); }
+
+    .s-body { font-size: 1.7rem; color: var(--cream-d); line-height: 1.75; max-width: 50ch; }
+
+    /* ── LEAD MAGNET ── */
+    .lead {
+      background: var(--bg-mid);
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      padding: 10rem 6.4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8rem;
+      align-items: center;
+    }
+
+    .lead-left { opacity: 0; transform: translateY(3rem); transition: opacity 0.9s cubic-bezier(0.32,0.72,0,1), transform 0.9s; }
+    .lead-left.in { opacity: 1; transform: translateY(0); }
+
+    .lead-h2 {
+      font-family: 'Archivo', sans-serif;
+      font-size: clamp(3.4rem, 4vw, 5.6rem);
+      font-weight: 900;
+      line-height: 0.96;
+      letter-spacing: -0.03em;
+      color: var(--cream);
+      text-wrap: balance;
+      margin-bottom: 2.4rem;
+    }
+    .lead-h2 span { color: var(--coral); }
+
+    .lead-p { font-size: 1.7rem; color: var(--cream-d); line-height: 1.75; max-width: 46ch; }
+
+    .lead-right { opacity: 0; transform: translateY(3rem); transition: opacity 0.9s cubic-bezier(0.32,0.72,0,1) 0.1s, transform 0.9s 0.1s; }
+    .lead-right.in { opacity: 1; transform: translateY(0); }
+
+    .lead-form-wrap {
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      padding: 4rem;
+    }
+
+    .lead-title {
+      font-family: 'Archivo', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--cream);
+      margin-bottom: 0.8rem;
+    }
+    .lead-sub { font-size: 1.5rem; color: rgba(252,243,233,0.5); margin-bottom: 3.2rem; line-height: 1.55; }
+
+    .form-row { display: flex; gap: 1.2rem; }
+
+    .form-input {
+      flex: 1;
+      padding: 1.4rem 2rem;
+      background: rgba(252,243,233,0.05);
+      border: 1px solid var(--rule);
+      color: var(--cream);
+      font-family: 'Archivo', sans-serif;
+      font-size: 1.5rem;
+      outline: none;
+      border-radius: 2px;
+      transition: border-color 0.3s;
+    }
+    .form-input::placeholder { color: rgba(252,243,233,0.3); }
+    .form-input:focus { border-color: var(--coral); }
+
+    .form-btn {
+      padding: 1.4rem 2.4rem;
+      background: var(--coral-d);
+      color: var(--cream);
+      font-family: 'Archivo', sans-serif;
+      font-size: 1.45rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.4s cubic-bezier(0.32,0.72,0,1);
+      white-space: nowrap;
+    }
+    .form-btn:hover { background: var(--coral); }
+
+    .form-privacy { font-size: 1.2rem; color: rgba(252,243,233,0.25); margin-top: 1.6rem; }
+    .form-privacy a { color: rgba(252,243,233,0.4); text-decoration: underline; }
+
+    /* ── PRODUCTS ── */
+    .products-section { padding: 12rem 6.4rem; }
+
+    .products-hd {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: end;
+      margin-bottom: 7.2rem;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.6rem;
+    }
+
+    .prod {
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(3rem);
+      transition: opacity 0.75s cubic-bezier(0.32,0.72,0,1), transform 0.75s;
+    }
+    .prod.in { opacity: 1; transform: translateY(0); }
+    .prod:nth-child(2) { transition-delay: 0.08s; }
+    .prod:nth-child(3) { transition-delay: 0.16s; }
+    .prod:nth-child(4) { transition-delay: 0.24s; }
+
+    .prod-img-wrap { overflow: hidden; position: relative; }
+    .prod-img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.9s cubic-bezier(0.32,0.72,0,1);
+    }
+    .prod:hover .prod-img { transform: scale(1.04); }
+
+    .prod-tag {
+      position: absolute;
+      top: 1.4rem;
+      left: 1.4rem;
+      font-family: 'Caveat', cursive;
+      font-size: 1.5rem;
+      color: var(--bg);
+      background: var(--coral);
+      padding: 0.2rem 1.1rem;
+      border-radius: 2px;
+    }
+
+    .prod-body { padding: 2.4rem; }
+
+    .prod-name {
+      font-family: 'Archivo', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--cream);
+      line-height: 1.2;
+      margin-bottom: 0.6rem;
+    }
+
+    .prod-note {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem;
+      font-style: italic;
+      color: rgba(252,243,233,0.5);
+      line-height: 1.4;
+      margin-bottom: 2rem;
+    }
+
+    .prod-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1.6rem;
+      border-top: 1px solid var(--rule);
+    }
+
+    .prod-price { font-size: 1.4rem; font-weight: 600; color: var(--cream); }
+
+    .prod-cta {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--coral);
+      text-decoration: underline;
+      text-decoration-color: var(--coral);
+      text-underline-offset: 3px;
+      transition: color 0.3s, text-decoration-color 0.3s;
+    }
+    .prod-cta:hover { color: var(--cream); text-decoration-color: var(--cream); }
+
+    .products-footer { text-align: center; margin-top: 5.6rem; }
+
+    .btn-shop-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 1.6rem 3.6rem;
+      border: 1px solid var(--rule);
+      color: var(--cream-d);
+      font-size: 1.5rem;
+      font-weight: 400;
+      border-radius: 2px;
+      transition: border-color 0.3s, color 0.3s;
+    }
+    .btn-shop-outline:hover { border-color: rgba(252,243,233,0.3); color: var(--cream); }
+
+    /* ── FOUNDER ── */
+    .founder {
+      background: var(--bg-mid);
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: stretch;
+    }
+
+    .founder-img-side {
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateX(-3rem);
+      transition: opacity 1s cubic-bezier(0.32,0.72,0,1), transform 1s;
+    }
+    .founder-img-side.in { opacity: 1; transform: translateX(0); }
+
+    .founder-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      min-height: 70rem;
+    }
+
+    .founder-img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, transparent 70%, var(--bg-mid) 100%);
+    }
+
+    .founder-text-side {
+      padding: 8rem 6.4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      opacity: 0;
+      transform: translateX(3rem);
+      transition: opacity 1s cubic-bezier(0.32,0.72,0,1) 0.1s, transform 1s 0.1s;
+    }
+    .founder-text-side.in { opacity: 1; transform: translateX(0); }
+
+    .founder-eyebrow { color: var(--coral); margin-bottom: 3.2rem; }
+    .founder-eyebrow.s-label { color: var(--coral); }
+
+    .founder-h2 {
+      font-family: 'Archivo', sans-serif;
+      font-size: clamp(3.2rem, 3.8vw, 5.2rem);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: var(--cream);
+      text-wrap: balance;
+      margin-bottom: 3.2rem;
+    }
+
+    .founder-p { font-size: 1.7rem; color: var(--cream-d); line-height: 1.8; max-width: 48ch; margin-bottom: 2.4rem; }
+
+    .founder-caveat {
+      display: block;
+      font-family: 'Caveat', cursive;
+      font-size: 2.2rem;
+      color: var(--coral);
+      margin: 3.2rem 0;
+    }
+
+    .founder-stats {
+      display: flex;
+      gap: 4rem;
+      padding: 3.6rem 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 4.8rem;
+    }
+
+    .fs-n { font-family: 'Archivo', sans-serif; font-size: 4.4rem; font-weight: 900; letter-spacing: -0.04em; line-height: 1; color: var(--cream); }
+    .fs-l { font-size: 1.3rem; color: rgba(252,243,233,0.4); margin-top: 0.4rem; }
+
+    .btn-wa {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 1.6rem 3.2rem;
+      background: var(--coral-d);
+      color: var(--cream);
+      font-size: 1.5rem;
+      font-weight: 600;
+      border-radius: 2px;
+      align-self: flex-start;
+      transition: background 0.4s cubic-bezier(0.32,0.72,0,1);
+    }
+    .btn-wa:hover { background: var(--coral); }
+
+    /* ── COACHING ── */
+    .coaching {
+      padding: 12rem 6.4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8rem;
+      align-items: center;
+    }
+
+    .coming-badge {
+      display: inline-block;
+      background: var(--periw);
+      color: var(--cream);
+      font-size: 1.1rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.6rem 1.6rem;
+      border-radius: 10rem;
+      margin-bottom: 3.2rem;
+    }
+
+    .coaching-h2 {
+      font-family: 'Archivo', sans-serif;
+      font-size: clamp(3.2rem, 3.8vw, 5.2rem);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: var(--cream);
+      text-wrap: balance;
+      margin-bottom: 2.4rem;
+    }
+
+    .coaching-p { font-size: 1.7rem; color: var(--cream-d); line-height: 1.75; max-width: 44ch; }
+
+    .coaching-card {
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      padding: 4rem;
+    }
+
+    .coaching-list { list-style: none; margin-bottom: 4rem; }
+    .coaching-list li {
+      font-size: 1.6rem;
+      color: var(--cream-d);
+      padding: 1.4rem 0 1.4rem 2.4rem;
+      border-bottom: 1px solid var(--rule);
+      position: relative;
+    }
+    .coaching-list li::before { content: '→'; position: absolute; left: 0; color: var(--coral); }
+
+    .coaching-form { display: flex; flex-direction: column; gap: 1.2rem; }
+    .coaching-input {
+      padding: 1.4rem 2rem;
+      background: rgba(252,243,233,0.05);
+      border: 1px solid var(--rule);
+      font-family: 'Archivo', sans-serif;
+      font-size: 1.5rem;
+      color: var(--cream);
+      outline: none;
+      border-radius: 2px;
+      transition: border-color 0.3s;
+    }
+    .coaching-input::placeholder { color: rgba(252,243,233,0.3); }
+    .coaching-input:focus { border-color: var(--periw); }
+
+    .coaching-btn {
+      padding: 1.5rem 2.4rem;
+      background: var(--periw);
+      color: var(--cream);
+      font-family: 'Archivo', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.4s cubic-bezier(0.32,0.72,0,1);
+    }
+    .coaching-btn:hover { background: #7d8ac4; }
+
+    /* ── NEWSLETTER ── */
+    .newsletter {
+      background: var(--bg-mid);
+      border-top: 1px solid var(--rule);
+      padding: 10rem 6.4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8rem;
+      align-items: center;
+    }
+
+    .nl-h2 {
+      font-family: 'Archivo', sans-serif;
+      font-size: clamp(3.2rem, 3.8vw, 5.2rem);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: var(--cream);
+      text-wrap: balance;
+      margin-bottom: 2.4rem;
+    }
+    .nl-h2 span { color: var(--coral); }
+
+    .nl-p { font-size: 1.7rem; color: var(--cream-d); line-height: 1.75; max-width: 46ch; }
+
+    .nl-form { display: flex; gap: 1.2rem; }
+    .nl-input {
+      flex: 1;
+      padding: 1.4rem 2rem;
+      background: rgba(252,243,233,0.06);
+      border: 1px solid var(--rule);
+      font-family: 'Archivo', sans-serif;
+      font-size: 1.5rem;
+      color: var(--cream);
+      outline: none;
+      border-radius: 2px;
+      transition: border-color 0.3s;
+    }
+    .nl-input::placeholder { color: rgba(252,243,233,0.3); }
+    .nl-input:focus { border-color: var(--coral); }
+
+    .nl-btn {
+      padding: 1.4rem 2.8rem;
+      background: var(--coral-d);
+      color: var(--cream);
+      font-family: 'Archivo', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.4s cubic-bezier(0.32,0.72,0,1);
+      white-space: nowrap;
+    }
+    .nl-btn:hover { background: var(--coral); }
+    .nl-privacy { font-size: 1.2rem; color: rgba(252,243,233,0.25); margin-top: 1.4rem; }
+    .nl-privacy a { color: rgba(252,243,233,0.4); text-decoration: underline; }
+
+    /* ── FAQ ── */
+    .faq { padding: 12rem 6.4rem; }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin-top: 6.4rem;
+    }
+
+    .faq-item {
+      padding: 3.2rem 0;
+      border-bottom: 1px solid var(--rule);
+      opacity: 0;
+      transform: translateY(2rem);
+      transition: opacity 0.7s cubic-bezier(0.32,0.72,0,1), transform 0.7s;
+    }
+    .faq-item:nth-child(odd) { padding-right: 4.8rem; border-right: 1px solid var(--rule); }
+    .faq-item:nth-child(even) { padding-left: 4.8rem; }
+    .faq-item.in { opacity: 1; transform: translateY(0); }
+    .faq-item:nth-child(even) { transition-delay: 0.05s; }
+
+    .faq-q {
+      font-family: 'Archivo', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--cream);
+      line-height: 1.2;
+      margin-bottom: 1.4rem;
+    }
+
+    .faq-a { font-size: 1.5rem; color: rgba(252,243,233,0.5); line-height: 1.7; }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--bg);
+      border-top: 1px solid var(--rule);
+      padding: 8rem 6.4rem 4.8rem;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 6.4rem;
+      padding-bottom: 5.6rem;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 3.6rem;
+    }
+
+    .footer-logo img { height: 2.4rem; margin-bottom: 2.4rem; }
+    .footer-tag { font-size: 1.55rem; color: rgba(252,243,233,0.4); line-height: 1.7; max-width: 38ch; }
+
+    .f-h { font-size: 1.1rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(252,243,233,0.22); margin-bottom: 2.8rem; }
+    .f-links { list-style: none; }
+    .f-links li { margin-bottom: 1.4rem; }
+    .f-links a { font-size: 1.5rem; color: rgba(252,243,233,0.5); transition: color 0.3s; }
+    .f-links a:hover { color: var(--cream); }
+
+    .footer-bt { display: flex; justify-content: space-between; align-items: center; }
+    .f-copy { font-size: 1.3rem; color: rgba(252,243,233,0.22); }
+    .f-leg { display: flex; gap: 2.4rem; }
+    .f-leg a { font-size: 1.3rem; color: rgba(252,243,233,0.22); transition: color 0.3s; }
+    .f-leg a:hover { color: rgba(252,243,233,0.5); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    @keyframes scaleIn { from { opacity: 0; transform: scale(1.02); } to { opacity: 1; transform: scale(1); } }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      html { font-size: 56.25%; }
+      .nav { left: 1.6rem; right: 1.6rem; transform: none; }
+      .nav-links { display: none; }
+
+      .hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 10rem 2.4rem 6rem; }
+      .hero-right { min-height: 50vw; max-height: 60vw; }
+      .hero-img-overlay { background: linear-gradient(to bottom, transparent 40%, var(--bg) 100%); }
+      .hero-caveat { right: 2rem; bottom: 2rem; }
+
+      .lead { grid-template-columns: 1fr; padding: 8rem 2.4rem; }
+      .form-row { flex-direction: column; }
+
+      .section { padding: 8rem 2.4rem; }
+      .products-hd { grid-template-columns: 1fr; }
+      .products-grid { grid-template-columns: 1fr 1fr; }
+
+      .founder { grid-template-columns: 1fr; }
+      .founder-img { min-height: 40rem; max-height: 56vw; }
+      .founder-text-side { padding: 5.6rem 2.4rem; }
+      .founder-img-overlay { background: linear-gradient(to bottom, transparent 60%, var(--bg-mid) 100%); }
+
+      .coaching { grid-template-columns: 1fr; padding: 8rem 2.4rem; }
+      .newsletter { grid-template-columns: 1fr; padding: 8rem 2.4rem; }
+      .nl-form { flex-direction: column; }
+
+      .faq { padding: 8rem 2.4rem; }
+      .faq-grid { grid-template-columns: 1fr; }
+      .faq-item:nth-child(n) { padding-left: 0; padding-right: 0; border-right: none; }
+
+      .footer { padding: 6rem 2.4rem 4rem; }
+      .footer-top { grid-template-columns: 1fr; gap: 4rem; }
+      .footer-bt { flex-direction: column; gap: 1.6rem; }
+      .f-leg { flex-direction: column; align-items: center; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="/" class="nav-logo"><img src="../../Home Page/assets/logo-lockup-cream.png" alt="Host-to-Host"></a>
+    <ul class="nav-links">
+      <li><a href="#">Recursos</a></li>
+      <li><a href="#">Tienda</a></li>
+      <li><a href="#">Sobre Mafe</a></li>
+      <li><a href="#">Coaching</a></li>
+      <li><a href="#">Newsletter</a></li>
+    </ul>
+    <a href="#" class="nav-pill">Ir a la tienda</a>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-left">
+      <span class="hero-eyebrow">Superhost · Medellín · 9 años</span>
+      <h1 class="hero-h1">
+        No probamos<br>esto por vos.<br>
+        <span>Llevamos 9 años<br>probándolo.</span>
+      </h1>
+      <p class="hero-sub">
+        Productos para Airbnb seleccionados de verdad. Sin importaciones, sin proveedores que nunca responden. Disponibles en Colombia.
+      </p>
+      <div class="hero-ctas">
+        <a href="#lead" class="btn-coral">
+          Descargá los 5 productos esenciales
+          <span class="btn-ico">↓</span>
+        </a>
+        <a href="#tienda" class="btn-ghost">
+          O entrá directo a la tienda
+          <span>→</span>
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div><p class="stat-n">9</p><p class="stat-l">Años Superhost</p></div>
+        <div><p class="stat-n">5</p><p class="stat-l">Propiedades</p></div>
+        <div><p class="stat-n">100+</p><p class="stat-l">Proveedores</p></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <img class="hero-img"
+        src="https://images.unsplash.com/photo-1571508601891-ca5e7a713859?w=1200&auto=format&fit=crop&q=80"
+        alt="Interior Airbnb en Colombia">
+      <div class="hero-img-overlay"></div>
+      <p class="hero-caveat">
+        "Aprendí a las malas — para que vos no tengas que aprender solo."
+        <span>— Mafe</span>
+      </p>
+    </div>
+  </header>
+
+  <!-- LEAD MAGNET -->
+  <section class="lead" id="lead">
+    <div class="lead-left">
+      <p class="s-label">Recurso gratuito</p>
+      <h2 class="lead-h2">El kit base que cambia<br>las <span>primeras reseñas.</span></h2>
+      <p class="lead-p">Los 5 productos con los que empezaría si tuviese que montar un Airbnb desde cero mañana. Probados en mis propiedades. Disponibles en Colombia.</p>
+    </div>
+    <div class="lead-right">
+      <div class="lead-form-wrap">
+        <p class="lead-title">Descargá gratis</p>
+        <p class="lead-sub">Te mando los 5 productos esenciales a tu correo. Sin spam. Darte de baja es fácil.</p>
+        <div class="form-row">
+          <input class="form-input" type="email" placeholder="tu@correo.com" aria-label="Correo electrónico">
+          <button class="form-btn">Descargá</button>
+        </div>
+        <p class="form-privacy">Al suscribirte aceptás la <a href="#">política de privacidad</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="products-section" id="tienda">
+    <div class="products-hd">
+      <div>
+        <p class="s-label">La tienda</p>
+        <h2 class="s-h2">Lo que uso en mis<br>propios <span>Airbnbs.</span></h2>
+      </div>
+      <p class="s-body">Si no lo volvería a comprar, no está en la tienda.</p>
+    </div>
+
+    <div class="products-grid">
+      <article class="prod">
+        <div class="prod-img-wrap">
+          <img class="prod-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&auto=format&fit=crop&q=80" alt="Copas irrompibles">
+          <span class="prod-tag">Mafe's Pick</span>
+        </div>
+        <div class="prod-body">
+          <h3 class="prod-name">Copas sin drama</h3>
+          <p class="prod-note">Sobreviven cientos de estadías.</p>
+          <div class="prod-foot">
+            <span class="prod-price">100.000 COP</span>
+            <a href="#" class="prod-cta">Ver →</a>
+          </div>
+        </div>
+      </article>
+      <article class="prod">
+        <div class="prod-img-wrap">
+          <img class="prod-img" src="https://images.unsplash.com/photo-1616464916356-3a777b87d3b8?w=500&auto=format&fit=crop&q=80" alt="Velas decorativas">
+          <span class="prod-tag">Would Buy Again</span>
+        </div>
+        <div class="prod-body">
+          <h3 class="prod-name">Velas que venden</h3>
+          <p class="prod-note">Primera impresión = aroma.</p>
+          <div class="prod-foot">
+            <span class="prod-price">80.000 COP</span>
+            <a href="#" class="prod-cta">Ver →</a>
+          </div>
+        </div>
+      </article>
+      <article class="prod">
+        <div class="prod-img-wrap">
+          <img class="prod-img" src="https://images.unsplash.com/photo-1607006344380-b6775a0824a7?w=500&auto=format&fit=crop&q=80" alt="Toallas desmaquilladoras">
+          <span class="prod-tag">Available Locally</span>
+        </div>
+        <div class="prod-body">
+          <h3 class="prod-name">Toallas desmaquilladoras</h3>
+          <p class="prod-note">Sin manchas. Sin reemplazos.</p>
+          <div class="prod-foot">
+            <span class="prod-price">15.000 COP</span>
+            <a href="#" class="prod-cta">Ver →</a>
+          </div>
+        </div>
+      </article>
+      <article class="prod">
+        <div class="prod-img-wrap">
+          <img class="prod-img" src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=500&auto=format&fit=crop&q=80" alt="Cubiertos negros">
+          <span class="prod-tag">Host Favourite</span>
+        </div>
+        <div class="prod-body">
+          <h3 class="prod-name">Cubiertos negros</h3>
+          <p class="prod-note">El detalle que diferencia.</p>
+          <div class="prod-foot">
+            <span class="prod-price">98.000 COP</span>
+            <a href="#" class="prod-cta">Ver →</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="products-footer">
+      <a href="#" class="btn-shop-outline">Ver toda la tienda →</a>
+    </div>
+  </section>
+
+  <!-- FOUNDER -->
+  <section class="founder" id="sobre">
+    <div class="founder-img-side">
+      <img class="founder-img" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=800&auto=format&fit=crop&q=80" alt="Mafe, fundadora">
+      <div class="founder-img-overlay"></div>
+    </div>
+    <div class="founder-text-side">
+      <p class="s-label founder-eyebrow">Sobre Mafe</p>
+      <h2 class="founder-h2">Estudié arquitectura.<br>Terminé diseñando<br>experiencias.</h2>
+      <p class="founder-p">Un espacio bonito y un espacio que funciona no son lo mismo. Lo aprendí después de 5 años como arquitecta y 9 como Superhost.</p>
+      <p class="founder-p">Kabine en Guatapé fue la escuela real. Hoy opero 4 propiedades en Medellín y selecciono productos para que vos no tengas que aprender por las malas.</p>
+      <span class="founder-caveat">"Un espacio bonito y un espacio que funciona no son lo mismo."</span>
+      <div class="founder-stats">
+        <div><p class="fs-n">9</p><p class="fs-l">Años Superhost</p></div>
+        <div><p class="fs-n">5</p><p class="fs-l">Propiedades</p></div>
+      </div>
+      <a href="#" class="btn-wa">Escribime por WhatsApp →</a>
+    </div>
+  </section>
+
+  <!-- COACHING -->
+  <section class="coaching section" id="coaching">
+    <div>
+      <span class="coming-badge">Próximamente</span>
+      <h2 class="coaching-h2">Coaching 1:1 para anfitriones que quieren crecer.</h2>
+      <p class="coaching-p">Para hosts con 1 a 5 propiedades. Revisión completa, selección de productos, estrategia de precios. Anotate para ser de los primeros.</p>
+    </div>
+    <div class="coaching-card">
+      <ul class="coaching-list">
+        <li>Revisión completa de tu propiedad</li>
+        <li>Selección de productos para tu perfil</li>
+        <li>Estrategia de precios y ocupación</li>
+        <li>Optimización de foto y listado</li>
+      </ul>
+      <form class="coaching-form">
+        <input class="coaching-input" type="email" placeholder="tu@correo.com" aria-label="Correo lista de espera">
+        <button class="coaching-btn">Anotarme en la lista de espera</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter" id="newsletter">
+    <div>
+      <p class="s-label">Newsletter</p>
+      <h2 class="nl-h2">10 productos<br>en <span>10 días.</span></h2>
+      <p class="nl-p">Cada día, un producto. Por qué lo elegí, dónde lo conseguí, y cuánto cuesta. Después, tips semanales de operación.</p>
+    </div>
+    <div>
+      <div class="nl-form">
+        <input class="nl-input" type="email" placeholder="tu@correo.com" aria-label="Correo newsletter">
+        <button class="nl-btn">Suscribirme</button>
+      </div>
+      <p class="nl-privacy">Al suscribirte aceptás la <a href="#">política de privacidad</a>.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq section" id="faq">
+    <p class="s-label">FAQ</p>
+    <h2 class="s-h2">Lo que más<br>nos <span>preguntan.</span></h2>
+    <div class="faq-grid">
+      <div class="faq-item"><h3 class="faq-q">¿Hacen envíos a toda Colombia?</h3><p class="faq-a">Sí. Trabajamos con operadores logísticos que cubren las principales ciudades. Los tiempos varían según el destino.</p></div>
+      <div class="faq-item"><h3 class="faq-q">¿Tienen precios especiales para volumen?</h3><p class="faq-a">Si tenés más de una propiedad, escribinos por WhatsApp y te armamos una cotización.</p></div>
+      <div class="faq-item"><h3 class="faq-q">¿Qué métodos de pago aceptan?</h3><p class="faq-a">Tarjeta de crédito, débito, y transferencias bancarias. Todo procesado de forma segura.</p></div>
+      <div class="faq-item"><h3 class="faq-q">¿Cómo sé que los productos son de buena calidad?</h3><p class="faq-a">Cada producto pasó por nuestras propias propiedades antes de entrar a la tienda. Si no lo volvería a comprar, no lo vendemos.</p></div>
+      <div class="faq-item"><h3 class="faq-q">¿Qué garantías tienen?</h3><p class="faq-a">Si algún producto llega en mal estado o no es lo que esperabas, nos escribís y lo resolvemos. Sin vueltas.</p></div>
+      <div class="faq-item"><h3 class="faq-q">¿Cuándo empieza el coaching?</h3><p class="faq-a">Estamos armando el programa. Anotate en la lista de espera y te avisamos antes que a nadie.</p></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo"><img src="../../Home Page/assets/logo-lockup-cream.png" alt="Host-to-Host"></div>
+        <p class="footer-tag">Productos para anfitriones en Colombia. Seleccionados por experiencia real.</p>
+      </div>
+      <div>
+        <p class="f-h">Recursos</p>
+        <ul class="f-links">
+          <li><a href="#">Tienda</a></li>
+          <li><a href="#">Newsletter</a></li>
+          <li><a href="#">Coaching</a></li>
+          <li><a href="#">Sobre Mafe</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="f-h">Contacto</p>
+        <ul class="f-links">
+          <li><a href="#">WhatsApp</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bt">
+      <p class="f-copy">© 2024 Host-to-Host · Medellín, Colombia</p>
+      <nav class="f-leg"><a href="#">Política de privacidad</a><a href="#">Términos</a></nav>
+    </div>
+  </footer>
+
+  <script>
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.lead-left, .lead-right, .prod, .founder-img-side, .founder-text-side, .faq-item').forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>
