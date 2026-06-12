@@ -1,0 +1,27 @@
+[build]
+  publish = "site"
+
+[[redirects]]
+  from = "/concepts/concept-a-main.html"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/concepts/coaching.html"
+  to = "/coaching"
+  status = 301
+
+[[redirects]]
+  from = "/concepts/recursos.html"
+  to = "/recursos"
+  status = 301
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

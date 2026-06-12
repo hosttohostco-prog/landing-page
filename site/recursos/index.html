@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recursos — Host-to-Host</title>
+  <meta name="description" content="Guías prácticas, plantillas y checklists para anfitriones en Colombia. Construidos con propiedades reales y huéspedes reales, por una Superhost con 9 años de experiencia.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Space+Grotesk:wght@300;400;500;600&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../brand.css">
+  <script>
+    // Gate entrance-hidden states behind JS + motion preference so no-JS and
+    // reduced-motion visitors always see a fully rendered page.
+    (function () {
+      var params = new URLSearchParams(location.search);
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches || params.has('nomotion');
+      document.documentElement.classList.add(reduce ? 'nomotion' : 'motion');
+    })();
+  </script>
+  <style>
+    /* —— RECURSOS · THE EDITORIAL, DIRECTED ——
+       Structure: light photographic hero → resource library (3 live + 3 coming soon) → CTA banner → footer
+       Shared tokens/nav/labels/buttons/footer live in brand.css; this block is page layout only.
+    */
+
+    /* Entrance-hidden states — motion mode only, revealed by GSAP */
+    html.motion .hero-content,
+    html.motion .hero-media { visibility: hidden; }
+
+    /* ── HERO — light, photo behind, cream wash over the top-left ── */
+    .hero {
+      position: relative;
+      min-height: 92dvh;
+      max-height: 92rem;
+      background: var(--cream);
+      display: flex;
+      align-items: flex-start;
+      overflow: hidden;
+      padding: 16rem 6.4rem 10rem;
+    }
+
+    /* assets/recursos-hero.jpg — interior cálido con puerta a la piscina y estantería.
+       If it fails to load the section degrades to the plain cream base. */
+    .hero-media {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .hero-img {
+      width: 100%;
+      height: 112%; /* parallax headroom */
+      object-fit: cover;
+      object-position: center;
+    }
+    .hero--noimg .hero-media { display: none; }
+
+    /* Legibility wash — cream, strongest over the headline corner */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(115deg, rgba(252,243,233,0.97) 0%, rgba(252,243,233,0.9) 34%, rgba(252,243,233,0.55) 58%, rgba(252,243,233,0) 80%),
+                  linear-gradient(to bottom, rgba(252,243,233,0.85) 0%, rgba(252,243,233,0) 32%);
+      pointer-events: none;
+    }
+    .hero--noimg::before {
+      background: radial-gradient(circle at 70% 45%, rgba(232,130,95,0.08) 0%, rgba(232,130,95,0) 55%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      min-width: 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 6.4rem;
+    }
+
+    .hero-label { margin-bottom: 1.4rem; }
+
+    .hero-h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(4.6rem, 5.2vw, 7.2rem);
+      font-weight: 300;
+      line-height: 1.06;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-wrap: balance;
+      max-width: 19ch;
+      margin-top: 2rem;
+    }
+    .hero-h1 em { font-style: italic; color: var(--coral-d); }
+
+    .hero-aside {
+      font-size: 1.7rem;
+      color: var(--ink);
+      line-height: 1.75;
+      max-width: 26ch;
+      margin-top: 9.6rem; /* sits beside the headline's second line, as on the board */
+      flex-shrink: 0;
+    }
+
+    /* ── RESOURCE LIBRARY — 3 live + 3 coming soon ── */
+    .library {
+      background: var(--cream);
+      padding: 8rem 4rem 9.6rem;
+    }
+
+    .library-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.8rem;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid rgba(64,62,63,0.1);
+      border-radius: 0.6rem;
+      padding: 1.6rem 1.6rem 2.4rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-media {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      background: var(--cream-d);
+      border-radius: 0.3rem;
+      overflow: hidden;
+      margin-bottom: 2.8rem;
+    }
+    .card-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s cubic-bezier(0.32,0.72,0,1);
+    }
+    .card:hover .card-media img { transform: scale(1.04); }
+    /* PLACEHOLDER images — onerror hides the img, leaving the cream-d block */
+    .card-media img.is-missing { display: none; }
+
+    .badge {
+      position: absolute;
+      left: 1.6rem;
+      bottom: 1.6rem;
+      z-index: 2;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--cream);
+      padding: 0.7rem 1.5rem;
+      border-radius: 0.4rem;
+    }
+    .badge--free { background: var(--badge-free); }
+    .badge--paid { background: var(--badge-paid); }
+
+    /* Coming-soon scrim + lock */
+    .card--soon .card-media::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(43,40,38,0.55);
+    }
+    .card-soon-mark {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.4rem;
+      color: var(--cream);
+    }
+    .card-soon-mark svg {
+      width: 5.2rem;
+      height: 5.2rem;
+      stroke-width: 1;
+    }
+    .card-soon-mark span {
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .card-body { padding: 0 0.8rem; display: flex; flex-direction: column; flex-grow: 1; }
+
+    .card-h {
+      font-size: 1.6rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink);
+      line-height: 1.4;
+      margin-bottom: 1.4rem;
+      text-wrap: balance;
+    }
+
+    .card-p {
+      font-size: 1.5rem;
+      color: var(--ink-s);
+      line-height: 1.65;
+      margin-bottom: 2.8rem;
+    }
+    .card--soon .card-p { margin-bottom: 0; }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: auto;
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--badge-paid);
+      transition: color 0.3s;
+    }
+    .card-link:hover { color: var(--coral-d); }
+    .card-link svg {
+      width: 1.8rem;
+      height: 1.8rem;
+      stroke-width: 2;
+      transition: transform 0.4s cubic-bezier(0.32,0.72,0,1);
+    }
+    .card-link:hover svg { transform: translateX(3px); }
+
+    /* ── CTA BANNER — rounded dark card, 3 columns ── */
+    .banner-wrap {
+      background: var(--cream);
+      padding: 0 4rem 9.6rem;
+    }
+
+    .banner {
+      background: var(--ink-bg);
+      border-radius: 2rem;
+      padding: 5.6rem 7.2rem;
+      display: grid;
+      grid-template-columns: 1.1fr 1.2fr auto;
+      gap: 5.6rem;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .banner::before {
+      content: '';
+      position: absolute;
+      width: 48rem;
+      height: 48rem;
+      top: -24rem;
+      right: -12rem;
+      background: radial-gradient(circle, rgba(243,152,120,0.06) 0%, rgba(243,152,120,0) 70%);
+      pointer-events: none;
+    }
+
+    .banner-h {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.2rem, 3.4vw, 4.6rem);
+      font-weight: 300;
+      line-height: 1.12;
+      letter-spacing: -0.015em;
+      color: var(--cream);
+      text-wrap: balance;
+    }
+    .banner-h em { font-style: italic; color: var(--coral); }
+
+    .banner-meta {
+      display: flex;
+      align-items: center;
+      gap: 2.4rem;
+      padding-left: 5.6rem;
+      border-left: 1px solid rgba(252,243,233,0.12);
+    }
+
+    .bm-icon { width: 4rem; height: 4rem; color: var(--coral); flex-shrink: 0; }
+    .bm-icon svg { width: 100%; height: 100%; stroke-width: 1.4; }
+    .bm-label {
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cream);
+      margin-bottom: 0.8rem;
+    }
+    .bm-sub {
+      font-size: 1.45rem;
+      color: rgba(252,243,233,0.6);
+      line-height: 1.6;
+      max-width: 32ch;
+    }
+
+    .banner-cta { justify-self: end; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1100px) {
+      .library-grid { grid-template-columns: 1fr 1fr; }
+
+      .hero-content { flex-direction: column; gap: 3.2rem; }
+      .hero-aside { margin-top: 0; }
+
+      .banner { grid-template-columns: 1fr; gap: 4.4rem; padding: 5.6rem 4.8rem; text-align: center; justify-items: center; }
+      .banner-meta { flex-direction: column; border-left: none; padding-left: 0; }
+      .banner-cta { justify-self: center; }
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        padding: 12rem 2.4rem 8rem;
+        min-height: 80dvh;
+        max-height: none;
+      }
+      .hero::before {
+        background: linear-gradient(to bottom, rgba(252,243,233,0.94) 0%, rgba(252,243,233,0.85) 55%, rgba(252,243,233,0.45) 100%);
+      }
+      .hero--noimg::before {
+        background: radial-gradient(circle at 70% 30%, rgba(232,130,95,0.08) 0%, rgba(232,130,95,0) 55%);
+      }
+
+      .library { padding: 6.4rem 2.4rem 8rem; }
+      .library-grid { grid-template-columns: 1fr; gap: 2.4rem; }
+
+      .banner-wrap { padding: 0 2.4rem 8rem; }
+      .banner { padding: 4.8rem 2.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="/" class="nav-logo"><img src="../assets/logo-lockup-ink.png" alt="Host-to-Host"></a>
+    <ul class="nav-links">
+      <li><a href="/recursos" aria-current="page">Recursos</a></li>
+      <li><a href="https://tienda.hosttohost.co/">Tienda</a></li>
+      <li><a href="/coaching">Coaching</a></li>
+      <li><a href="https://tienda.hosttohost.co/" class="nav-cta">Ir a la tienda</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO — light, photo behind, text over the top-left -->
+  <header class="hero">
+    <div class="hero-media">
+      <img class="hero-img"
+        src="../assets/recursos-hero.jpg"
+        alt="Interior cálido de una casa con luz natural, una estantería empotrada con cerámica y libros, y una puerta abierta hacia la piscina"
+        onerror="this.closest('.hero').classList.add('hero--noimg')">
+    </div>
+    <div class="hero-content">
+      <div>
+        <p class="c-label hero-label">Recursos</p>
+        <h1 class="hero-h1">Todo lo que me hubiera gustado tener antes de lanzar mi <em>primer Airbnb.</em></h1>
+      </div>
+      <p class="hero-aside">
+        Guías prácticas, plantillas y checklists construidos con propiedades reales y huéspedes reales.
+      </p>
+    </div>
+  </header>
+
+  <!-- RESOURCE LIBRARY -->
+  <section class="library" id="recursos">
+    <h2 class="visually-hidden">Recursos para anfitriones</h2>
+    <div class="library-grid">
+
+      <article class="card" data-stagger>
+        <div class="card-media">
+          <!-- PLACEHOLDER — James supplies assets/recurso-empeza-tu-airbnb.png -->
+          <img src="../assets/recurso-empeza-tu-airbnb.png"
+            alt="Portátil con la guía Empezá tu Airbnb abierta, sobre un escritorio de madera"
+            onerror="this.classList.add('is-missing')">
+          <span class="badge badge--free">Gratis</span>
+        </div>
+        <div class="card-body">
+          <h3 class="card-h">Empezá tu Airbnb</h3>
+          <p class="card-p">La guía paso a paso para lanzar tu primer alquiler de corta estadía sin tener que aprender todo por las malas.</p>
+          <a href="#" class="card-link">
+            <span>Descargala gratis</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="card" data-stagger>
+        <div class="card-media">
+          <!-- PLACEHOLDER — James supplies assets/recurso-checklist-esenciales.png -->
+          <img src="../assets/recurso-checklist-esenciales.png"
+            alt="Esenciales para huéspedes organizados sobre una superficie: toalla, vasos, cubiertos y platos"
+            onerror="this.classList.add('is-missing')">
+          <span class="badge badge--paid">Pago</span>
+        </div>
+        <div class="card-body">
+          <h3 class="card-h">Checklist de esenciales Host-to-Host</h3>
+          <p class="card-p">Cada producto que tu Airbnb necesita, organizado espacio por espacio: cocina, habitaciones, baños y esenciales para huéspedes.</p>
+          <a href="#" class="card-link">
+            <span>Ver el checklist</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="card" data-stagger>
+        <div class="card-media">
+          <!-- PLACEHOLDER — James supplies assets/recurso-manual-bienvenida.png -->
+          <img src="../assets/recurso-manual-bienvenida.png"
+            alt="Manual de bienvenida Host-to-Host de pie sobre una cama tendida"
+            onerror="this.classList.add('is-missing')">
+          <span class="badge badge--free">Gratis</span>
+        </div>
+        <div class="card-body">
+          <h3 class="card-h">Manual de bienvenida para huéspedes</h3>
+          <p class="card-p">Un manual de bienvenida escrito profesionalmente, listo para personalizar y entregar a tus huéspedes desde ya.</p>
+          <a href="#" class="card-link">
+            <span>Descargalo gratis</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="card card--soon" data-stagger>
+        <div class="card-media">
+          <!-- PLACEHOLDER — James supplies assets/recurso-playbook-lanzamiento.png -->
+          <img src="../assets/recurso-playbook-lanzamiento.png"
+            alt=""
+            onerror="this.classList.add('is-missing')">
+          <div class="card-soon-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="11"></circle>
+              <rect x="8.5" y="11" width="7" height="5.5" rx="0.8"></rect>
+              <path d="M10 11V9.2a2 2 0 0 1 4 0V11"></path>
+            </svg>
+            <span>Muy pronto</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-h">El playbook de lanzamiento</h3>
+          <p class="card-p">El paso a paso completo para dejar tu propiedad lista para huéspedes y lanzar con confianza.</p>
+        </div>
+      </article>
+
+      <article class="card card--soon" data-stagger>
+        <div class="card-media">
+          <!-- PLACEHOLDER — James supplies assets/recurso-precios-ocupacion.png -->
+          <img src="../assets/recurso-precios-ocupacion.png"
+            alt=""
+            onerror="this.classList.add('is-missing')">
+          <div class="card-soon-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="11"></circle>
+              <rect x="8.5" y="11" width="7" height="5.5" rx="0.8"></rect>
+              <path d="M10 11V9.2a2 2 0 0 1 4 0V11"></path>
+            </svg>
+            <span>Muy pronto</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-h">Framework de precios y ocupación</h3>
+          <p class="card-p">Un método probado para ponerle el precio justo a tu propiedad y aumentar la ocupación y los ingresos.</p>
+        </div>
+      </article>
+
+      <article class="card card--soon" data-stagger>
+        <div class="card-media">
+          <!-- PLACEHOLDER — James supplies assets/recurso-proveedores.png -->
+          <img src="../assets/recurso-proveedores.png"
+            alt=""
+            onerror="this.classList.add('is-missing')">
+          <div class="card-soon-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="11"></circle>
+              <rect x="8.5" y="11" width="7" height="5.5" rx="0.8"></rect>
+              <path d="M10 11V9.2a2 2 0 0 1 4 0V11"></path>
+            </svg>
+            <span>Muy pronto</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-h">Base de proveedores</h3>
+          <p class="card-p">Mi lista de proveedores y aliados de confianza que entregan calidad, cumplimiento y buen precio.</p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="banner-wrap" id="coaching">
+    <div class="banner" data-reveal>
+      <h2 class="banner-h">Tu próxima buena decisión <em>empieza acá.</em></h2>
+
+      <div class="banner-meta">
+        <span class="bm-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="8.5" cy="8" r="2.5"></circle>
+            <path d="M3.5 19c0-2.8 2.2-5 5-5s5 2.2 5 5"></path>
+            <circle cx="16.5" cy="8.5" r="2"></circle>
+            <path d="M15.5 14.2c2.8 0 5 2.1 5 4.8"></path>
+          </svg>
+        </span>
+        <div>
+          <p class="bm-label">Acompañamiento 1:1</p>
+          <p class="bm-sub">Agendá una llamada de coaching y salí con un plan claro para tu propiedad.</p>
+        </div>
+      </div>
+
+      <div class="banner-cta">
+        <a href="/coaching" class="btn-pill" data-magnetic>
+          <span>Agendá tu sesión</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo"><img src="../assets/logo-lockup-cream.png" alt="Host-to-Host"></div>
+        <p class="footer-tag">Productos para anfitriones en Colombia. Seleccionados por una Superhost con 9 años de experiencia real.</p>
+      </div>
+      <div>
+        <p class="f-h">Servicios</p>
+        <ul class="f-links">
+          <li><a href="https://tienda.hosttohost.co/">Productos</a></li>
+          <li><a href="/recursos">Recursos</a></li>
+          <li><a href="/coaching">Coaching</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="f-h">Contacto</p>
+        <ul class="f-links">
+          <li><a href="#">WhatsApp</a></li>
+          <li><a href="https://www.instagram.com/demafetohost">Instagram</a></li>
+          <li><a href="/#faq">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bt">
+      <p class="f-copy">© <span id="copyright-year">2026</span> Host-to-Host · Medellín, Colombia</p>
+      <nav class="f-leg"><a href="#">Política de privacidad</a><a href="#">Términos</a></nav>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js"></script>
+  <script>
+    document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
+    const motionOK = document.documentElement.classList.contains('motion')
+      && window.gsap && window.ScrollTrigger && window.SplitText;
+
+    // Nav: transparent over hero, cream glass once scrolling
+    function updateNav(y) {
+      document.querySelector('.nav').classList.toggle('nav--scrolled', y > 60);
+    }
+
+    if (!motionOK) {
+      // Static path: page is fully visible; just keep the nav state honest.
+      window.addEventListener('scroll', () => updateNav(window.scrollY), { passive: true });
+      updateNav(window.scrollY);
+    } else {
+      gsap.registerPlugin(ScrollTrigger, SplitText);
+
+      // — Smooth scroll (Lenis driving ScrollTrigger) —
+      const lenis = new Lenis({ lerp: 0.12 });
+      lenis.on('scroll', (e) => {
+        ScrollTrigger.update();
+        updateNav(e.scroll);
+      });
+      gsap.ticker.add((time) => lenis.raf(time * 1000));
+      gsap.ticker.lagSmoothing(0);
+      updateNav(window.scrollY);
+
+      // Anchor links scroll smoothly through Lenis
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', (ev) => {
+          const target = document.querySelector(a.getAttribute('href'));
+          if (!target) return;
+          ev.preventDefault();
+          lenis.scrollTo(target, { offset: -70 });
+        });
+      });
+
+      const EASE = 'power4.out';
+
+      // — HERO entrance: photo settles, line-masked headline —
+      document.fonts.ready.then(() => {
+        gsap.set(['.hero-content', '.hero-media'], { visibility: 'visible' });
+
+        const split = SplitText.create('.hero-h1', { type: 'lines', mask: 'lines' });
+
+        const tl = gsap.timeline({ defaults: { ease: EASE } });
+        tl.from('.hero-media', { autoAlpha: 0, duration: 1.6, ease: 'power2.out' }, 0)
+          .from('.hero-img', { scale: 1.12, duration: 2.2, ease: 'power3.out' }, 0)
+          .from('.hero-label', { y: 24, autoAlpha: 0, duration: 0.9 }, 0.35)
+          .from(split.lines, { yPercent: 115, duration: 1.2, stagger: 0.1 }, 0.45)
+          .from('.hero-aside', { y: 28, autoAlpha: 0, duration: 1 }, 1.0);
+      });
+
+      // Hero photo parallax on scroll
+      gsap.fromTo('.hero-media', { yPercent: 0 }, {
+        yPercent: -8,
+        ease: 'none',
+        scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+      });
+
+      // — Banner card rises in —
+      gsap.utils.toArray('[data-reveal]').forEach(el => {
+        gsap.from(el, {
+          y: 40, autoAlpha: 0, duration: 1.1, ease: EASE,
+          scrollTrigger: { trigger: el, start: 'top 82%', once: true }
+        });
+      });
+
+      // — Resource cards cascade in —
+      ScrollTrigger.batch('[data-stagger]', {
+        start: 'top 85%',
+        once: true,
+        onEnter: batch => gsap.from(batch, { y: 36, autoAlpha: 0, duration: 0.9, ease: EASE, stagger: 0.09 })
+      });
+
+      // — Banner headline line reveal —
+      document.fonts.ready.then(() => {
+        const bannerSplit = SplitText.create('.banner-h', { type: 'lines', mask: 'lines' });
+        gsap.from(bannerSplit.lines, {
+          yPercent: 115, duration: 1.1, stagger: 0.1, ease: EASE,
+          scrollTrigger: { trigger: '.banner', start: 'top 75%', once: true }
+        });
+      });
+
+      // — Magnetic hover physics on the banner CTA —
+      document.querySelectorAll('[data-magnetic]').forEach(el => {
+        const xTo = gsap.quickTo(el, 'x', { duration: 0.4, ease: 'power3' });
+        const yTo = gsap.quickTo(el, 'y', { duration: 0.4, ease: 'power3' });
+        el.addEventListener('mousemove', (e) => {
+          const r = el.getBoundingClientRect();
+          xTo((e.clientX - (r.left + r.width / 2)) * 0.18);
+          yTo((e.clientY - (r.top + r.height / 2)) * 0.3);
+        });
+        el.addEventListener('mouseleave', () => { xTo(0); yTo(0); });
+      });
+    }
+  </script>
+</body>
+</html>
