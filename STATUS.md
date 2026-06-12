@@ -1,5 +1,5 @@
 # Landing Page Concepts — Status
-Last updated: 2026-06-11 (late session — GSAP motion redesign; **`concepts/concept-a-main.html` is now the active working file**)
+Last updated: 2026-06-11 (coaching page built — **the site now has TWO main pages: `concepts/concept-a-main.html` (home) + `concepts/coaching.html` (coaching)**)
 
 ## Git repo (NEW 2026-06-11)
 - This folder is now a git repo: **https://github.com/hosttohostco-prog/landing-page** (branch `main`)
@@ -7,8 +7,18 @@ Last updated: 2026-06-11 (late session — GSAP motion redesign; **`concepts/con
 - Workflow: one commit per James-approved change, small diffs. Push after approval.
 - Keep this repo separate from the `hosttohostco-prog/shopify` theme repo
 
+## Main pages (the site)
+**TWO main HTML pages** — both self-contained, same design system (Cormorant Garamond + Space Grotesk, cream + coral, GSAP + Lenis motion with nomotion/no-JS fallbacks):
+
+| File | Page / URL | Status |
+|------|-----------|--------|
+| **concepts/concept-a-main.html** | Home — hosttohost.co | Active, James reviewing |
+| **concepts/coaching.html** | Coaching — /coaching | Built + approved 2026-06-11 |
+
+A **Recursos** page is planned next (James to brief).
+
 ## What exists
-Three self-contained HTML concept files at `/landing page/concepts/`:
+Concept exploration files at `/landing page/concepts/`:
 
 | File | Concept | Type system | Palette lead | Layout signature |
 |------|---------|-------------|--------------|-----------------|
@@ -46,12 +56,24 @@ Three self-contained HTML concept files at `/landing page/concepts/`:
 
 **REMOVED 2026-06-11 (James's call):** Coaching contextual section ("¿Querés acompañamiento personalizado?") and Newsletter section ("10 productos en 10 días") — HTML, CSS, and responsive rules all deleted.
 
+## Coaching page (concepts/coaching.html, NEW 2026-06-11 — approved)
+Built 1:1 from James's reference board. Colombian Spanish (voseo), same tokens/fonts/nav/footer as home.
+1. **Hero** — dark, photo full-bleed behind (`assets/coaching-hero.png`, from `mock-ups/coaching-background.png`), left-to-right legibility gradient, coral pill CTA "Agendá tu sesión". Graceful dark fallback if the image fails to load.
+2. **En qué podemos trabajar** — 6 columns, hairline dividers, coral line icons.
+3. **Los resultados que importan** — 4 columns (Más reservas / Mayor ocupación / Mejores reseñas / Menos errores costosos).
+4. **CTA banner** — rounded dark card: "Tu próxima buena decisión *empieza acá.*" + 60 min / 1:1 Zoom meta + pill CTA.
+5. **Footer** — identical to home.
+- Motion: hero photo scale-settle + parallax, SplitText headline reveals, staggered grid cascades, magnetic banner CTA, dark frosted nav on scroll. Same reduced-motion/no-JS safety as home.
+- Verified in headless Chrome: desktop 1440, true 390px mobile (iframe harness — headless has a 500px min window), zero console errors.
+- **Open:** real booking link (both CTAs placeholder), compress coaching-hero.png (2MB).
+
 ## Visual system changes (2026-06-11)
 - **Dark section background:** new token `--ink-bg: #2B2826` applied to `.lead`, `.problem`, `.footer`. `--ink` (#403E3F) unchanged — still used for text and button fills. Ecosystem deliberately stays #3B393A (lighter, differentiated) — open question whether to unify.
 - All images now local in `concepts/assets/` (logos copied from Home Page so the repo is self-contained). concept-a has NO external image dependencies left except Google Fonts.
 
 ## Files
-- `concepts/concept-a-main.html` — **ACTIVE file, all current work** (GSAP motion redesign, 2026-06-11)
+- `concepts/concept-a-main.html` — **MAIN PAGE: home** (GSAP motion redesign, 2026-06-11)
+- `concepts/coaching.html` — **MAIN PAGE: coaching** (built + approved 2026-06-11)
 - `concepts/concept-a.html` — static predecessor, kept as reference. Do not edit
 - `concepts/concept-a-updated.html` — externally-created draft, superseded. Can be deleted
 - `concepts/assets/` — all images: 4 product photos, 3 problema diagram jpgs (no longer referenced by concept-a after rebuild — kept for history), problema-still-life.png, hero-cocina.png, sobre-mafe.jpg, logo-lockup-ink.png, logo-lockup-cream.png
@@ -72,6 +94,8 @@ Three self-contained HTML concept files at `/landing page/concepts/`:
 | Footer "Sobre Mafe" | Removed from nav; footer link also removed. Nav "Recursos" label kept | Done unless James revisits |
 
 ## What's next
+- **Recursos page** — James to brief next (third main page; when it lands, consider extracting shared nav/footer/token CSS into a brand.css)
+- Coaching booking link — both CTAs are placeholders (Calendly? WhatsApp?)
 - James reviews concept-a-main.html in browser (GSAP motion + all 2026-06-11 changes)
 - Confirm pétalos price (25.000 COP placeholder) and gold-vs-black cubiertos naming (carried over, still open)
 - Font decision (Cormorant vs Outfit set)
