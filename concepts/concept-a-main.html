@@ -20,7 +20,7 @@
   </script>
   <style>
     /* —— CONCEPT A · MOTION: THE EDITORIAL, DIRECTED ——
-       Structure: Mafe-voice hero → lead magnet → product shelf → problem → ecosystem → Mafe proof → FAQ → final CTA
+       Structure: Mafe-voice hero → problem → lead magnet → product shelf → ecosystem → Mafe proof → FAQ → final CTA
        Archetype: Kinfolk / Cereal · founder-led editorial landing page, now scroll-directed
        Motion: GSAP 3 + ScrollTrigger + SplitText + Lenis smooth scroll
        Shared tokens/nav/labels/buttons/footer live in brand.css; this block is page layout only.
@@ -236,6 +236,7 @@
     /* ── LEAD MAGNET ── */
     .lead {
       background: var(--ink-bg);
+      border-top: 1px solid rgba(252,243,233,0.05); /* separates from the equally dark problem section above */
       padding: 12rem 6.4rem;
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -997,14 +998,23 @@
         max-height: none;
       }
       .hero::before {
-        background: linear-gradient(to bottom, rgba(252,243,233,0.94) 0%, rgba(252,243,233,0.85) 55%, rgba(252,243,233,0.5) 100%);
+        /* Strong over the headline, fading low so the kitchen photo reads behind the CTAs */
+        background: linear-gradient(to bottom, rgba(252,243,233,0.95) 0%, rgba(252,243,233,0.88) 45%, rgba(252,243,233,0.35) 78%, rgba(252,243,233,0.08) 100%);
       }
+      .hero-img { height: 100%; } /* no parallax on mobile, so no 112% zoom-crop */
       .hero--noimg::before {
         background: radial-gradient(circle at 70% 30%, rgba(232,130,95,0.08) 0%, rgba(232,130,95,0) 55%);
       }
       .hero-h1 br { display: none; }
       .hero-ctas { flex-direction: column; }
       .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+      .btn-secondary {
+        /* the wash is nearly transparent down here — frost the button so it reads over the photo */
+        background: rgba(252,243,233,0.72);
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+        border-color: rgba(64,62,63,0.35);
+      }
       .hero-note { right: 2rem; bottom: 2rem; }
 
       .marquee-item { font-size: 1.9rem; padding: 0 1.8rem; }
@@ -1033,12 +1043,10 @@
       .pp-item { grid-template-columns: 6.4rem 1fr; padding: 3.2rem 0; }
       .pp-num { font-size: 4.4rem; }
       .pp-body { padding-left: 2rem; }
-      .problem-bg {
-        position: static;
-        width: 100%;
-        height: auto;
-        margin-top: 8rem;
-      }
+      /* Still-life is a wide desktop composition — any portrait crop reads as a sliver,
+         so it's desktop-only. Section regains its own bottom padding in its place. */
+      .problem-bg { display: none; }
+      .problem { padding-bottom: 10rem; }
 
       .ecosystem { padding: 10rem 2.4rem; }
       .eco-pillars-grid { grid-template-columns: 1fr; gap: 3.6rem; }
@@ -1116,6 +1124,55 @@
       </div>
     </div>
   </div>
+
+  <!-- PROBLEM — pinned headline, scrolling evidence -->
+  <section class="problem" id="problema">
+    <div class="problem-inner">
+
+      <div class="problem-layout">
+
+        <div class="problem-left">
+          <h2 class="problem-h2">Ser buen anfitrión<br><strong>no alcanza.</strong></h2>
+          <p class="problem-sub">El conocimiento que nadie te enseña, <strong>lo pagás de tu bolsillo</strong> — y se nota en tus reseñas.</p>
+        </div>
+
+        <div class="problem-right">
+
+          <div class="pp-item">
+            <span class="pp-num">01</span>
+            <div class="pp-body">
+              <h3 class="pp-h">Todo está disperso</h3>
+              <p class="pp-p">Toallas en un lugar.<br>Copas en otro.<br>Amenities online.</p>
+              <p class="pp-p">Equipar una propiedad termina siendo un proyecto aparte.</p>
+            </div>
+          </div>
+
+          <div class="pp-item">
+            <span class="pp-num">02</span>
+            <div class="pp-body">
+              <h3 class="pp-h">Los costos son invisibles</h3>
+              <p class="pp-p">Envíos.<br>Aranceles.<br>IVA.</p>
+              <p class="pp-p">El precio real aparece después.</p>
+            </div>
+          </div>
+
+          <div class="pp-item">
+            <span class="pp-num">03</span>
+            <div class="pp-body">
+              <h3 class="pp-h">La calidad se aprende a prueba y error</h3>
+              <p class="pp-p">No sabés si va a durar.<br>No sabés si va a funcionar.</p>
+              <p class="pp-p">Y los errores salen caros.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <img class="problem-bg" src="assets/problema-still-life.png" alt="" aria-hidden="true">
+  </section>
 
   <!-- LEAD MAGNET -->
   <section class="lead" id="lead">
@@ -1227,55 +1284,6 @@
     <div class="products-footer">
       <a href="https://tienda.hosttohost.co/" class="btn-shop">Ver toda la tienda →</a>
     </div>
-  </section>
-
-  <!-- PROBLEM — pinned headline, scrolling evidence -->
-  <section class="problem" id="problema">
-    <div class="problem-inner">
-
-      <div class="problem-layout">
-
-        <div class="problem-left">
-          <h2 class="problem-h2">Ser buen anfitrión<br><strong>no alcanza.</strong></h2>
-          <p class="problem-sub">El conocimiento que nadie te enseña, <strong>lo pagás de tu bolsillo</strong> — y se nota en tus reseñas.</p>
-        </div>
-
-        <div class="problem-right">
-
-          <div class="pp-item">
-            <span class="pp-num">01</span>
-            <div class="pp-body">
-              <h3 class="pp-h">Todo está disperso</h3>
-              <p class="pp-p">Toallas en un lugar.<br>Copas en otro.<br>Amenities online.</p>
-              <p class="pp-p">Equipar una propiedad termina siendo un proyecto aparte.</p>
-            </div>
-          </div>
-
-          <div class="pp-item">
-            <span class="pp-num">02</span>
-            <div class="pp-body">
-              <h3 class="pp-h">Los costos son invisibles</h3>
-              <p class="pp-p">Envíos.<br>Aranceles.<br>IVA.</p>
-              <p class="pp-p">El precio real aparece después.</p>
-            </div>
-          </div>
-
-          <div class="pp-item">
-            <span class="pp-num">03</span>
-            <div class="pp-body">
-              <h3 class="pp-h">La calidad se aprende a prueba y error</h3>
-              <p class="pp-p">No sabés si va a durar.<br>No sabés si va a funcionar.</p>
-              <p class="pp-p">Y los errores salen caros.</p>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-    <img class="problem-bg" src="assets/problema-still-life.png" alt="" aria-hidden="true">
   </section>
 
   <!-- ECOSYSTEM REVEAL — Qué es Host-to-Host -->
@@ -1520,23 +1528,23 @@
       document.fonts.ready.then(() => {
         gsap.set(['.hero-content', '.hero-media', '.hero-note'], { visibility: 'visible' });
 
-        const split = SplitText.create('.hero-h1', { type: 'lines', mask: 'lines' });
-
         const tl = gsap.timeline({ defaults: { ease: EASE } });
         tl.from('.hero-media', { autoAlpha: 0, duration: 1.6, ease: 'power2.out' }, 0)
           .from('.hero-img', { scale: 1.12, duration: 2.2, ease: 'power3.out' }, 0)
-          .from('.hero-content .c-label', { y: 24, autoAlpha: 0, duration: 0.9 }, 0.35)
-          .from(split.lines, { yPercent: 115, duration: 1.2, stagger: 0.1 }, 0.45)
-          .from('.hero-sub', { y: 28, autoAlpha: 0, duration: 1 }, 0.95)
+          .from('.hero-content .c-label', { y: 24, autoAlpha: 0, duration: 0.9 }, 0.35);
+
+        if (window.matchMedia('(max-width: 768px)').matches) {
+          // SplitText honors the (CSS-hidden) <br>s as forced line breaks on mobile,
+          // stranding orphan words — animate the headline as one block instead.
+          tl.from('.hero-h1', { y: 32, autoAlpha: 0, duration: 1.1 }, 0.45);
+        } else {
+          const split = SplitText.create('.hero-h1', { type: 'lines', mask: 'lines' });
+          tl.from(split.lines, { yPercent: 115, duration: 1.2, stagger: 0.1 }, 0.45);
+        }
+
+        tl.from('.hero-sub', { y: 28, autoAlpha: 0, duration: 1 }, 0.95)
           .from('.hero-ctas', { y: 24, autoAlpha: 0, duration: 0.9 }, 1.1)
           .from('.hero-note', { y: 30, autoAlpha: 0, rotation: -2, duration: 1 }, 1.35);
-      });
-
-      // Hero image parallax on scroll
-      gsap.fromTo('.hero-media', { yPercent: 0 }, {
-        yPercent: -8,
-        ease: 'none',
-        scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
       });
 
       // — Generic reveals (lead magnet) —
@@ -1550,6 +1558,13 @@
       const mm = gsap.matchMedia();
 
       mm.add('(min-width: 769px)', () => {
+        // — Hero image parallax (desktop only; mobile shows the photo un-zoomed) —
+        gsap.fromTo('.hero-media', { yPercent: 0 }, {
+          yPercent: -8,
+          ease: 'none',
+          scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+        });
+
         // — PRODUCTS: pinned horizontal shelf —
         const track = document.querySelector('.products-track');
         const section = document.querySelector('.products-section');
