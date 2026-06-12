@@ -1,0 +1,1819 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Host-to-Host — Te cuento todo lo que aprendí siendo Superhost</title>
+  <meta name="description" content="9 años como Superhost en Colombia. Productos seleccionados por experiencia real. Descargá los 5 esenciales gratis.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Space+Grotesk:wght@300;400;500;600&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+  <script>
+    // Gate entrance-hidden states behind JS + motion preference so no-JS and
+    // reduced-motion visitors always see a fully rendered page.
+    (function () {
+      var params = new URLSearchParams(location.search);
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches || params.has('nomotion');
+      document.documentElement.classList.add(reduce ? 'nomotion' : 'motion');
+    })();
+  </script>
+  <style>
+    /* —— CONCEPT A · MOTION: THE EDITORIAL, DIRECTED ——
+       Structure: Mafe-voice hero → lead magnet → product shelf → problem → ecosystem → Mafe proof → FAQ → final CTA
+       Archetype: Kinfolk / Cereal · founder-led editorial landing page, now scroll-directed
+       Motion: GSAP 3 + ScrollTrigger + SplitText + Lenis smooth scroll
+       Type: Cormorant Garamond display + Space Grotesk body
+       Colour: Cream base · coral accents · ink text
+    */
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:   #FCF3E9;
+      --cream-d: #F0E2CF;
+      --coral:   #F39878;
+      --coral-d: #E8825F;
+      --periw:   #96A1D2;
+      --olive:   #989C6F;
+      --ink:     #403E3F;
+      --ink-bg:  #2B2826; /* dark section backgrounds */
+      --ink-s:   #6B6869;
+      --white:   #FDFCFA;
+    }
+
+    html { font-size: 62.5%; }
+    html.nomotion { scroll-behavior: smooth; }
+
+    /* Lenis smooth-scroll plumbing */
+    html.lenis, html.lenis body { height: auto; }
+    .lenis.lenis-smooth { scroll-behavior: auto !important; }
+    .lenis.lenis-stopped { overflow: hidden; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.6rem;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.025;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* Entrance-hidden states — motion mode only, revealed by GSAP */
+    html.motion .hero-left,
+    html.motion .hero-media,
+    html.motion .hero-note { visibility: hidden; }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      padding: 2.4rem 6.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: padding 0.5s cubic-bezier(0.32,0.72,0,1), background 0.5s cubic-bezier(0.32,0.72,0,1),
+                  backdrop-filter 0.5s, box-shadow 0.5s;
+    }
+
+    .nav--scrolled {
+      padding: 1.4rem 6.4rem;
+      background: rgba(252,243,233,0.82);
+      -webkit-backdrop-filter: blur(14px) saturate(1.2);
+      backdrop-filter: blur(14px) saturate(1.2);
+      box-shadow: 0 1px 0 rgba(64,62,63,0.07);
+    }
+
+    .nav-logo img { height: 4.2rem; transition: height 0.5s cubic-bezier(0.32,0.72,0,1); }
+    .nav--scrolled .nav-logo img { height: 3.4rem; }
+
+    .nav-links { display: flex; align-items: center; gap: 3.6rem; list-style: none; }
+    .nav-links a {
+      font-size: 1.3rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+      opacity: 0.6;
+      transition: opacity 0.3s;
+    }
+    .nav-links a:hover { opacity: 1; }
+
+    .nav-cta {
+      font-size: 1.35rem;
+      font-weight: 500;
+      padding: 1rem 2.6rem;
+      background: var(--ink);
+      color: var(--cream) !important;
+      opacity: 1 !important;
+      border-radius: 10rem;
+      transition: background 0.4s cubic-bezier(0.32,0.72,0,1) !important;
+    }
+    .nav-cta:hover { background: var(--coral-d) !important; }
+
+    /* ── HERO — Mafe's voice, full editorial spread ── */
+    .hero {
+      height: 100dvh;
+      max-height: 92rem;
+      min-height: fit-content; /* short viewports: grow instead of spilling into the marquee */
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      align-items: stretch;
+      padding-top: 10rem; /* clears the fixed nav */
+    }
+
+    .hero-left {
+      padding: 4rem 5.6rem 5.6rem 6.4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .eyebrow {
+      font-size: 1.15rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-s);
+      margin-bottom: 3.2rem;
+    }
+
+    .hero-h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(4.4rem, 5.2vw, 7.2rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-wrap: balance;
+      margin-bottom: 2.4rem;
+    }
+
+    .hero-h1 em { font-style: italic; color: var(--coral-d); }
+
+    .hero-sub {
+      font-size: 1.75rem;
+      color: var(--ink-s);
+      line-height: 1.7;
+      max-width: 40ch;
+      margin-bottom: 3.6rem;
+    }
+
+    .hero-ctas {
+      display: flex;
+      flex-direction: row;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 1.4rem 2.4rem;
+      background: var(--coral-d);
+      color: var(--white);
+      font-size: 1.5rem;
+      font-weight: 500;
+      border-radius: 2px;
+      transition: background 0.4s cubic-bezier(0.32,0.72,0,1), transform 0.25s;
+    }
+    .btn-primary:hover { background: var(--ink); transform: translateY(-1px); }
+    .btn-primary:active { transform: scale(0.98); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 1.4rem 2.4rem;
+      background: transparent;
+      color: var(--ink);
+      font-size: 1.5rem;
+      font-weight: 400;
+      border: 1px solid rgba(64,62,63,0.2);
+      border-radius: 2px;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .btn-secondary:hover { border-color: var(--ink); background: rgba(64,62,63,0.04); }
+
+    /* Hero right — photo + annotation. .hero-media carries the parallax,
+       .hero-img carries the entrance scale, the wrap clips both. */
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-media {
+      position: absolute;
+      inset: 0;
+    }
+
+    .hero-img {
+      width: 100%;
+      height: 112%; /* parallax headroom */
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .hero-img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, var(--cream) 0%, transparent 15%);
+    }
+
+    .hero-note {
+      position: absolute;
+      bottom: 4.8rem;
+      right: 4.8rem;
+      background: var(--white);
+      padding: 2rem 2.8rem;
+      border-left: 3px solid var(--coral);
+      max-width: 28rem;
+    }
+    .hero-note-q {
+      font-family: 'Caveat', cursive;
+      font-size: 1.9rem;
+      line-height: 1.35;
+      color: var(--ink);
+    }
+    .hero-note-a {
+      font-size: 1.2rem;
+      color: var(--ink-s);
+      margin-top: 0.8rem;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── MARQUEE — editorial ticker between hero and lead ── */
+    .marquee {
+      background: var(--cream);
+      border-top: 1px solid rgba(64,62,63,0.08);
+      border-bottom: 1px solid rgba(64,62,63,0.08);
+      padding: 2.2rem 0;
+      overflow: hidden;
+    }
+
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marquee 36s linear infinite;
+    }
+    .marquee:hover .marquee-track { animation-play-state: paused; }
+
+    .marquee-group {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .marquee-item {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 2.2rem;
+      font-weight: 300;
+      color: var(--ink-s);
+      white-space: nowrap;
+      padding: 0 2.4rem;
+    }
+
+    .marquee-dot {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+      background: var(--coral);
+      flex-shrink: 0;
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    html.nomotion .marquee-track { animation: none; }
+
+    /* ── SECTION BASE ── */
+    .section { padding: 12rem 6.4rem; }
+
+    .s-label {
+      font-size: 1.15rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-s);
+      margin-bottom: 2.4rem;
+    }
+
+    .s-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.6rem, 4vw, 5.6rem);
+      font-weight: 300;
+      line-height: 1.08;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      text-wrap: balance;
+    }
+    .s-h2 em { font-style: italic; color: var(--coral-d); }
+
+    .s-body {
+      font-size: 1.7rem;
+      color: var(--ink-s);
+      line-height: 1.75;
+      max-width: 54ch;
+    }
+
+    /* ── LEAD MAGNET ── */
+    .lead {
+      background: var(--ink-bg);
+      padding: 12rem 6.4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8rem;
+      align-items: center;
+    }
+
+    .lead-label { color: rgba(252,243,233,0.45); margin-bottom: 2.4rem; }
+
+    .lead-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.6rem, 4vw, 5.6rem);
+      font-weight: 300;
+      line-height: 1.08;
+      letter-spacing: -0.015em;
+      color: var(--cream);
+      text-wrap: balance;
+      margin-bottom: 2.4rem;
+    }
+    .lead-h2 em { font-style: italic; color: var(--coral); }
+
+    .lead-p { font-size: 1.7rem; color: rgba(252,243,233,0.6); line-height: 1.75; max-width: 46ch; }
+
+    .lead-form-hand {
+      font-family: 'Caveat', cursive;
+      font-size: 2.4rem;
+      color: var(--coral);
+      margin-bottom: 2.8rem;
+      line-height: 1.2;
+    }
+
+    .form-row { display: flex; gap: 1.2rem; align-items: flex-end; }
+
+    .form-field { flex: 1; display: flex; flex-direction: column; gap: 0.6rem; }
+
+    .form-field label {
+      font-size: 1.1rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(252,243,233,0.35);
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 1.2rem 0;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(252,243,233,0.25);
+      color: var(--cream);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.6rem;
+      outline: none;
+      border-radius: 0;
+      transition: border-color 0.3s;
+    }
+    .form-input::placeholder { color: rgba(252,243,233,0.25); }
+    .form-input:focus { border-bottom-color: var(--coral); }
+
+    .form-btn {
+      padding: 1.4rem 2.4rem;
+      background: var(--coral-d);
+      color: var(--white);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.45rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.4s cubic-bezier(0.32,0.72,0,1);
+      flex-shrink: 0;
+    }
+    .form-btn:hover { background: var(--coral); }
+
+    .form-privacy { font-size: 1.2rem; color: rgba(252,243,233,0.3); margin-top: 1.6rem; }
+    .form-privacy a { text-decoration: underline; color: rgba(252,243,233,0.4); }
+
+    /* ── PRODUCTS — pinned horizontal shelf on desktop ── */
+    .products-section {
+      background: var(--cream);
+      padding: 12rem 0;
+      overflow: hidden;
+    }
+
+    .products-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: end;
+      margin-bottom: 7rem;
+      padding: 0 6.4rem;
+    }
+
+    .products-track {
+      display: flex;
+      gap: 2.4rem;
+      width: max-content;
+      padding: 0 6.4rem;
+      will-change: transform;
+    }
+
+    .prod {
+      width: 32rem;
+      flex-shrink: 0;
+    }
+
+    /* While pinned, the whole section must fit the viewport; center it and
+       let any shortfall crop symmetrically. */
+    @media (min-width: 769px) {
+      html.motion .products-section {
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      html.motion .products-header { margin-bottom: 5.6rem; }
+    }
+
+    .prod-img-wrap { overflow: hidden; background: var(--cream-d); }
+    .prod-img {
+      width: 100%;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.9s cubic-bezier(0.32,0.72,0,1);
+    }
+    .prod:hover .prod-img { transform: scale(1.05); }
+
+    .prod-body { padding: 2rem 0 2.8rem; }
+
+    .prod-tag {
+      font-family: 'Caveat', cursive;
+      font-size: 1.5rem;
+      color: var(--coral-d);
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+
+    .prod-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 0.6rem;
+      line-height: 1.2;
+    }
+
+    .prod-note { font-size: 1.4rem; font-style: italic; color: var(--ink-s); margin-bottom: 1.6rem; }
+
+    .prod-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1.4rem;
+      border-top: 1px solid rgba(64,62,63,0.08);
+    }
+
+    .prod-price { font-size: 1.4rem; font-weight: 500; color: var(--ink); }
+
+    .prod-cta {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--coral-d);
+      text-decoration: underline;
+      text-decoration-color: var(--coral-d);
+      text-underline-offset: 3px;
+      transition: color 0.3s, text-decoration-color 0.3s;
+    }
+    .prod-cta:hover { color: var(--ink); text-decoration-color: var(--ink); }
+
+    /* End-of-shelf card — the payoff at the end of the horizontal scroll */
+    .prod-end {
+      display: flex;
+    }
+    .prod-end-link {
+      flex: 1;
+      background: var(--cream-d);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 3.6rem;
+      aspect-ratio: 1/1;
+      transition: background 0.5s cubic-bezier(0.32,0.72,0,1);
+    }
+    .prod-end-link:hover { background: #E9D7BE; }
+    .prod-end-serif {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.4rem;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.15;
+      color: var(--ink);
+      text-wrap: balance;
+    }
+
+    .btn-shop {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 1.6rem 3.6rem;
+      border: 1px solid var(--ink);
+      color: var(--ink);
+      font-size: 1.5rem;
+      font-weight: 500;
+      border-radius: 2px;
+      transition: background 0.4s cubic-bezier(0.32,0.72,0,1), color 0.4s;
+    }
+    .btn-shop:hover, .prod-end-link:hover .btn-shop { background: var(--ink); color: var(--cream); }
+
+    .products-footer {
+      margin-top: 6.4rem;
+      text-align: center;
+      display: none; /* desktop uses the end-of-shelf card */
+    }
+
+    /* Static / reduced-motion fallback: shelf becomes a wrapping grid */
+    html.nomotion .products-track {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      width: auto;
+      gap: 2rem;
+    }
+    html.nomotion .prod { width: auto; }
+    html.nomotion .prod-end { display: none; }
+    html.nomotion .products-footer { display: block; }
+
+    /* ── PROBLEM — pinned headline, scrolling evidence ── */
+    .problem {
+      background: var(--ink-bg);
+      padding: 16rem 6.4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .problem::after {
+      content: '';
+      position: absolute;
+      width: 60rem;
+      height: 60rem;
+      top: -30rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: radial-gradient(circle, rgba(243, 152, 120, 0.04) 0%, rgba(243, 152, 120, 0) 70%);
+      pointer-events: none;
+    }
+
+    /* Still life anchored bottom-left as decorative background; content sits above it. */
+    .problem-bg {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: auto;
+      max-height: 100%;
+      object-fit: cover;
+      object-position: left bottom;
+      z-index: 0;
+      pointer-events: none;
+      -webkit-mask-image: linear-gradient(to top, #000 72%, transparent 100%);
+      mask-image: linear-gradient(to top, #000 72%, transparent 100%);
+    }
+
+    .problem-inner {
+      max-width: 124rem;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .problem-layout {
+      display: grid;
+      grid-template-columns: 2fr 3fr;
+      gap: 8rem;
+      align-items: start;
+    }
+
+    .problem-left { text-align: left; }
+
+    .problem-right { padding-bottom: 10rem; }
+
+    .problem-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(4rem, 4.6vw, 6.4rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: rgba(252,243,233,0.4);
+      text-wrap: balance;
+      margin-bottom: 2.4rem;
+    }
+    .problem-h2 strong { font-weight: 300; color: var(--cream); }
+    .problem-h2 em { font-style: italic; font-weight: 300; color: var(--coral); }
+
+    .problem-sub {
+      font-size: 1.65rem;
+      color: rgba(252,243,233,0.45);
+      line-height: 1.75;
+      max-width: 48ch;
+    }
+    .problem-sub strong { color: var(--cream); font-weight: 500; }
+
+    .pp-item {
+      display: grid;
+      grid-template-columns: 9rem 1fr;
+      align-items: start;
+      padding: 4.4rem 0;
+    }
+    .pp-item:first-child { padding-top: 0; }
+    .pp-item:last-child { padding-bottom: 0; }
+    .pp-item + .pp-item { border-top: 1px solid rgba(252,243,233,0.1); }
+
+    .pp-body {
+      border-left: 1px solid rgba(252,243,233,0.1);
+      padding-left: 3.2rem;
+    }
+
+    .pp-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 5.6rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--coral);
+      display: block;
+      line-height: 1;
+    }
+
+    .pp-h {
+      font-size: 1.95rem;
+      font-weight: 500;
+      color: var(--cream);
+      margin-bottom: 1.4rem;
+      letter-spacing: -0.01em;
+    }
+
+    .pp-p {
+      font-size: 1.5rem;
+      color: rgba(252,243,233,0.45);
+      line-height: 1.75;
+      max-width: 36ch;
+    }
+    .pp-p strong { color: rgba(252,243,233,0.8); font-weight: 500; }
+    .pp-p + .pp-p { margin-top: 1.4rem; }
+
+    /* ── ECOSYSTEM REVEAL — Qué es Host-to-Host ── */
+    .ecosystem {
+      background: #3B393A;
+      padding: 16rem 6.4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .ecosystem::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: rgba(252,243,233,0.05);
+    }
+
+    .ecosystem-inner {
+      max-width: 110rem;
+      margin: 0 auto;
+    }
+
+    .eco-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(4.4rem, 5.5vw, 7.2rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--cream);
+      margin-bottom: 2.8rem;
+      text-wrap: balance;
+    }
+    .eco-h2 em { font-style: italic; color: var(--coral); }
+
+    .eco-sub {
+      font-size: 2rem;
+      color: rgba(252,243,233,0.75);
+      line-height: 1.75;
+      max-width: 52ch;
+      margin-bottom: 8rem;
+    }
+    .eco-sub .w { display: inline-block; }
+
+    .eco-pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.8rem;
+    }
+
+    /* Double-Bezel Nested Card Architecture for Dark Ink Sections */
+    .db-outer-dark {
+      background: rgba(252, 243, 233, 0.015);
+      border: 1px solid rgba(252, 243, 233, 0.05);
+      padding: 1.2rem;
+      border-radius: 2.4rem;
+      transition: border-color 0.4s cubic-bezier(0.32, 0.72, 0, 1), transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    .db-outer-dark:hover {
+      border-color: rgba(243, 152, 120, 0.25);
+      transform: translateY(-4px);
+    }
+    .db-inner-dark {
+      background: rgba(252, 243, 233, 0.015);
+      border: 1px solid rgba(252, 243, 233, 0.05);
+      border-radius: calc(2.4rem - 1.2rem);
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.03);
+      padding: 3.2rem 2.8rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: background 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    .db-outer-dark:hover .db-inner-dark {
+      background: rgba(252, 243, 233, 0.03);
+    }
+
+    .eco-pillar-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4.8rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--coral);
+      opacity: 0.85;
+      line-height: 1;
+      margin-bottom: 2.4rem;
+      display: block;
+      transition: transform 0.4s cubic-bezier(0.32,0.72,0,1);
+    }
+    .eco-pillar:hover .eco-pillar-num {
+      transform: translateY(-4px) scale(1.05);
+    }
+
+    .eco-pillar-h {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4rem;
+      font-weight: 400;
+      color: var(--cream);
+      margin-bottom: 1.4rem;
+      letter-spacing: -0.01em;
+    }
+
+    .eco-pillar-p {
+      font-size: 1.5rem;
+      color: rgba(252,243,233,0.42);
+      line-height: 1.75;
+      margin-bottom: 2.8rem;
+    }
+
+    .eco-pillar-cta {
+      display: inline-block;
+      margin-top: auto;
+      padding: 1.2rem 2.4rem;
+      align-self: flex-start;
+      border: 1px solid rgba(252,243,233,0.25);
+      border-radius: 2px;
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: var(--cream);
+      transition: background 0.4s cubic-bezier(0.32,0.72,0,1), color 0.4s, border-color 0.4s;
+    }
+    .eco-pillar-cta:hover {
+      background: var(--cream);
+      border-color: var(--cream);
+      color: var(--ink);
+    }
+
+    /* Double-Bezel Nested Card Architecture for Light Cream Sections */
+    .db-outer-light {
+      background: rgba(64, 62, 63, 0.015);
+      border: 1px solid rgba(64, 62, 63, 0.05);
+      padding: 1.2rem;
+      border-radius: 2.4rem;
+      transition: border-color 0.4s cubic-bezier(0.32, 0.72, 0, 1), transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    .db-inner-light {
+      background: var(--white);
+      border: 1px solid rgba(64, 62, 63, 0.04);
+      border-radius: calc(2.4rem - 1.2rem);
+      box-shadow: 0 4px 30px rgba(64, 62, 63, 0.015), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      padding: 3.6rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* —— BUTTON-IN-BUTTON NESTED CTA —— */
+    .btn-nested {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      padding: 0.8rem 0.8rem 0.8rem 2.8rem;
+      background: var(--ink);
+      color: var(--cream) !important;
+      font-size: 1.5rem;
+      font-weight: 500;
+      border-radius: 10rem;
+      border: 1px solid rgba(252, 243, 233, 0.1);
+      cursor: pointer;
+      width: fit-content;
+      transition: background 0.4s cubic-bezier(0.32, 0.72, 0, 1), border-color 0.4s;
+      will-change: transform;
+    }
+    .btn-nested:hover {
+      background: #2D2C2C;
+      border-color: rgba(243, 152, 120, 0.3);
+    }
+    .btn-nested-icon {
+      width: 4rem;
+      height: 4rem;
+      background: var(--coral-d);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1), background 0.4s;
+    }
+    .btn-nested:hover .btn-nested-icon {
+      transform: scale(1.05);
+      background: var(--coral);
+    }
+    .btn-nested-icon svg {
+      width: 1.8rem;
+      height: 1.8rem;
+      stroke-width: 2.5;
+      transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    .btn-nested:hover .btn-nested-icon svg {
+      transform: translate(2px, -2px);
+    }
+
+    /* ── MAFE — Proof ── */
+    .mafe {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: 10rem;
+      align-items: center;
+      padding: 16rem 6.4rem;
+      background: var(--cream);
+    }
+
+    .mafe-img-wrap {
+      position: relative;
+    }
+
+    .mafe-media {
+      overflow: hidden;
+      border-radius: 1.2rem;
+    }
+
+    .mafe-img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+    }
+
+    .mafe-badge {
+      position: absolute;
+      bottom: -2.4rem;
+      right: -2.4rem;
+      width: 12rem;
+      height: 12rem;
+      border-radius: 50%;
+      background: var(--periw);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(150, 161, 210, 0.25);
+      transform: rotate(-4deg);
+      transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    .mafe-img-wrap:hover .mafe-badge {
+      transform: rotate(2deg) scale(1.05);
+    }
+    .mafe-badge-n {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.6rem;
+      font-weight: 300;
+      line-height: 1;
+      color: var(--white);
+    }
+    .mafe-badge-l { font-size: 1.1rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(253,252,250,0.75); margin-top: 0.3rem; }
+
+    .mafe-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .mafe-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.4rem, 3.8vw, 5.2rem);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      margin-bottom: 3.2rem;
+      text-wrap: balance;
+    }
+    .mafe-h2 em { font-style: italic; color: var(--coral-d); }
+
+    .mafe-p { font-size: 1.7rem; color: var(--ink-s); line-height: 1.8; max-width: 50ch; margin-bottom: 2.4rem; }
+
+    .mafe-quote {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 2.8rem;
+      color: var(--ink);
+      margin: 4rem 0;
+      line-height: 1.35;
+      position: relative;
+      padding-left: 3.2rem;
+      border-left: 3px solid var(--coral);
+      max-width: 48ch;
+    }
+
+    /* ── FAQ ── */
+    .faq {
+      padding: 16rem 6.4rem;
+      background: var(--cream-d);
+    }
+
+    .faq-grid {
+      max-width: 80rem;
+      margin: 6.4rem auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+    }
+
+    .faq-item {
+      border-radius: 2.4rem;
+    }
+    .faq-item.db-outer-light {
+      padding: 0.8rem;
+      background: rgba(64, 62, 63, 0.015);
+      border: 1px solid rgba(64, 62, 63, 0.04);
+    }
+    .faq-item .db-inner-light {
+      padding: 0;
+      border-radius: calc(2.4rem - 0.8rem);
+      transition: border-color 0.4s, background 0.4s;
+    }
+    .faq-item.open .db-inner-light {
+      border-left: 3px solid var(--periw);
+      background: var(--white);
+    }
+
+    .faq-btn {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2.4rem 3.2rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      gap: 2.4rem;
+      border-radius: calc(2.4rem - 0.8rem);
+      transition: background 0.3s;
+    }
+    .faq-btn:hover {
+      background: rgba(64, 62, 63, 0.02);
+    }
+    .faq-item.open .faq-btn {
+      background: rgba(150, 161, 210, 0.04);
+      border-radius: calc(2.4rem - 0.8rem) calc(2.4rem - 0.8rem) 0 0;
+    }
+
+    .faq-q {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.7rem;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.4;
+    }
+
+    .faq-chevron {
+      flex-shrink: 0;
+      width: 2rem;
+      height: 2rem;
+      color: var(--coral);
+      transition: transform 0.35s cubic-bezier(0.32,0.72,0,1);
+    }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+
+    .faq-body {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.35s cubic-bezier(0.32,0.72,0,1);
+    }
+    .faq-item.open .faq-body { grid-template-rows: 1fr; }
+
+    .faq-body-inner { overflow: hidden; }
+
+    .faq-a {
+      font-size: 1.55rem;
+      color: var(--ink-s);
+      line-height: 1.7;
+      padding: 0 3.2rem 2.8rem;
+    }
+
+    /* ── FINAL CTA — massive editorial close ── */
+    .final-cta {
+      background: var(--cream);
+      padding: 18rem 6.4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .final-cta::before {
+      content: '';
+      position: absolute;
+      width: 72rem;
+      height: 72rem;
+      bottom: -48rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: radial-gradient(circle, rgba(243,152,120,0.1) 0%, rgba(243,152,120,0) 70%);
+      pointer-events: none;
+    }
+
+    .final-cta-h {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(4.8rem, 7vw, 9.6rem);
+      font-weight: 300;
+      line-height: 1.02;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      text-wrap: balance;
+      max-width: 110rem;
+      margin: 0 auto 4.8rem;
+    }
+    .final-cta-h em { font-style: italic; color: var(--coral-d); }
+
+    .final-cta .btn-nested { margin: 0 auto; }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--ink-bg);
+      padding: 10rem 6.4rem 4.8rem;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 6.4rem;
+      padding-bottom: 6rem;
+      border-bottom: 1px solid rgba(252,243,233,0.08);
+      margin-bottom: 4rem;
+    }
+
+    .footer-logo img { height: 4.2rem; margin-bottom: 2.4rem; }
+    .footer-tag { font-size: 1.55rem; color: rgba(252,243,233,0.45); line-height: 1.7; max-width: 38ch; }
+
+    .f-h { font-size: 1.1rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(252,243,233,0.28); margin-bottom: 2.8rem; }
+    .f-links { list-style: none; }
+    .f-links li { margin-bottom: 1.4rem; }
+    .f-links a {
+      font-size: 1.5rem;
+      color: rgba(252,243,233,0.55);
+      display: inline-block;
+      transition: color 0.3s cubic-bezier(0.32,0.72,0,1), transform 0.3s cubic-bezier(0.32,0.72,0,1);
+    }
+    .f-links a:hover {
+      color: var(--coral);
+      transform: translateX(4px);
+    }
+
+    .footer-bt { display: flex; justify-content: space-between; align-items: center; }
+    .f-copy { font-size: 1.3rem; color: rgba(252,243,233,0.25); }
+    .f-leg { display: flex; gap: 2.4rem; }
+    .f-leg a { font-size: 1.3rem; color: rgba(252,243,233,0.25); transition: color 0.3s; }
+    .f-leg a:hover { color: rgba(252,243,233,0.5); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1100px) {
+      .problem-layout { gap: 5.6rem; }
+    }
+
+    @media (max-width: 768px) {
+      html { font-size: 56.25%; }
+      .nav { padding: 2rem 2.4rem; }
+      .nav--scrolled { padding: 1.2rem 2.4rem; }
+      .nav-links { display: none; }
+
+      .hero { grid-template-columns: 1fr; padding-top: 6rem; height: auto; max-height: none; }
+      .hero-left { padding: 3.2rem 2.4rem 4rem; }
+      .hero-right { min-height: 64vw; }
+      .hero-ctas { flex-direction: column; }
+      .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+      .hero-img-overlay { background: linear-gradient(to bottom, transparent 50%, var(--cream) 100%); }
+      .hero-note { right: 2rem; bottom: 2rem; }
+
+      .marquee-item { font-size: 1.9rem; padding: 0 1.8rem; }
+
+      .section { padding: 8rem 2.4rem; }
+
+      .lead { grid-template-columns: 1fr; padding: 8rem 2.4rem; gap: 5.6rem; }
+      .form-row { flex-direction: column; align-items: stretch; }
+
+      .products-section { padding: 8rem 0; }
+      .products-header { grid-template-columns: 1fr; padding: 0 2.4rem; margin-bottom: 4.8rem; }
+      .products-track, html.nomotion .products-track {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: auto;
+        gap: 2rem;
+        padding: 0 2.4rem;
+      }
+      .prod { width: auto; }
+      .prod-end { display: none; }
+      .products-footer { display: block; padding: 0 2.4rem; }
+
+      .problem { padding: 10rem 2.4rem 0; }
+      .problem-layout { grid-template-columns: 1fr; gap: 5.6rem; }
+      .problem-right { padding-bottom: 0; }
+      .pp-item { grid-template-columns: 6.4rem 1fr; padding: 3.2rem 0; }
+      .pp-num { font-size: 4.4rem; }
+      .pp-body { padding-left: 2rem; }
+      .problem-bg {
+        position: static;
+        width: 100%;
+        height: auto;
+        margin-top: 8rem;
+      }
+
+      .ecosystem { padding: 10rem 2.4rem; }
+      .eco-pillars-grid { grid-template-columns: 1fr; gap: 3.6rem; }
+
+      .mafe { grid-template-columns: 1fr; padding: 10rem 2.4rem; gap: 6rem; }
+      .mafe-badge { right: 0; }
+      .mafe-quote { padding-left: 2.4rem; margin: 3rem 0; font-size: 2.4rem; }
+
+      .faq { padding: 10rem 2.4rem; }
+      .faq-grid { margin-top: 4rem; }
+      .faq-btn { padding: 2rem 2.4rem; }
+      .faq-a { padding: 0 2.4rem 2rem; }
+
+      .final-cta { padding: 12rem 2.4rem; }
+
+      .footer { padding: 8rem 2.4rem 4rem; }
+      .footer-top { grid-template-columns: 1fr; gap: 4rem; }
+      .footer-bt { flex-direction: column; gap: 1.6rem; }
+      .f-leg { flex-direction: column; align-items: center; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="/" class="nav-logo"><img src="assets/logo-lockup-ink.png" alt="Host-to-Host"></a>
+    <ul class="nav-links">
+      <li><a href="#">Recursos</a></li>
+      <li><a href="#tienda">Tienda</a></li>
+      <li><a href="#">Coaching</a></li>
+      <li><a href="#" class="nav-cta">Ir a la tienda</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO — Mafe's voice -->
+  <header class="hero">
+    <div class="hero-left">
+      <span class="eyebrow">Superhost · Medellín · 9 años</span>
+      <h1 class="hero-h1">
+        Te voy a contar todo<br>lo que aprendí siendo<br><em>Superhost.</em>
+      </h1>
+      <p class="hero-sub">
+        Para simplificar tu vida como anfitrión. Productos seleccionados por experiencia real. Sin importaciones. Disponibles en Colombia.
+      </p>
+      <div class="hero-ctas">
+        <a href="#lead" class="btn-primary">Descargá los 5 esenciales ↓</a>
+        <a href="#tienda" class="btn-secondary">Ver la tienda →</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-media">
+        <img class="hero-img"
+          src="assets/hero-cocina.png"
+          alt="Interior de Airbnb en Colombia">
+      </div>
+      <div class="hero-img-overlay"></div>
+      <div class="hero-note">
+        <p class="hero-note-q">"Aprendí a las malas — para que vos no tengas que aprender solo."</p>
+        <p class="hero-note-a">— Mafe</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- MARQUEE — editorial ticker -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <div class="marquee-group">
+        <span class="marquee-item">9 años Superhost</span><span class="marquee-dot"></span>
+        <span class="marquee-item">Medellín · Guatapé</span><span class="marquee-dot"></span>
+        <span class="marquee-item">Probado en propiedades reales</span><span class="marquee-dot"></span>
+        <span class="marquee-item">Sin importaciones</span><span class="marquee-dot"></span>
+        <span class="marquee-item">Disponible en Colombia</span><span class="marquee-dot"></span>
+        <span class="marquee-item">Curaduría de Mafe</span><span class="marquee-dot"></span>
+      </div>
+      <div class="marquee-group">
+        <span class="marquee-item">9 años Superhost</span><span class="marquee-dot"></span>
+        <span class="marquee-item">Medellín · Guatapé</span><span class="marquee-dot"></span>
+        <span class="marquee-item">Probado en propiedades reales</span><span class="marquee-dot"></span>
+        <span class="marquee-item">Sin importaciones</span><span class="marquee-dot"></span>
+        <span class="marquee-item">Disponible en Colombia</span><span class="marquee-dot"></span>
+        <span class="marquee-item">Curaduría de Mafe</span><span class="marquee-dot"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEAD MAGNET -->
+  <section class="lead" id="lead">
+    <div class="lead-left" data-reveal>
+      <p class="s-label lead-label">Guía gratuita</p>
+      <h2 class="lead-h2">9 años de errores caros.<br><em>Resumidos en 5 productos.</em></h2>
+      <p class="lead-p">Cada uno de estos productos lo aprendí después de una estadía que salió mal. Te los mando gratis — para que no tengas que descubrirlos a las malas.</p>
+    </div>
+    <div class="lead-right" data-reveal>
+      <div class="lead-form-wrap">
+        <p class="lead-form-hand">"Ojalá alguien me los hubiese dicho al principio."</p>
+        <form>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="lead-email">Tu correo</label>
+              <input class="form-input" id="lead-email" type="email" placeholder="mafe@ejemplo.com" aria-label="Correo electrónico">
+            </div>
+            <button class="form-btn" type="submit">Quiero la lista →</button>
+          </div>
+        </form>
+        <p class="form-privacy">Al suscribirte aceptás la <a href="#">política de privacidad</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS — pinned horizontal shelf -->
+  <section class="products-section" id="tienda">
+    <div class="products-header">
+      <div>
+        <p class="s-label">La tienda</p>
+        <h2 class="s-h2">Lo que uso en<br>mis propios <em>Airbnbs.</em></h2>
+      </div>
+      <p class="s-body">Cada producto pasó por mis propiedades antes de llegar a la tuya. Si no lo volvería a comprar, no está en la tienda.</p>
+    </div>
+
+    <div class="products-track">
+      <article class="prod">
+        <div class="prod-img-wrap">
+          <img class="prod-img"
+            src="assets/producto-copas.jpg"
+            alt="Copa de vino dorada sobre mesa de madera oscura, a la luz de una vela">
+        </div>
+        <div class="prod-body">
+          <span class="prod-tag">Mafe's Pick</span>
+          <h3 class="prod-name">Copas sin drama</h3>
+          <p class="prod-note">Sobreviven cientos de estadías.</p>
+          <div class="prod-foot">
+            <span class="prod-price">100.000 COP</span>
+            <a href="#" class="prod-cta">Ver →</a>
+          </div>
+        </div>
+      </article>
+      <article class="prod">
+        <div class="prod-img-wrap">
+          <img class="prod-img"
+            src="assets/producto-petalos.jpg"
+            alt="Pétalos de rosa rojos sobre una cama tendida en tonos crema">
+        </div>
+        <div class="prod-body">
+          <span class="prod-tag">Would Buy Again</span>
+          <h3 class="prod-name">Pétalos que celebran</h3>
+          <p class="prod-note">De reserva a ocasión especial.</p>
+          <div class="prod-foot">
+            <span class="prod-price">25.000 COP</span>
+            <a href="#" class="prod-cta">Ver →</a>
+          </div>
+        </div>
+      </article>
+      <article class="prod">
+        <div class="prod-img-wrap">
+          <img class="prod-img"
+            src="assets/producto-toallas.jpg"
+            alt="Toallas desmaquilladoras negras bordadas con la palabra Makeup, junto al lavamanos">
+        </div>
+        <div class="prod-body">
+          <span class="prod-tag">Available Locally</span>
+          <h3 class="prod-name">Toallas desmaquilladoras</h3>
+          <p class="prod-note">Sin manchas permanentes.</p>
+          <div class="prod-foot">
+            <span class="prod-price">15.000 COP</span>
+            <a href="#" class="prod-cta">Ver →</a>
+          </div>
+        </div>
+      </article>
+      <article class="prod">
+        <div class="prod-img-wrap">
+          <img class="prod-img"
+            src="assets/producto-cubiertos.jpg"
+            alt="Set de cubiertos dorados sobre mesa de madera oscura con plato negro">
+        </div>
+        <div class="prod-body">
+          <span class="prod-tag">Host Favourite</span>
+          <h3 class="prod-name">Cubiertos negros</h3>
+          <p class="prod-note">El detalle que diferencia.</p>
+          <div class="prod-foot">
+            <span class="prod-price">98.000 COP</span>
+            <a href="#" class="prod-cta">Ver →</a>
+          </div>
+        </div>
+      </article>
+      <article class="prod prod-end">
+        <a href="#" class="prod-end-link">
+          <span class="prod-end-serif">Esto es solo el comienzo.</span>
+          <span class="btn-shop">Ver toda la tienda →</span>
+        </a>
+      </article>
+    </div>
+
+    <div class="products-footer">
+      <a href="#" class="btn-shop">Ver toda la tienda →</a>
+    </div>
+  </section>
+
+  <!-- PROBLEM — pinned headline, scrolling evidence -->
+  <section class="problem" id="problema">
+    <div class="problem-inner">
+
+      <div class="problem-layout">
+
+        <div class="problem-left">
+          <h2 class="problem-h2">Ser buen anfitrión<br><strong>no alcanza.</strong></h2>
+          <p class="problem-sub">El conocimiento que nadie te enseña, <strong>lo pagás de tu bolsillo</strong> — y se nota en tus reseñas.</p>
+        </div>
+
+        <div class="problem-right">
+
+          <div class="pp-item">
+            <span class="pp-num">01</span>
+            <div class="pp-body">
+              <h3 class="pp-h">Todo está disperso</h3>
+              <p class="pp-p">Toallas en un lugar.<br>Copas en otro.<br>Amenities online.</p>
+              <p class="pp-p">Equipar una propiedad termina siendo un proyecto aparte.</p>
+            </div>
+          </div>
+
+          <div class="pp-item">
+            <span class="pp-num">02</span>
+            <div class="pp-body">
+              <h3 class="pp-h">Los costos son invisibles</h3>
+              <p class="pp-p">Envíos.<br>Aranceles.<br>IVA.</p>
+              <p class="pp-p">El precio real aparece después.</p>
+            </div>
+          </div>
+
+          <div class="pp-item">
+            <span class="pp-num">03</span>
+            <div class="pp-body">
+              <h3 class="pp-h">La calidad se aprende a prueba y error</h3>
+              <p class="pp-p">No sabés si va a durar.<br>No sabés si va a funcionar.</p>
+              <p class="pp-p">Y los errores salen caros.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <img class="problem-bg" src="assets/problema-still-life.png" alt="" aria-hidden="true">
+  </section>
+
+  <!-- ECOSYSTEM REVEAL — Qué es Host-to-Host -->
+  <section class="ecosystem" id="que-es">
+    <div class="ecosystem-inner">
+      <h2 class="eco-h2">Una forma más simple<br>de ser <em>anfitrión.</em></h2>
+      <p class="eco-sub">Ya hicimos la investigación. Los proveedores, los productos, los errores. Para que vos no tengas que empezar desde cero.</p>
+
+      <div class="eco-pillars-grid">
+
+        <div class="eco-pillar db-outer-dark">
+          <div class="db-inner-dark">
+            <span class="eco-pillar-num">01</span>
+            <h3 class="eco-pillar-h">Productos</h3>
+            <p class="eco-pillar-p">Seleccionados después de años de uso real en propiedades activas. Diseñados para hospitalidad, no para el hogar.</p>
+            <a href="https://tienda.hosttohost.co/" class="eco-pillar-cta">Ver la tienda →</a>
+          </div>
+        </div>
+
+        <div class="eco-pillar db-outer-dark">
+          <div class="db-inner-dark">
+            <span class="eco-pillar-num">02</span>
+            <h3 class="eco-pillar-h">Recursos</h3>
+            <p class="eco-pillar-p">Guías, listas y contenido semanal sobre lo que funciona en el hosting colombiano. Sin teoría. Sin relleno.</p>
+            <a href="/recursos" class="eco-pillar-cta">Ver recursos →</a>
+          </div>
+        </div>
+
+        <div class="eco-pillar db-outer-dark">
+          <div class="db-inner-dark">
+            <span class="eco-pillar-num">03</span>
+            <h3 class="eco-pillar-h">Coaching</h3>
+            <p class="eco-pillar-p">Para quienes quieren acompañamiento directo. La misma lógica aplicada a tu propiedad, con alguien que ya recorrió el camino.</p>
+            <a href="/coaching" class="eco-pillar-cta">Ver coaching →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- MAFE — Proof the system works -->
+  <section class="mafe" id="sobre">
+    <div class="mafe-img-wrap db-outer-light">
+      <div class="db-inner-light mafe-media" style="padding: 0;">
+        <img class="mafe-img"
+          src="assets/sobre-mafe.jpg"
+          alt="Mafe, fundadora de Host-to-Host">
+      </div>
+      <div class="mafe-badge"><span class="mafe-badge-n">9</span><span class="mafe-badge-l">Años</span></div>
+    </div>
+    <div class="mafe-content">
+      <h2 class="mafe-h2">Nueve años de errores.<br><em>Para que no sean los tuyos.</em></h2>
+      <p class="mafe-p">Arquitecta de formación, anfitriona por vocación. Kabine en Guatapé fue la primera propiedad. Hoy son cuatro en Medellín. Todo lo que está en Host-to-Host pasó primero por mis propias habitaciones.</p>
+      <p class="mafe-p">No construí esto para vender productos. Lo construí porque pasé demasiados fines de semana buscando lo que ahora podés encontrar en un lugar.</p>
+      <blockquote class="mafe-quote">"Un espacio bonito y un espacio que funciona no son lo mismo."</blockquote>
+      <a href="#" class="btn-nested" data-magnetic>
+        <span>Escribime por WhatsApp</span>
+        <span class="btn-nested-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <h2 class="s-h2" style="text-align: center;">Lo que más<br>nos <em>preguntan.</em></h2>
+    <div class="faq-grid">
+
+      <div class="faq-item db-outer-light">
+        <div class="db-inner-light">
+          <button class="faq-btn" aria-expanded="false">
+            <span class="faq-q">¿Hacen envíos a toda Colombia?</span>
+            <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"/></svg>
+          </button>
+          <div class="faq-body"><div class="faq-body-inner"><p class="faq-a">Sí. Trabajamos con operadores logísticos que cubren las principales ciudades. Los tiempos varían según el destino.</p></div></div>
+        </div>
+      </div>
+
+      <div class="faq-item db-outer-light">
+        <div class="db-inner-light">
+          <button class="faq-btn" aria-expanded="false">
+            <span class="faq-q">¿Tienen precios especiales para volumen?</span>
+            <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"/></svg>
+          </button>
+          <div class="faq-body"><div class="faq-body-inner"><p class="faq-a">Si tenés más de una propiedad o necesitás cantidades mayores, escribinos por WhatsApp y te armamos una cotización.</p></div></div>
+        </div>
+      </div>
+
+      <div class="faq-item db-outer-light">
+        <div class="db-inner-light">
+          <button class="faq-btn" aria-expanded="false">
+            <span class="faq-q">¿Qué métodos de pago aceptan?</span>
+            <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"/></svg>
+          </button>
+          <div class="faq-body"><div class="faq-body-inner"><p class="faq-a">Tarjeta de crédito, débito, y transferencias bancarias. Todo procesado de forma segura a través de la plataforma.</p></div></div>
+        </div>
+      </div>
+
+      <div class="faq-item db-outer-light">
+        <div class="db-inner-light">
+          <button class="faq-btn" aria-expanded="false">
+            <span class="faq-q">¿Cómo sé que los productos son de buena calidad?</span>
+            <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"/></svg>
+          </button>
+          <div class="faq-body"><div class="faq-body-inner"><p class="faq-a">Cada producto pasó por nuestras propias propiedades antes de entrar a la tienda. Si no lo volvería a comprar, no lo vendemos.</p></div></div>
+        </div>
+      </div>
+
+      <div class="faq-item db-outer-light">
+        <div class="db-inner-light">
+          <button class="faq-btn" aria-expanded="false">
+            <span class="faq-q">¿Qué garantías tienen los productos?</span>
+            <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"/></svg>
+          </button>
+          <div class="faq-body"><div class="faq-body-inner"><p class="faq-a">Si algún producto llega en mal estado o no es lo que esperabas, nos escribís y lo resolvemos. Sin vueltas.</p></div></div>
+        </div>
+      </div>
+
+      <div class="faq-item db-outer-light">
+        <div class="db-inner-light">
+          <button class="faq-btn" aria-expanded="false">
+            <span class="faq-q">¿Cuándo empieza el coaching?</span>
+            <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"/></svg>
+          </button>
+          <div class="faq-body"><div class="faq-body-inner"><p class="faq-a">Estamos armando el programa. Anotate en la lista de espera y te avisamos antes que a nadie con el precio de lanzamiento.</p></div></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FINAL CTA — massive editorial close -->
+  <section class="final-cta">
+    <h2 class="final-cta-h">Empezá con los 5 esenciales.<br><em>Gratis, en tu correo.</em></h2>
+    <a href="#lead" class="btn-nested" data-magnetic>
+      <span>Quiero la lista</span>
+      <span class="btn-nested-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </span>
+    </a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo"><img src="assets/logo-lockup-cream.png" alt="Host-to-Host"></div>
+        <p class="footer-tag">Productos para anfitriones en Colombia. Seleccionados por una Superhost con 9 años de experiencia real.</p>
+      </div>
+      <div>
+        <p class="f-h">Servicios</p>
+        <ul class="f-links">
+          <li><a href="https://tienda.hosttohost.co/">Productos</a></li>
+          <li><a href="/recursos">Recursos</a></li>
+          <li><a href="/coaching">Coaching</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="f-h">Contacto</p>
+        <ul class="f-links">
+          <li><a href="#">WhatsApp</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bt">
+      <p class="f-copy">© <span id="copyright-year">2026</span> Host-to-Host · Medellín, Colombia</p>
+      <nav class="f-leg"><a href="#">Política de privacidad</a><a href="#">Términos</a></nav>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js"></script>
+  <script>
+    document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
+    // FAQ accordion (works in every mode)
+    document.querySelectorAll('.faq-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(el => {
+          el.classList.remove('open');
+          el.querySelector('.faq-btn').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    const motionOK = document.documentElement.classList.contains('motion')
+      && window.gsap && window.ScrollTrigger && window.SplitText;
+
+    // Nav: transparent over hero, glass pill once scrolling
+    function updateNav(y) {
+      document.querySelector('.nav').classList.toggle('nav--scrolled', y > 60);
+    }
+
+    if (!motionOK) {
+      // Static path: page is fully visible; just keep the nav state honest.
+      window.addEventListener('scroll', () => updateNav(window.scrollY), { passive: true });
+      updateNav(window.scrollY);
+    } else {
+      gsap.registerPlugin(ScrollTrigger, SplitText);
+
+      // — Smooth scroll (Lenis driving ScrollTrigger) —
+      const lenis = new Lenis({ lerp: 0.12 });
+      lenis.on('scroll', (e) => {
+        ScrollTrigger.update();
+        updateNav(e.scroll);
+      });
+      gsap.ticker.add((time) => lenis.raf(time * 1000));
+      gsap.ticker.lagSmoothing(0);
+      updateNav(window.scrollY);
+
+      // Anchor links scroll smoothly through Lenis
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', (ev) => {
+          const target = document.querySelector(a.getAttribute('href'));
+          if (!target) return;
+          ev.preventDefault();
+          lenis.scrollTo(target, { offset: -70 });
+        });
+      });
+
+      const EASE = 'power4.out';
+
+      // — HERO entrance: line-masked headline, clip-path image reveal —
+      document.fonts.ready.then(() => {
+        gsap.set(['.hero-left', '.hero-media', '.hero-note'], { visibility: 'visible' });
+
+        const split = SplitText.create('.hero-h1', { type: 'lines', mask: 'lines' });
+
+        const tl = gsap.timeline({ defaults: { ease: EASE } });
+        tl.from('.eyebrow', { y: 24, autoAlpha: 0, duration: 0.9 }, 0.15)
+          .from(split.lines, { yPercent: 115, duration: 1.2, stagger: 0.1 }, 0.25)
+          .from('.hero-sub', { y: 28, autoAlpha: 0, duration: 1 }, 0.75)
+          .from('.hero-ctas', { y: 24, autoAlpha: 0, duration: 0.9 }, 0.9)
+          .fromTo('.hero-media',
+            { clipPath: 'inset(0 0 0 100%)' },
+            { clipPath: 'inset(0 0 0 0%)', duration: 1.4, ease: 'power3.inOut' }, 0.35)
+          .from('.hero-img', { scale: 1.25, duration: 2, ease: 'power3.out' }, 0.35)
+          .from('.hero-note', { y: 30, autoAlpha: 0, rotation: -2, duration: 1 }, 1.3);
+      });
+
+      // Hero image parallax on scroll
+      gsap.fromTo('.hero-media', { yPercent: 0 }, {
+        yPercent: -8,
+        ease: 'none',
+        scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+      });
+
+      // — Generic reveals (lead magnet) —
+      gsap.utils.toArray('[data-reveal]').forEach((el, i) => {
+        gsap.from(el, {
+          y: 48, autoAlpha: 0, duration: 1.1, ease: EASE, delay: (i % 2) * 0.12,
+          scrollTrigger: { trigger: el, start: 'top 80%', once: true }
+        });
+      });
+
+      const mm = gsap.matchMedia();
+
+      mm.add('(min-width: 769px)', () => {
+        // — PRODUCTS: pinned horizontal shelf —
+        const track = document.querySelector('.products-track');
+        const section = document.querySelector('.products-section');
+        const distance = () => track.scrollWidth - window.innerWidth;
+
+        gsap.to(track, {
+          x: () => -distance(),
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top top',
+            end: () => '+=' + distance(),
+            pin: true,
+            scrub: 1,
+            invalidateOnRefresh: true
+          }
+        });
+
+        // Product cards drift up as the shelf slides
+        gsap.from('.products-track .prod', {
+          y: 60, autoAlpha: 0, duration: 1, ease: EASE, stagger: 0.1,
+          scrollTrigger: { trigger: section, start: 'top 55%', once: true }
+        });
+
+        // — PROBLEM: pin the headline while the evidence scrolls —
+        ScrollTrigger.create({
+          trigger: '.problem-layout',
+          start: 'top 22%',
+          end: 'bottom 75%',
+          pin: '.problem-left',
+          pinSpacing: false
+        });
+
+        return () => {};
+      });
+
+      mm.add('(max-width: 768px)', () => {
+        gsap.from('.products-track .prod', {
+          y: 40, autoAlpha: 0, duration: 0.9, ease: EASE, stagger: 0.08,
+          scrollTrigger: { trigger: '.products-track', start: 'top 80%', once: true }
+        });
+        return () => {};
+      });
+
+      // Problem items rise in one by one
+      gsap.utils.toArray('.pp-item').forEach(item => {
+        gsap.from(item, {
+          y: 44, autoAlpha: 0, duration: 1, ease: EASE,
+          scrollTrigger: { trigger: item, start: 'top 78%', once: true }
+        });
+      });
+
+      // — ECOSYSTEM: headline line reveal + scrubbed word-by-word paragraph —
+      document.fonts.ready.then(() => {
+        const ecoSplit = SplitText.create('.eco-h2', { type: 'lines', mask: 'lines' });
+        gsap.from(ecoSplit.lines, {
+          yPercent: 115, duration: 1.1, stagger: 0.1, ease: EASE,
+          scrollTrigger: { trigger: '.eco-h2', start: 'top 80%', once: true }
+        });
+
+        const words = SplitText.create('.eco-sub', { type: 'words', wordsClass: 'w' }).words;
+        gsap.fromTo(words, { opacity: 0.14 }, {
+          opacity: 1, stagger: 0.06, ease: 'none',
+          scrollTrigger: { trigger: '.eco-sub', start: 'top 78%', end: 'top 38%', scrub: true }
+        });
+
+        // — FINAL CTA: massive headline reveal + slow scale —
+        const ctaSplit = SplitText.create('.final-cta-h', { type: 'lines', mask: 'lines' });
+        gsap.from(ctaSplit.lines, {
+          yPercent: 115, duration: 1.2, stagger: 0.12, ease: EASE,
+          scrollTrigger: { trigger: '.final-cta', start: 'top 70%', once: true }
+        });
+        gsap.from('.final-cta .btn-nested', {
+          y: 30, autoAlpha: 0, duration: 1, ease: EASE,
+          scrollTrigger: { trigger: '.final-cta', start: 'top 55%', once: true }
+        });
+      });
+
+      gsap.from('.eco-pillar', {
+        y: 56, autoAlpha: 0, duration: 1, ease: EASE, stagger: 0.12,
+        scrollTrigger: { trigger: '.eco-pillars-grid', start: 'top 80%', once: true }
+      });
+
+      // — MAFE: image scale-settle + badge pop + content rise —
+      gsap.from('.mafe-img', {
+        scale: 1.18, duration: 1.6, ease: 'power3.out',
+        scrollTrigger: { trigger: '.mafe', start: 'top 70%', once: true }
+      });
+      gsap.from('.mafe-img-wrap', {
+        y: 60, autoAlpha: 0, duration: 1.1, ease: EASE,
+        scrollTrigger: { trigger: '.mafe', start: 'top 75%', once: true }
+      });
+      gsap.from('.mafe-badge', {
+        scale: 0, rotation: -30, duration: 0.9, ease: 'back.out(1.6)', delay: 0.5,
+        scrollTrigger: { trigger: '.mafe', start: 'top 70%', once: true }
+      });
+      gsap.from('.mafe-content > *', {
+        y: 36, autoAlpha: 0, duration: 1, ease: EASE, stagger: 0.1,
+        scrollTrigger: { trigger: '.mafe', start: 'top 70%', once: true }
+      });
+
+      // — FAQ: items cascade in —
+      ScrollTrigger.batch('.faq-item', {
+        start: 'top 88%',
+        once: true,
+        onEnter: batch => gsap.from(batch, { y: 32, autoAlpha: 0, duration: 0.8, ease: EASE, stagger: 0.08 })
+      });
+
+      // — Magnetic hover physics on nested CTAs —
+      document.querySelectorAll('[data-magnetic]').forEach(el => {
+        const xTo = gsap.quickTo(el, 'x', { duration: 0.4, ease: 'power3' });
+        const yTo = gsap.quickTo(el, 'y', { duration: 0.4, ease: 'power3' });
+        el.addEventListener('mousemove', (e) => {
+          const r = el.getBoundingClientRect();
+          xTo((e.clientX - (r.left + r.width / 2)) * 0.18);
+          yTo((e.clientY - (r.top + r.height / 2)) * 0.3);
+        });
+        el.addEventListener('mouseleave', () => { xTo(0); yTo(0); });
+      });
+    }
+  </script>
+</body>
+</html>

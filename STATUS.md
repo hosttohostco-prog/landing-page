@@ -1,5 +1,5 @@
 # Landing Page Concepts — Status
-Last updated: 2026-06-11 (evening session — git repo created, El Problema rebuilt, sections removed)
+Last updated: 2026-06-11 (late session — GSAP motion redesign; **`concepts/concept-a-main.html` is now the active working file**)
 
 ## Git repo (NEW 2026-06-11)
 - This folder is now a git repo: **https://github.com/hosttohostco-prog/landing-page** (branch `main`)
@@ -12,13 +12,26 @@ Three self-contained HTML concept files at `/landing page/concepts/`:
 
 | File | Concept | Type system | Palette lead | Layout signature |
 |------|---------|-------------|--------------|-----------------|
-| concept-a.html | The Editorial | Cormorant Garamond + Space Grotesk | Cream + coral | Left/right hero split, editorial dark sections |
+| **concept-a-main.html** | **The Editorial, Directed (ACTIVE)** | Cormorant Garamond + Space Grotesk | Cream + coral | concept-a structure + GSAP motion layer (see below) |
+| concept-a.html | The Editorial (static predecessor) | Cormorant Garamond + Space Grotesk | Cream + coral | Left/right hero split, editorial dark sections |
 | concept-b.html | After Dark | Archivo Black + Cormorant italic | Ink-deep + coral | Floating pill nav, dark atmospheric, side-by-side splits |
 | concept-c.html | The Object Room | Space Grotesk only (lowercase) | Off-white + olive | Grid-bordered square tiles, editorial FAQ list |
 | concept-a-outfit.html | The Editorial (font variant) | Outfit + Archivo + Shantell Sans | Cream + coral | Stale — predates 2026-06-11 changes, font-swap comparison only |
 
 ## Selected direction
-**Concept A** is the active direction. Refinement is in progress.
+**Concept A** is the active direction. The working file is now **`concepts/concept-a-main.html`** (2026-06-11): a GSAP-directed redesign of concept-a. `concept-a.html` is kept untouched as the static reference.
+
+## Motion layer (concept-a-main.html, NEW 2026-06-11)
+- **Stack:** GSAP 3.13 + ScrollTrigger + SplitText + Lenis smooth scroll (all jsDelivr CDN; no build step)
+- **Hero:** SplitText line-masked headline reveal, clip-path image wipe + scale-settle, scroll parallax. CTAs animate as one group (level by construction). Hero has `min-height: fit-content` so short viewports grow instead of overflowing into the marquee
+- **Marquee:** new editorial ticker strip under the hero (CSS keyframes, pauses on hover)
+- **Products:** desktop = pinned horizontal shelf (section pins, cards glide sideways, ends on "Esto es solo el comienzo" → tienda card); mobile/reduced-motion = grid fallback. Approved card content unchanged
+- **El Problema:** left headline pins while the three numbered problems scroll past
+- **Ecosystem:** scrubbed word-by-word reveal on intro paragraph; pillars stagger in
+- **New final CTA band** before footer: "Empezá con los 5 esenciales. Gratis, en tu correo." → #lead, magnetic-hover nested button
+- **Nav:** transparent over hero → frosted glass bar on scroll
+- **Safety:** `prefers-reduced-motion` (or `?nomotion` query param) serves a fully static page; no-JS also renders complete. All copy, assets, palette, fonts unchanged from approved concept-a
+- Removed during review (James 2026-06-11): inline photo pill in products headline; staggered CTA entrance (caused momentary misalignment)
 
 ## Page structure (concept-a — current 2026-06-11 evening)
 1. **Nav** — Recursos · Tienda · Coaching · "Ir a la tienda" CTA ("Sobre Mafe" removed 2026-06-11). Logo enlarged 50% (4.2rem). Hero padding-top raised to 10rem so the fixed nav no longer overlaps the hero image.
@@ -38,7 +51,8 @@ Three self-contained HTML concept files at `/landing page/concepts/`:
 - All images now local in `concepts/assets/` (logos copied from Home Page so the repo is self-contained). concept-a has NO external image dependencies left except Google Fonts.
 
 ## Files
-- `concepts/concept-a.html` — ACTIVE file, all current work
+- `concepts/concept-a-main.html` — **ACTIVE file, all current work** (GSAP motion redesign, 2026-06-11)
+- `concepts/concept-a.html` — static predecessor, kept as reference. Do not edit
 - `concepts/concept-a-updated.html` — externally-created draft, superseded. Can be deleted
 - `concepts/assets/` — all images: 4 product photos, 3 problema diagram jpgs (no longer referenced by concept-a after rebuild — kept for history), problema-still-life.png, hero-cocina.png, sobre-mafe.jpg, logo-lockup-ink.png, logo-lockup-cream.png
 - `mock-ups/` — James's reference boards (El Problema_new.png = source of the still-life + layout reference)
@@ -58,7 +72,7 @@ Three self-contained HTML concept files at `/landing page/concepts/`:
 | Footer "Sobre Mafe" | Removed from nav; footer link also removed. Nav "Recursos" label kept | Done unless James revisits |
 
 ## What's next
-- James reviews current concept-a in browser (all 2026-06-11 changes)
+- James reviews concept-a-main.html in browser (GSAP motion + all 2026-06-11 changes)
 - Confirm pétalos price (25.000 COP placeholder) and gold-vs-black cubiertos naming (carried over, still open)
 - Font decision (Cormorant vs Outfit set)
 - Decide deploy host (page is static HTML; GitHub Pages/Netlify/Vercel all work from the repo) — repo exists, deployment not set up
