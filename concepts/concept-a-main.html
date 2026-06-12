@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Space+Grotesk:wght@300;400;500;600&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="brand.css">
   <script>
     // Gate entrance-hidden states behind JS + motion preference so no-JS and
     // reduced-motion visitors always see a fully rendered page.
@@ -22,134 +23,63 @@
        Structure: Mafe-voice hero → lead magnet → product shelf → problem → ecosystem → Mafe proof → FAQ → final CTA
        Archetype: Kinfolk / Cereal · founder-led editorial landing page, now scroll-directed
        Motion: GSAP 3 + ScrollTrigger + SplitText + Lenis smooth scroll
-       Type: Cormorant Garamond display + Space Grotesk body
-       Colour: Cream base · coral accents · ink text
+       Shared tokens/nav/labels/buttons/footer live in brand.css; this block is page layout only.
     */
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --cream:   #FCF3E9;
-      --cream-d: #F0E2CF;
-      --coral:   #F39878;
-      --coral-d: #E8825F;
-      --periw:   #96A1D2;
-      --olive:   #989C6F;
-      --ink:     #403E3F;
-      --ink-bg:  #2B2826; /* dark section backgrounds */
-      --ink-s:   #6B6869;
-      --white:   #FDFCFA;
-    }
-
-    html { font-size: 62.5%; }
-    html.nomotion { scroll-behavior: smooth; }
-
-    /* Lenis smooth-scroll plumbing */
-    html.lenis, html.lenis body { height: auto; }
-    .lenis.lenis-smooth { scroll-behavior: auto !important; }
-    .lenis.lenis-stopped { overflow: hidden; }
-
-    body {
-      background: var(--cream);
-      color: var(--ink);
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.6rem;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      z-index: 200;
-      pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-      opacity: 0.025;
-    }
-
-    img { display: block; max-width: 100%; }
-    a { color: inherit; text-decoration: none; }
-
     /* Entrance-hidden states — motion mode only, revealed by GSAP */
-    html.motion .hero-left,
+    html.motion .hero-content,
     html.motion .hero-media,
     html.motion .hero-note { visibility: hidden; }
 
-    /* ── NAV ── */
-    .nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 50;
-      padding: 2.4rem 6.4rem;
+    /* ── HERO — Mafe's voice, photo behind, cream wash over the left ── */
+    .hero {
+      position: relative;
+      min-height: 100dvh;
+      max-height: 96rem;
+      background: var(--cream);
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      transition: padding 0.5s cubic-bezier(0.32,0.72,0,1), background 0.5s cubic-bezier(0.32,0.72,0,1),
-                  backdrop-filter 0.5s, box-shadow 0.5s;
+      overflow: hidden;
+      padding: 14rem 6.4rem 10rem;
     }
 
-    .nav--scrolled {
-      padding: 1.4rem 6.4rem;
-      background: rgba(252,243,233,0.82);
-      -webkit-backdrop-filter: blur(14px) saturate(1.2);
-      backdrop-filter: blur(14px) saturate(1.2);
-      box-shadow: 0 1px 0 rgba(64,62,63,0.07);
+    .hero-media {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
     }
 
-    .nav-logo img { height: 4.2rem; transition: height 0.5s cubic-bezier(0.32,0.72,0,1); }
-    .nav--scrolled .nav-logo img { height: 3.4rem; }
-
-    .nav-links { display: flex; align-items: center; gap: 3.6rem; list-style: none; }
-    .nav-links a {
-      font-size: 1.3rem;
-      font-weight: 400;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--ink);
-      opacity: 0.6;
-      transition: opacity 0.3s;
+    .hero-img {
+      width: 100%;
+      height: 112%; /* parallax headroom */
+      object-fit: cover;
+      object-position: center;
     }
-    .nav-links a:hover { opacity: 1; }
+    .hero--noimg .hero-media { display: none; }
 
-    .nav-cta {
-      font-size: 1.35rem;
-      font-weight: 500;
-      padding: 1rem 2.6rem;
-      background: var(--ink);
-      color: var(--cream) !important;
-      opacity: 1 !important;
-      border-radius: 10rem;
-      transition: background 0.4s cubic-bezier(0.32,0.72,0,1) !important;
+    /* Legibility wash — cream, strongest over the text */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(105deg, rgba(252,243,233,0.97) 0%, rgba(252,243,233,0.9) 34%, rgba(252,243,233,0.55) 58%, rgba(252,243,233,0) 80%),
+                  linear-gradient(to bottom, rgba(252,243,233,0.85) 0%, rgba(252,243,233,0) 32%);
+      pointer-events: none;
     }
-    .nav-cta:hover { background: var(--coral-d) !important; }
-
-    /* ── HERO — Mafe's voice, full editorial spread ── */
-    .hero {
-      height: 100dvh;
-      max-height: 92rem;
-      min-height: fit-content; /* short viewports: grow instead of spilling into the marquee */
-      display: grid;
-      grid-template-columns: 5fr 7fr;
-      align-items: stretch;
-      padding-top: 10rem; /* clears the fixed nav */
+    .hero--noimg::before {
+      background: radial-gradient(circle at 70% 45%, rgba(232,130,95,0.08) 0%, rgba(232,130,95,0) 55%);
     }
 
-    .hero-left {
-      padding: 4rem 5.6rem 5.6rem 6.4rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      min-width: 0;
+      max-width: 56rem;
     }
 
-    .eyebrow {
-      font-size: 1.15rem;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--ink-s);
-      margin-bottom: 3.2rem;
-    }
+    .hero-content .c-label { margin-bottom: 3.2rem; }
 
     .hero-h1 {
       font-family: 'Cormorant Garamond', serif;
@@ -209,33 +139,10 @@
     }
     .btn-secondary:hover { border-color: var(--ink); background: rgba(64,62,63,0.04); }
 
-    /* Hero right — photo + annotation. .hero-media carries the parallax,
-       .hero-img carries the entrance scale, the wrap clips both. */
-    .hero-right {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-media {
-      position: absolute;
-      inset: 0;
-    }
-
-    .hero-img {
-      width: 100%;
-      height: 112%; /* parallax headroom */
-      object-fit: cover;
-      object-position: center top;
-    }
-
-    .hero-img-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to right, var(--cream) 0%, transparent 15%);
-    }
-
+    /* Mafe's handwritten annotation, pinned over the photo */
     .hero-note {
       position: absolute;
+      z-index: 2;
       bottom: 4.8rem;
       right: 4.8rem;
       background: var(--white);
@@ -306,14 +213,7 @@
     /* ── SECTION BASE ── */
     .section { padding: 12rem 6.4rem; }
 
-    .s-label {
-      font-size: 1.15rem;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--ink-s);
-      margin-bottom: 2.4rem;
-    }
+    .s-label { margin-bottom: 2.4rem; }
 
     .s-h2 {
       font-family: 'Cormorant Garamond', serif;
@@ -343,7 +243,6 @@
       align-items: center;
     }
 
-    .lead-label { color: rgba(252,243,233,0.45); margin-bottom: 2.4rem; }
 
     .lead-h2 {
       font-family: 'Cormorant Garamond', serif;
@@ -683,7 +582,7 @@
 
     /* ── ECOSYSTEM REVEAL — Qué es Host-to-Host ── */
     .ecosystem {
-      background: #3B393A;
+      background: var(--ink-bg);
       padding: 16rem 6.4rem;
       position: relative;
       overflow: hidden;
@@ -1085,61 +984,25 @@
 
     .final-cta .btn-nested { margin: 0 auto; }
 
-    /* ── FOOTER ── */
-    .footer {
-      background: var(--ink-bg);
-      padding: 10rem 6.4rem 4.8rem;
-    }
-
-    .footer-top {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      gap: 6.4rem;
-      padding-bottom: 6rem;
-      border-bottom: 1px solid rgba(252,243,233,0.08);
-      margin-bottom: 4rem;
-    }
-
-    .footer-logo img { height: 4.2rem; margin-bottom: 2.4rem; }
-    .footer-tag { font-size: 1.55rem; color: rgba(252,243,233,0.45); line-height: 1.7; max-width: 38ch; }
-
-    .f-h { font-size: 1.1rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(252,243,233,0.28); margin-bottom: 2.8rem; }
-    .f-links { list-style: none; }
-    .f-links li { margin-bottom: 1.4rem; }
-    .f-links a {
-      font-size: 1.5rem;
-      color: rgba(252,243,233,0.55);
-      display: inline-block;
-      transition: color 0.3s cubic-bezier(0.32,0.72,0,1), transform 0.3s cubic-bezier(0.32,0.72,0,1);
-    }
-    .f-links a:hover {
-      color: var(--coral);
-      transform: translateX(4px);
-    }
-
-    .footer-bt { display: flex; justify-content: space-between; align-items: center; }
-    .f-copy { font-size: 1.3rem; color: rgba(252,243,233,0.25); }
-    .f-leg { display: flex; gap: 2.4rem; }
-    .f-leg a { font-size: 1.3rem; color: rgba(252,243,233,0.25); transition: color 0.3s; }
-    .f-leg a:hover { color: rgba(252,243,233,0.5); }
-
     /* ── RESPONSIVE ── */
     @media (max-width: 1100px) {
       .problem-layout { gap: 5.6rem; }
     }
 
     @media (max-width: 768px) {
-      html { font-size: 56.25%; }
-      .nav { padding: 2rem 2.4rem; }
-      .nav--scrolled { padding: 1.2rem 2.4rem; }
-      .nav-links { display: none; }
-
-      .hero { grid-template-columns: 1fr; padding-top: 6rem; height: auto; max-height: none; }
-      .hero-left { padding: 3.2rem 2.4rem 4rem; }
-      .hero-right { min-height: 64vw; }
+      .hero {
+        padding: 12rem 2.4rem 16rem; /* bottom clears the absolute hero-note */
+        min-height: 92dvh;
+        max-height: none;
+      }
+      .hero::before {
+        background: linear-gradient(to bottom, rgba(252,243,233,0.94) 0%, rgba(252,243,233,0.85) 55%, rgba(252,243,233,0.5) 100%);
+      }
+      .hero--noimg::before {
+        background: radial-gradient(circle at 70% 30%, rgba(232,130,95,0.08) 0%, rgba(232,130,95,0) 55%);
+      }
       .hero-ctas { flex-direction: column; }
       .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
-      .hero-img-overlay { background: linear-gradient(to bottom, transparent 50%, var(--cream) 100%); }
       .hero-note { right: 2rem; bottom: 2rem; }
 
       .marquee-item { font-size: 1.9rem; padding: 0 1.8rem; }
@@ -1188,11 +1051,6 @@
       .faq-a { padding: 0 2.4rem 2rem; }
 
       .final-cta { padding: 12rem 2.4rem; }
-
-      .footer { padding: 8rem 2.4rem 4rem; }
-      .footer-top { grid-template-columns: 1fr; gap: 4rem; }
-      .footer-bt { flex-direction: column; gap: 1.6rem; }
-      .f-leg { flex-direction: column; align-items: center; gap: 1rem; }
     }
   </style>
 </head>
@@ -1201,17 +1059,23 @@
   <nav class="nav">
     <a href="/" class="nav-logo"><img src="assets/logo-lockup-ink.png" alt="Host-to-Host"></a>
     <ul class="nav-links">
-      <li><a href="#">Recursos</a></li>
-      <li><a href="#tienda">Tienda</a></li>
-      <li><a href="#">Coaching</a></li>
-      <li><a href="#" class="nav-cta">Ir a la tienda</a></li>
+      <li><a href="/recursos">Recursos</a></li>
+      <li><a href="https://tienda.hosttohost.co/">Tienda</a></li>
+      <li><a href="/coaching">Coaching</a></li>
+      <li><a href="https://tienda.hosttohost.co/" class="nav-cta">Ir a la tienda</a></li>
     </ul>
   </nav>
 
-  <!-- HERO — Mafe's voice -->
+  <!-- HERO — Mafe's voice, photo behind -->
   <header class="hero">
-    <div class="hero-left">
-      <span class="eyebrow">Superhost · Medellín · 9 años</span>
+    <div class="hero-media">
+      <img class="hero-img"
+        src="assets/hero-cocina.png"
+        alt="Interior de Airbnb en Colombia"
+        onerror="this.closest('.hero').classList.add('hero--noimg')">
+    </div>
+    <div class="hero-content">
+      <p class="c-label">Superhost · Medellín · 9 años</p>
       <h1 class="hero-h1">
         Te voy a contar todo<br>lo que aprendí siendo<br><em>Superhost.</em>
       </h1>
@@ -1223,17 +1087,9 @@
         <a href="#tienda" class="btn-secondary">Ver la tienda →</a>
       </div>
     </div>
-    <div class="hero-right">
-      <div class="hero-media">
-        <img class="hero-img"
-          src="assets/hero-cocina.png"
-          alt="Interior de Airbnb en Colombia">
-      </div>
-      <div class="hero-img-overlay"></div>
-      <div class="hero-note">
-        <p class="hero-note-q">"Aprendí a las malas — para que vos no tengas que aprender solo."</p>
-        <p class="hero-note-a">— Mafe</p>
-      </div>
+    <div class="hero-note">
+      <p class="hero-note-q">"Aprendí a las malas — para que vos no tengas que aprender solo."</p>
+      <p class="hero-note-a">— Mafe</p>
     </div>
   </header>
 
@@ -1262,7 +1118,7 @@
   <!-- LEAD MAGNET -->
   <section class="lead" id="lead">
     <div class="lead-left" data-reveal>
-      <p class="s-label lead-label">Guía gratuita</p>
+      <p class="c-label c-label--cream s-label">Guía gratuita</p>
       <h2 class="lead-h2">9 años de errores caros.<br><em>Resumidos en 5 productos.</em></h2>
       <p class="lead-p">Cada uno de estos productos lo aprendí después de una estadía que salió mal. Te los mando gratis — para que no tengas que descubrirlos a las malas.</p>
     </div>
@@ -1287,7 +1143,7 @@
   <section class="products-section" id="tienda">
     <div class="products-header">
       <div>
-        <p class="s-label">La tienda</p>
+        <p class="c-label s-label">La tienda</p>
         <h2 class="s-h2">Lo que uso en<br>mis propios <em>Airbnbs.</em></h2>
       </div>
       <p class="s-body">Cada producto pasó por mis propiedades antes de llegar a la tuya. Si no lo volvería a comprar, no está en la tienda.</p>
@@ -1306,7 +1162,7 @@
           <p class="prod-note">Sobreviven cientos de estadías.</p>
           <div class="prod-foot">
             <span class="prod-price">100.000 COP</span>
-            <a href="#" class="prod-cta">Ver →</a>
+            <a href="https://tienda.hosttohost.co/products/vasos-irrompibles" class="prod-cta">Ver →</a>
           </div>
         </div>
       </article>
@@ -1321,8 +1177,8 @@
           <h3 class="prod-name">Pétalos que celebran</h3>
           <p class="prod-note">De reserva a ocasión especial.</p>
           <div class="prod-foot">
-            <span class="prod-price">25.000 COP</span>
-            <a href="#" class="prod-cta">Ver →</a>
+            <span class="prod-price">30.000 COP</span>
+            <a href="https://tienda.hosttohost.co/products/petalos" class="prod-cta">Ver →</a>
           </div>
         </div>
       </article>
@@ -1338,7 +1194,7 @@
           <p class="prod-note">Sin manchas permanentes.</p>
           <div class="prod-foot">
             <span class="prod-price">15.000 COP</span>
-            <a href="#" class="prod-cta">Ver →</a>
+            <a href="https://tienda.hosttohost.co/products/toallas-desmaquillantes" class="prod-cta">Ver →</a>
           </div>
         </div>
       </article>
@@ -1354,12 +1210,12 @@
           <p class="prod-note">El detalle que diferencia.</p>
           <div class="prod-foot">
             <span class="prod-price">98.000 COP</span>
-            <a href="#" class="prod-cta">Ver →</a>
+            <a href="https://tienda.hosttohost.co/products/cuberteria" class="prod-cta">Ver →</a>
           </div>
         </div>
       </article>
       <article class="prod prod-end">
-        <a href="#" class="prod-end-link">
+        <a href="https://tienda.hosttohost.co/" class="prod-end-link">
           <span class="prod-end-serif">Esto es solo el comienzo.</span>
           <span class="btn-shop">Ver toda la tienda →</span>
         </a>
@@ -1367,7 +1223,7 @@
     </div>
 
     <div class="products-footer">
-      <a href="#" class="btn-shop">Ver toda la tienda →</a>
+      <a href="https://tienda.hosttohost.co/" class="btn-shop">Ver toda la tienda →</a>
     </div>
   </section>
 
@@ -1587,8 +1443,8 @@
         <p class="f-h">Contacto</p>
         <ul class="f-links">
           <li><a href="#">WhatsApp</a></li>
-          <li><a href="#">Instagram</a></li>
-          <li><a href="#">FAQ</a></li>
+          <li><a href="https://www.instagram.com/demafetohost">Instagram</a></li>
+          <li><a href="#faq">FAQ</a></li>
         </ul>
       </div>
     </div>
@@ -1658,22 +1514,20 @@
 
       const EASE = 'power4.out';
 
-      // — HERO entrance: line-masked headline, clip-path image reveal —
+      // — HERO entrance: photo settles, line-masked headline —
       document.fonts.ready.then(() => {
-        gsap.set(['.hero-left', '.hero-media', '.hero-note'], { visibility: 'visible' });
+        gsap.set(['.hero-content', '.hero-media', '.hero-note'], { visibility: 'visible' });
 
         const split = SplitText.create('.hero-h1', { type: 'lines', mask: 'lines' });
 
         const tl = gsap.timeline({ defaults: { ease: EASE } });
-        tl.from('.eyebrow', { y: 24, autoAlpha: 0, duration: 0.9 }, 0.15)
-          .from(split.lines, { yPercent: 115, duration: 1.2, stagger: 0.1 }, 0.25)
-          .from('.hero-sub', { y: 28, autoAlpha: 0, duration: 1 }, 0.75)
-          .from('.hero-ctas', { y: 24, autoAlpha: 0, duration: 0.9 }, 0.9)
-          .fromTo('.hero-media',
-            { clipPath: 'inset(0 0 0 100%)' },
-            { clipPath: 'inset(0 0 0 0%)', duration: 1.4, ease: 'power3.inOut' }, 0.35)
-          .from('.hero-img', { scale: 1.25, duration: 2, ease: 'power3.out' }, 0.35)
-          .from('.hero-note', { y: 30, autoAlpha: 0, rotation: -2, duration: 1 }, 1.3);
+        tl.from('.hero-media', { autoAlpha: 0, duration: 1.6, ease: 'power2.out' }, 0)
+          .from('.hero-img', { scale: 1.12, duration: 2.2, ease: 'power3.out' }, 0)
+          .from('.hero-content .c-label', { y: 24, autoAlpha: 0, duration: 0.9 }, 0.35)
+          .from(split.lines, { yPercent: 115, duration: 1.2, stagger: 0.1 }, 0.45)
+          .from('.hero-sub', { y: 28, autoAlpha: 0, duration: 1 }, 0.95)
+          .from('.hero-ctas', { y: 24, autoAlpha: 0, duration: 0.9 }, 1.1)
+          .from('.hero-note', { y: 30, autoAlpha: 0, rotation: -2, duration: 1 }, 1.35);
       });
 
       // Hero image parallax on scroll

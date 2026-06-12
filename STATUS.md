@@ -104,11 +104,18 @@ Built 1:1 from James's reference board (attached in chat; full-board copy at `mo
 | Ecosystem bg | Keep #3B393A or unify with #2B2826 | Open option |
 | Footer "Sobre Mafe" | Removed from nav; footer link also removed. Nav "Recursos" label kept | Done unless James revisits |
 
+## Hygiene pass (2026-06-11, James-approved — DONE)
+- **concepts/brand.css** extracted: tokens, reset, noise, nav (light default + `.nav--dark` variant), `.c-label` eyebrow (+`--cream`), `.btn-pill`, footer, shared mobile rules. All three pages link it; pages keep only page-specific CSS. Pages are no longer single-file self-contained.
+- **Eyebrow standardized** (James: coaching style is the keeper): uppercase kicker + short coral line below, on every label across all pages (home hero eyebrow, lead "Guía gratuita", products "La tienda", recursos hero — its under-headline line removed).
+- **Home hero → photo-behind** like coaching/recursos: hero-cocina.png full-bleed, cream wash left, transparent nav over it, fade/scale entrance replaces clip-path wipe. Copy/CTAs/hero-note unchanged.
+- **Ecosystem bg** unified to `--ink-bg` #2B2826 (was #3B393A) — closes that open question.
+- **Real links wired:** home nav/footer (`/recursos`, `/coaching`, tienda); product cards → tienda.hosttohost.co/products/{vasos-irrompibles, petalos, toallas-desmaquillantes, cuberteria} (verified via Shopify API); pétalos price corrected 25.000→**30.000 COP** (store price — closes that open question); "Ver toda la tienda" ×2 → store; footer Instagram → instagram.com/demafetohost (all pages); footer FAQ → #faq / /#faq. WhatsApp still `#` (not set up yet).
+- Verified: 1440 desktop screenshots all pages, zero console errors.
+
 ## What's next
 - **Recursos card images** — James to supply the 6 card photos (filenames above)
-- **Cross-page hygiene check** before deploy — consistency pass across the three pages (fonts, tokens, nav/footer, hero treatment; consider extracting shared nav/footer/token CSS into a brand.css). James raised: home hero treatment differs from coaching/recursos (photo-behind heroes) — review whether home should match
 - Recursos card links — `#` placeholders (download/checklist destinations TBD)
-- Coaching booking link — both CTAs are placeholders (Calendly? WhatsApp?)
+- Coaching booking link — both CTAs are placeholders (Calendly? WhatsApp?); WhatsApp links sitewide pending setup
 - James reviews concept-a-main.html in browser (GSAP motion + all 2026-06-11 changes)
 - Confirm pétalos price (25.000 COP placeholder) and gold-vs-black cubiertos naming (carried over, still open)
 - Font decision (Cormorant vs Outfit set)
