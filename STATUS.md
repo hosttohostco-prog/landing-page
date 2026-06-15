@@ -3,7 +3,7 @@ Last updated: 2026-06-12 (copy audit pass on home page — approved; see "Copy a
 
 ## Git repo (NEW 2026-06-11)
 - This folder is now a git repo: **https://github.com/hosttohostco-prog/landing-page** (branch `main`)
-- Auth: fine-grained token "h2h-mac" in macOS keychain (user hosttohostco-prog), now scoped to both `shopify` and `landing-page` repos
+- Auth: **SSH** (key `~/.ssh/id_ed25519`, in macOS keychain, account hosttohostco-prog). Switched from HTTPS/PAT on 2026-06-15 because the fine-grained token kept expiring and breaking pushes. Remote = `git@github.com:hosttohostco-prog/landing-page.git`. Same key authenticates all hosttohostco-prog repos (incl. `shopify`); SSH keys don't expire, so no re-auth needed.
 - Workflow: one commit per James-approved change, small diffs. Push after approval.
 - Keep this repo separate from the `hosttohostco-prog/shopify` theme repo
 
