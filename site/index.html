@@ -1063,6 +1063,9 @@
       .final-cta { padding: 12rem 2.4rem; }
     }
   </style>
+  <!-- MailerLite Universal -->
+  <script>(function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[]).push(arguments);},l=d.createElement(e),l.async=1,l.src=u,n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})(window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');ml('account','2447022');</script>
+  <!-- End MailerLite Universal -->
 </head>
 <body>
 
@@ -1184,7 +1187,7 @@
     <div class="lead-right" data-reveal>
       <div class="lead-form-wrap">
         <p class="lead-form-hand">"Ojalá alguien me los hubiese dicho al principio."</p>
-        <form action="https://app.kit.com/forms/2849293ee1/subscriptions" method="post" accept-charset="UTF-8">
+        <form id="lead-form">
           <div class="form-row">
             <div class="form-field">
               <label for="lead-email">Tu correo</label>
@@ -1192,8 +1195,46 @@
             </div>
             <button class="form-btn" type="submit">Quiero la lista →</button>
           </div>
+          <p id="lead-form-msg" style="display:none;margin-top:1rem;font-size:1.4rem;"></p>
         </form>
-        <p class="form-privacy">Te llega al correo en minutos. Al suscribirte aceptás la <a href="#">política de privacidad</a>.</p>
+        <script>
+          document.getElementById('lead-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var email = document.getElementById('lead-email').value;
+            var msg = document.getElementById('lead-form-msg');
+            var btn = this.querySelector('.form-btn');
+            btn.disabled = true;
+            btn.textContent = 'Enviando…';
+            fetch('https://assets.mailerlite.com/jsonp/2447022/forms/190361827797894240/subscribe', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+              body: 'fields[email]=' + encodeURIComponent(email)
+            })
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+              msg.style.display = 'block';
+              if (data.success) {
+                msg.innerHTML = '¡Listo! Te llega al correo en minutos.<br>¿No querés esperar? <a href="https://local-fisher-da7.notion.site/Productos-2fccb70826d480078a05ca56a7778130" target="_blank" rel="noopener" style="color:var(--coral);text-decoration:underline;">Mirá los 5 esenciales ahora →</a>';
+                msg.style.color = 'var(--clr-forest, #2d4a3e)';
+                document.getElementById('lead-email').value = '';
+                btn.textContent = 'Enviado ✓';
+              } else {
+                msg.textContent = 'Algo salió mal. Intentá de nuevo.';
+                msg.style.color = '#c0392b';
+                btn.disabled = false;
+                btn.textContent = 'Quiero la lista →';
+              }
+            })
+            .catch(function() {
+              msg.style.display = 'block';
+              msg.textContent = 'Error de red. Intentá de nuevo.';
+              msg.style.color = '#c0392b';
+              btn.disabled = false;
+              btn.textContent = 'Quiero la lista →';
+            });
+          });
+        </script>
+        <p class="form-privacy">Te llega al correo en minutos. Al suscribirte aceptás la <a href="https://tienda.hosttohost.co/policies/privacy-policy" target="_blank" rel="noopener">política de privacidad</a>.</p>
       </div>
     </div>
   </section>

@@ -129,10 +129,11 @@ Four-expert copy audit (competitor / ideal customer / UI-UX / Hormozi-Priestley 
 - Auto-deploy: every push to `main` goes live in ~30s
 - URL structure: `/` → home, `/coaching/` → coaching, `/recursos/` → recursos
 - Hero images compressed PNG→JPEG (~2MB → 200-300KB each); product photos resized to 900px
-- Lead form wired to Kit form `2849293ee1` (checklist delivery)
+- Lead form wired to **MailerLite** (account `2447022`, form `190361827797894240`) — checklist delivery via the "5 Essential Products" automation. Migrated off Kit 2026-06-15. Custom form posts directly to the MailerLite subscribe endpoint; success message now also surfaces the Notion link inline. Privacy link points to the store policy (`tienda.hosttohost.co/policies/privacy-policy`). Pending: DKIM record in Namecheap + sender swap from gmail to `hola@hosttohost.co` before relying on deliverability.
 - Recursos cards: image-free text-only design (no card images to maintain)
 
 ## What's next
+- **Email welcome sequence (MailerLite)** — Email 1 (5-esenciales delivery) is built. TO DO: draft + build emails 2-4 — (2) story/trust day 2-3, (3) product nudge → tienda day 5-6, (4) coaching offer → /coaching day 8-10, then hand to regular newsletter. Blocked on: DKIM/sender deliverability fix, and Email 4 needs a real coaching booking link (currently `#`).
 - **WhatsApp links** — sitewide `href="#"` placeholders; wire once WhatsApp Business is set up
 - **Coaching booking link** — both CTAs on `/coaching/` are `#` placeholders; needs Calendly or WhatsApp link
 - **Recursos card links** — 3 live resources still point to `#`; wire once download/checklist destinations confirmed
