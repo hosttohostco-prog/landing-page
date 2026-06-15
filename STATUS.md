@@ -129,14 +129,30 @@ Four-expert copy audit (competitor / ideal customer / UI-UX / Hormozi-Priestley 
 - Auto-deploy: every push to `main` goes live in ~30s
 - URL structure: `/` → home, `/coaching/` → coaching, `/recursos/` → recursos
 - Hero images compressed PNG→JPEG (~2MB → 200-300KB each); product photos resized to 900px
-- Lead form wired to **MailerLite** (account `2447022`, form `190361827797894240`) — checklist delivery via the "5 Essential Products" automation. Migrated off Kit 2026-06-15. Custom form posts directly to the MailerLite subscribe endpoint; success message now also surfaces the Notion link inline. Privacy link points to the store policy (`tienda.hosttohost.co/policies/privacy-policy`). Pending: DKIM record in Namecheap + sender swap from gmail to `hola@hosttohost.co` before relying on deliverability.
+- Lead form wired to **MailerLite** (account `2447022`) — see "Lead-magnet system" below. Migrated off Kit 2026-06-15.
 - Recursos cards: image-free text-only design (no card images to maintain)
 
+## Lead-magnet system (DONE 2026-06-15)
+Three **free** lead magnets, all live, all delivered via MailerLite (account `2447022`). Each = own embedded form + group + "Completes a form" automation → one delivery email (no delay) carrying the magnet's published Notion link.
+
+| Magnet | MailerLite form ID | Notion page | Where on site |
+|--------|-------------------|-------------|---------------|
+| Los 5 esenciales | `190361827797894240` | `/Productos-2fccb70826d480078a05ca56a7778130` | Home `#lead` form + recursos card |
+| Lista de compras para tu primer Airbnb | `190373641874048293` | `/Lista-de-compras...36fcb70826d481d29161cc8b368a3352` | Recursos card |
+| Manual de bienvenida para huéspedes | `190375217439179969` | `/Manual-Airbnb-28ccb70826d480e39792d6bc270ae71a` | Recursos card |
+
+- **Capture mechanics:** home hero has its own inline form (5 esenciales). Recursos uses ONE shared on-brand popup (`.magnet-overlay`) — each card carries `data-mlform` + `data-title` + the Notion URL as `href`; JS intercepts → POSTs to `assets.mailerlite.com/jsonp/2447022/forms/{id}/subscribe` → shows the Notion link on success. No-JS fallback = the `href` goes straight to Notion.
+- **Popup copy is value-first:** "Gratis, a tu correo" / [magnet name] / "Te llega al correo en minutos." Button "Enviármelo →". (Rejected "Dejame tu correo" as ask-centric.)
+- **Delivery emails:** outcome-first, Mafe's voice (voseo), each kept a **products PS → hosttohost.co** (coaching deliberately NOT in first-touch; it belongs in the nurture sequence).
+- **Deliverability:** DKIM + SPF live in Namecheap; sender = `hola@hosttohost.co` (off gmail) as of 2026-06-15. Note: delivery email lands in Gmail **Promotions** (normal for ESP bulk mail) — decided not to chase Primary at the cost of design/PS.
+- **Privacy:** popup + home form + recursos footer all link to `tienda.hosttohost.co/policies/privacy-policy`.
+
 ## What's next
-- **Email welcome sequence (MailerLite)** — Email 1 (5-esenciales delivery) is built. TO DO: draft + build emails 2-4 — (2) story/trust day 2-3, (3) product nudge → tienda day 5-6, (4) coaching offer → /coaching day 8-10, then hand to regular newsletter. Blocked on: DKIM/sender deliverability fix, and Email 4 needs a real coaching booking link (currently `#`).
+- **Nurture sequence (MailerLite) — NEXT UP, not started.** Plan agreed: ONE shared sequence (not per-magnet). Each delivery automation adds the subscriber to a master group (e.g. `Nurture · Todos`); one automation triggers on joining it with **re-entry OFF** so anyone who grabs 2-3 magnets only nurtures once. Emails: (2) day 2-3 story/trust, no ask · (3) day 5-6 products → hosttohost.co · (4) day 8-10 coaching → /coaching · then hand to regular newsletter. Blocked on: Email 4 needs a real coaching booking link (currently `#`). Draft copy in Mafe's voice, outcome-first.
+- **Términos footer link** — decided: REMOVE it from the landing footer (page doesn't transact; terms live on the store). Recursos footer still has `<a href="#">Términos</a>` to delete. (Store terms + refund policy also have `[INSERT ...]` placeholders — separate store-ops task.)
+- **Lead-magnet QA** — do one real test signup per recursos card to confirm all three delivery automations fire (5 esenciales confirmed working by James).
 - **WhatsApp links** — sitewide `href="#"` placeholders; wire once WhatsApp Business is set up
-- **Coaching booking link** — both CTAs on `/coaching/` are `#` placeholders; needs Calendly or WhatsApp link
-- **Recursos card links** — 3 live resources still point to `#`; wire once download/checklist destinations confirmed
+- **Coaching booking link** — both CTAs on `/coaching/` are `#` placeholders; needs Calendly or WhatsApp link (also unblocks nurture Email 4)
 - Confirm pétalos price (30.000 COP — already on store, double-check page matches) and gold-vs-black cubiertos naming
 
 ## What NOT to do
