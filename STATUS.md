@@ -147,8 +147,20 @@ Three **free** lead magnets, all live, all delivered via MailerLite (account `24
 - **Deliverability:** DKIM + SPF live in Namecheap; sender = `hola@hosttohost.co` (off gmail) as of 2026-06-15. Note: delivery email lands in Gmail **Promotions** (normal for ESP bulk mail) — decided not to chase Primary at the cost of design/PS.
 - **Privacy:** popup + home form + recursos footer all link to `tienda.hosttohost.co/policies/privacy-policy`.
 
+## Dedicated opt-in pages (DONE 2026-06-24)
+Single-magnet landing pages for Instagram DM sharing — one link = one magnet = one email field, removing the "find the magnet" friction of sending people to `/recursos`. Built because MailerLite hosted landing pages aren't creatable via API/CLI/MCP (dashboard-only); these live on-site instead and reuse the existing JSONP capture, so they feed the same forms/groups and fire the same delivery + nurture.
+
+| Page | URL | MailerLite form ID |
+|------|-----|--------------------|
+| Los 5 esenciales | `/esenciales` | `190361827797894240` |
+| Lista de compras primer Airbnb | `/lista-compras` | `190373641874048293` |
+| Manual de bienvenida | `/manual` | `190375217439179969` |
+
+- **Design:** deliberately minimal — logo-only nav (no exit links), centered eyebrow + headline + subline + inline email field + button, trust line ("Por Mafe, Superhost…"), slim footer with privacy link. No imagery (James's call). Same brand.css tokens/fonts. `noindex` (DM-only, kept out of search). Reduced-motion / no-JS safe.
+- **Capture:** inline form POSTs to `assets.mailerlite.com/jsonp/2447022/forms/{id}/subscribe`; on success shows the magnet's Notion link inline.
+
 ## What's next
-- **Nurture sequence (MailerLite) — NEXT UP, not started.** Plan agreed: ONE shared sequence (not per-magnet). Each delivery automation adds the subscriber to a master group (e.g. `Nurture · Todos`); one automation triggers on joining it with **re-entry OFF** so anyone who grabs 2-3 magnets only nurtures once. Emails: (2) day 2-3 story/trust, no ask · (3) day 5-6 products → hosttohost.co · (4) day 8-10 coaching → /coaching · then hand to regular newsletter. Blocked on: Email 4 needs a real coaching booking link (currently `#`). Draft copy in Mafe's voice, outcome-first.
+- **Nurture sequence (MailerLite) — COPY DONE 2026-06-15, build pending.** ONE shared sequence (not per-magnet): all 3 magnets feed master group `Nurture · Todos`; one automation triggers on joining it, **re-entry OFF**, so emails 2-4 are IDENTICAL for everyone and you build it once. Emails: (2) día 2-3 why-HtH/convenience story, no ask · (3) día 5-6 products → hosttohost.co · (4) día 8-10 coaching → WhatsApp. v1 is intentionally good-enough: no A/B, no branching, no separate social-proof email (deferred to post-traction). Full bilingual copy + MailerLite build checklist: `Marketing/nurture sequence/nurture-emails.md`. Voice source = `Commerce/commerce-DNA.md` (Mafe's own voice files incoming). **Remaining to go live:** James uploads to MailerLite + builds the automation; WhatsApp link for Email 4 (placeholder, sorting tomorrow).
 - **Términos footer link** — decided: REMOVE it from the landing footer (page doesn't transact; terms live on the store). Recursos footer still has `<a href="#">Términos</a>` to delete. (Store terms + refund policy also have `[INSERT ...]` placeholders — separate store-ops task.)
 - **Lead-magnet QA** — do one real test signup per recursos card to confirm all three delivery automations fire (5 esenciales confirmed working by James).
 - **WhatsApp links** — sitewide `href="#"` placeholders; wire once WhatsApp Business is set up
