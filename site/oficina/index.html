@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tu alojamiento, su oficina — Host-to-Host</title>
+  <meta name="description" content="Cada vez más huéspedes viajan y trabajan al mismo tiempo. Prepará tu Airbnb para ellos y atraé estadías más largas y mejores reseñas. Guía gratis, a tu correo.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Space+Grotesk:wght@300;400;500;600&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../brand.css">
+  <script>
+    // Reveal animations run only when motion is allowed; no-JS / reduced-motion
+    // always sees the fully rendered page (nothing stays hidden).
+    (function () {
+      var params = new URLSearchParams(location.search);
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches || params.has('nomotion');
+      document.documentElement.classList.add(reduce ? 'nomotion' : 'motion');
+    })();
+  </script>
+  <style>
+    /* —— /oficina · dedicated lead-magnet opt-in ——
+       Single purpose, kept deliberately simple: one magnet, one email field,
+       centered. Logo-only nav (no exits). Tokens/nav/footer from brand.css. */
+
+    .optin {
+      position: relative;
+      min-height: 100dvh;
+      background: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14rem 2.4rem 6rem;
+      overflow: hidden;
+    }
+    .optin::before {
+      content: '';
+      position: absolute;
+      width: 52rem; height: 52rem;
+      top: -22rem; left: 50%; transform: translateX(-50%);
+      background: radial-gradient(circle, rgba(232,130,95,0.07) 0%, rgba(232,130,95,0) 70%);
+      pointer-events: none;
+    }
+
+    .optin-inner {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 60rem;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .optin-label { margin-bottom: 2rem; }
+    .optin-label.c-label::after { margin-left: auto; margin-right: auto; }
+
+    .optin-h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(4rem, 5vw, 6rem);
+      font-weight: 300;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-wrap: balance;
+      margin-bottom: 2.4rem;
+    }
+    .optin-h1 em { font-style: italic; color: var(--coral-d); }
+
+    .optin-sub {
+      font-size: 1.7rem;
+      color: var(--ink-s);
+      line-height: 1.7;
+      max-width: 50ch;
+      margin: 0 auto 3.6rem;
+    }
+
+    /* — inline capture form — */
+    .optin-form { display: flex; gap: 1.2rem; max-width: 46rem; margin: 0 auto; }
+    .optin-input {
+      flex: 1; min-width: 0;
+      padding: 1.5rem 1.8rem;
+      font-family: inherit; font-size: 1.5rem; color: var(--ink);
+      background: #fff; border: 1px solid rgba(64,62,63,0.2); border-radius: 0.8rem;
+      transition: border-color 0.3s;
+    }
+    .optin-input::placeholder { color: rgba(64,62,63,0.4); }
+    .optin-input:focus { outline: none; border-color: var(--coral); }
+    .optin-btn {
+      flex-shrink: 0;
+      padding: 1.5rem 2.4rem;
+      font-family: inherit; font-size: 1.3rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--cream); background: var(--ink); border: none; border-radius: 0.8rem; cursor: pointer;
+      transition: background 0.3s;
+    }
+    .optin-btn:hover { background: var(--coral); }
+    .optin-btn:disabled { opacity: 0.6; cursor: default; }
+
+    .optin-msg { display: none; margin: 1.8rem auto 0; font-size: 1.5rem; line-height: 1.6; max-width: 46rem; }
+    .optin-msg a { color: var(--coral); text-decoration: underline; font-weight: 600; }
+
+    .optin-privacy { margin: 1.8rem auto 0; font-size: 1.2rem; color: var(--ink-s); max-width: 46rem; }
+    .optin-privacy a { text-decoration: underline; }
+
+    .optin-trust { margin-top: 3.2rem; font-size: 1.35rem; color: var(--ink-s); }
+
+    /* — slim footer for the opt-in page — */
+    .footer--slim { padding: 4rem 6.4rem; }
+    @media (max-width: 768px) { .footer--slim { padding: 3.2rem 2.4rem; } }
+
+    /* — entrance (motion only) — */
+    html.motion .reveal { opacity: 0; transform: translateY(22px); }
+    html.motion .reveal.in { opacity: 1; transform: none; transition: opacity 0.9s cubic-bezier(0.32,0.72,0,1), transform 0.9s cubic-bezier(0.32,0.72,0,1); }
+
+    @media (max-width: 600px) {
+      .optin { padding: 12rem 2.4rem 6rem; }
+      .optin-form { flex-direction: column; }
+      .optin-btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="/" class="nav-logo"><img src="../assets/logo-lockup-ink.png" alt="Host-to-Host"></a>
+  </nav>
+
+  <main class="optin">
+    <div class="optin-inner">
+      <p class="c-label optin-label reveal">Guía gratuita</p>
+      <h1 class="optin-h1 reveal">Tu alojamiento también puede ser <em>su oficina.</em></h1>
+      <p class="optin-sub reveal">Cada vez más huéspedes viajan y trabajan al mismo tiempo. Prepará tu Airbnb para ellos y vas a atraer estadías más largas, mejores reseñas y huéspedes que vuelven. Te mando la guía gratis a tu correo.</p>
+
+      <form class="optin-form reveal" id="optin-form" novalidate>
+        <input class="optin-input" id="optin-email" type="email" name="email" placeholder="tu@correo.com" aria-label="Correo electrónico" required>
+        <button class="optin-btn" type="submit">Enviármela →</button>
+      </form>
+      <p class="optin-msg" id="optin-msg"></p>
+      <p class="optin-privacy reveal">Al suscribirte aceptás la <a href="https://tienda.hosttohost.co/policies/privacy-policy" target="_blank" rel="noopener">política de privacidad</a>.</p>
+
+      <p class="optin-trust reveal">Por Mafe, Superhost con 9 años recibiendo huéspedes en Colombia.</p>
+    </div>
+  </main>
+
+  <footer class="footer footer--slim">
+    <div class="footer-bt">
+      <p class="f-copy">© <span id="copyright-year">2026</span> Host-to-Host · Medellín, Colombia</p>
+      <nav class="f-leg"><a href="https://tienda.hosttohost.co/policies/privacy-policy" target="_blank" rel="noopener">Política de privacidad</a></nav>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
+    // Nav glass state on scroll (consistent with other pages)
+    function updateNav(y) { document.querySelector('.nav').classList.toggle('nav--scrolled', y > 60); }
+    window.addEventListener('scroll', function () { updateNav(window.scrollY); }, { passive: true });
+    updateNav(window.scrollY);
+
+    // Entrance reveal (motion mode only)
+    if (document.documentElement.classList.contains('motion')) {
+      document.querySelectorAll('.reveal').forEach(function (el, i) {
+        setTimeout(function () { el.classList.add('in'); }, 120 + i * 90);
+      });
+    }
+
+    // — Lead-magnet capture (same JSONP endpoint as the rest of the site) —
+    (function () {
+      var FORM_ID = '191273791381308704';
+      var MAGNET_URL = 'https://local-fisher-da7.notion.site/Tu-alojamiento-su-oficina-389cb70826d48154a2ece6592609147c';
+      var form = document.getElementById('optin-form');
+      var email = document.getElementById('optin-email');
+      var msg = document.getElementById('optin-msg');
+      var btn = form.querySelector('.optin-btn');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!email.value || email.validity.typeMismatch || !email.value.includes('@')) {
+          msg.style.display = 'block';
+          msg.textContent = 'Escribí un correo válido para enviártela.';
+          msg.style.color = '#c0392b';
+          email.focus();
+          return;
+        }
+        btn.disabled = true;
+        btn.textContent = 'Enviando…';
+        fetch('https://assets.mailerlite.com/jsonp/2447022/forms/' + FORM_ID + '/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: 'fields[email]=' + encodeURIComponent(email.value)
+        })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          msg.style.display = 'block';
+          if (data.success) {
+            msg.innerHTML = '¡Listo! Te llega al correo en minutos.<br>¿No querés esperar? <a href="' + MAGNET_URL + '" target="_blank" rel="noopener">Abrila ahora →</a>';
+            msg.style.color = 'var(--badge-free)';
+            email.value = '';
+            btn.textContent = 'Enviado ✓';
+          } else {
+            msg.textContent = 'Algo salió mal. Intentá de nuevo.';
+            msg.style.color = '#c0392b';
+            btn.disabled = false;
+            btn.textContent = 'Enviármela →';
+          }
+        })
+        .catch(function () {
+          msg.style.display = 'block';
+          msg.textContent = 'Error de red. Intentá de nuevo.';
+          msg.style.color = '#c0392b';
+          btn.disabled = false;
+          btn.textContent = 'Enviármela →';
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
