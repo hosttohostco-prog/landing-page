@@ -1062,6 +1062,54 @@
 
       .final-cta { padding: 12rem 2.4rem; }
     }
+    /* —— Thank-you popup (lead form success) —— */
+    .ty-overlay {
+      position: fixed; inset: 0; z-index: 300;
+      display: flex; align-items: center; justify-content: center;
+      padding: 2.4rem;
+      background: rgba(43,40,38,0.55);
+      -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+    }
+    .ty-overlay.open { opacity: 1; visibility: visible; }
+    .ty-dialog {
+      position: relative;
+      width: 100%; max-width: 42rem;
+      background: var(--cream);
+      border-radius: 1.6rem;
+      padding: 4.8rem 4rem 4rem;
+      box-shadow: 0 30px 80px rgba(43,40,38,0.35);
+      transform: translateY(16px) scale(0.98);
+      transition: transform 0.4s cubic-bezier(0.32,0.72,0,1);
+      text-align: center;
+    }
+    .ty-overlay.open .ty-dialog { transform: translateY(0) scale(1); }
+    .ty-close {
+      position: absolute; top: 1.4rem; right: 1.6rem;
+      width: 3.2rem; height: 3.2rem;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.4rem; line-height: 1; color: var(--ink-s);
+      background: none; border: none; cursor: pointer; transition: color 0.3s;
+    }
+    .ty-close:hover { color: var(--ink); }
+    .ty-check {
+      width: 5.6rem; height: 5.6rem; margin: 0 auto 2rem;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%; background: var(--badge-free); color: var(--cream);
+      font-size: 2.8rem; line-height: 1;
+    }
+    .ty-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem; font-weight: 500; line-height: 1.2; color: var(--ink);
+      margin-bottom: 1rem; text-wrap: balance;
+    }
+    .ty-sub { font-size: 1.5rem; color: var(--ink-s); line-height: 1.65; margin-bottom: 2.4rem; }
+    .ty-link {
+      display: inline-block; font-size: 1.4rem; font-weight: 600;
+      color: var(--coral-d); text-decoration: underline;
+    }
+    body.ty-open { overflow: hidden; }
   </style>
   <!-- MailerLite Universal -->
   <script>(function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[]).push(arguments);},l=d.createElement(e),l.async=1,l.src=u,n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})(window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');ml('account','2447022');</script>
@@ -1212,13 +1260,13 @@
             })
             .then(function(r) { return r.json(); })
             .then(function(data) {
-              msg.style.display = 'block';
               if (data.success) {
-                msg.innerHTML = '¡Listo! Te llega al correo en minutos.<br>¿No querés esperar? <a href="https://local-fisher-da7.notion.site/Productos-2fccb70826d480078a05ca56a7778130" target="_blank" rel="noopener" style="color:var(--coral);text-decoration:underline;">Mirá los 5 esenciales ahora →</a>';
-                msg.style.color = 'var(--clr-forest, #2d4a3e)';
+                msg.style.display = 'none';
                 document.getElementById('lead-email').value = '';
                 btn.textContent = 'Enviado ✓';
+                if (window.openThankYou) { window.openThankYou(); }
               } else {
+                msg.style.display = 'block';
                 msg.textContent = 'Algo salió mal. Intentá de nuevo.';
                 msg.style.color = '#c0392b';
                 btn.disabled = false;
@@ -1727,5 +1775,33 @@
       });
     }
   </script>
+  <!-- Thank-you popup (lead form success) -->
+  <div class="ty-overlay" id="ty-overlay" role="dialog" aria-modal="true" aria-labelledby="ty-title">
+    <div class="ty-dialog">
+      <button class="ty-close" type="button" aria-label="Cerrar" data-ty-close>&times;</button>
+      <div class="ty-check" aria-hidden="true">✓</div>
+      <h3 class="ty-title" id="ty-title">¡Listo! Revisá tu correo.</h3>
+      <p class="ty-sub">Te acabo de mandar la checklist de los 5 esenciales. Llega en minutos. Si no la ves, mirá en Promociones o Spam.</p>
+      <a class="ty-link" href="https://local-fisher-da7.notion.site/Productos-2fccb70826d480078a05ca56a7778130" target="_blank" rel="noopener">¿No querés esperar? Mirala ahora →</a>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var overlay = document.getElementById('ty-overlay');
+      if (!overlay) return;
+      window.openThankYou = function () {
+        overlay.classList.add('open');
+        document.body.classList.add('ty-open');
+      };
+      function closeTY() {
+        overlay.classList.remove('open');
+        document.body.classList.remove('ty-open');
+      }
+      overlay.addEventListener('click', function (e) { if (e.target === overlay) closeTY(); });
+      document.querySelectorAll('[data-ty-close]').forEach(function (b) { b.addEventListener('click', closeTY); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlay.classList.contains('open')) closeTY(); });
+    })();
+  </script>
+
 </body>
 </html>
