@@ -7,6 +7,8 @@
    failed load degrades to email-only capture instead of a broken form. */
 (function () {
   var KEY = 'hth_attr';
+  var WINDOW_MS = 30 * 24 * 60 * 60 * 1000; // 30-day first-touch window
+  function now() { return new Date().getTime(); }
 
   function channelFromReferrer() {
     var r = document.referrer;
@@ -32,22 +34,37 @@
     return h;
   }
 
-  function resolve() {
-    // First touch wins: once we've stamped a channel this session, keep it.
+  function read() {
     try {
-      var saved = sessionStorage.getItem(KEY);
-      if (saved) return JSON.parse(saved);
-    } catch (e) { /* private mode, fall through */ }
+      var saved = JSON.parse(localStorage.getItem(KEY));
+      if (saved && saved.ts && (now() - saved.ts) < WINDOW_MS) return saved;
+    } catch (e) { /* private mode or bad JSON */ }
+    return null;
+  }
 
+  function write(attr) {
+    try { localStorage.setItem(KEY, JSON.stringify(attr)); } catch (e) {}
+  }
+
+  function resolve() {
     var p = new URLSearchParams(location.search);
     var utm = (p.get('utm_source') || '').trim().toLowerCase();
+    var prior = read();
+
+    // First touch wins inside the window, with one exception: an explicit UTM
+    // beats a stored "directo", which is only ever a guess. Someone who hits the
+    // homepage cold and later clicks a tagged Instagram link should read as
+    // instagram, not direct.
+    if (prior && !(utm && prior.canal === 'directo')) return prior;
+
     var attr = {
       canal: utm || channelFromReferrer(),
       campana: (p.get('utm_campaign') || '').trim().toLowerCase(),
-      landing: location.pathname
+      landing: location.pathname,
+      ts: now()
     };
 
-    try { sessionStorage.setItem(KEY, JSON.stringify(attr)); } catch (e) {}
+    write(attr);
     return attr;
   }
 
