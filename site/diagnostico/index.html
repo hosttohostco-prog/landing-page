@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagnóstico — ¿En qué etapa de host estás? · Host-to-Host</title>
+  <meta name="description" content="Contame de tu propiedad y en 2 minutos te digo en qué etapa de host estás y cuál es tu próximo paso. Gratis, sin carreta.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Space+Grotesk:wght@300;400;500;600&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../brand.css">
+  <!-- Analytics: uncomment + set code once James creates the GoatCounter account.
+  <script data-goatcounter="https://CODE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  -->
+  <style>
+    /* —— DIAGNÓSTICO · one question per screen, dark editorial —— */
+    .quiz-page {
+      min-height: 100dvh;
+      background: var(--ink-bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 12rem 2.4rem 8rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .quiz-page::before {
+      content: '';
+      position: absolute;
+      width: 56rem; height: 56rem;
+      top: -20rem; right: -16rem;
+      background: radial-gradient(circle, rgba(243,152,120,0.07) 0%, rgba(243,152,120,0) 65%);
+      pointer-events: none;
+    }
+
+    .quiz-shell { width: 100%; max-width: 64rem; position: relative; z-index: 1; }
+
+    .q-progress {
+      display: flex;
+      gap: 0.8rem;
+      margin-bottom: 4rem;
+    }
+    .q-dot {
+      height: 0.3rem;
+      flex: 1;
+      background: rgba(252,243,233,0.15);
+      border-radius: 99px;
+      transition: background 0.3s;
+    }
+    .q-dot.on { background: var(--coral); }
+
+    .q-step { display: none; }
+    .q-step.active { display: block; animation: qin 0.45s cubic-bezier(0.22,1,0.36,1); }
+    @keyframes qin { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+
+    .q-kicker {
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin-bottom: 1.6rem;
+    }
+    .q-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 4vw, 4.2rem);
+      font-weight: 300;
+      line-height: 1.15;
+      letter-spacing: -0.015em;
+      color: var(--cream);
+      text-wrap: balance;
+      margin-bottom: 1.6rem;
+    }
+    .q-title em { font-style: italic; color: var(--coral); }
+    .q-sub {
+      font-size: 1.6rem;
+      color: rgba(252,243,233,0.65);
+      line-height: 1.7;
+      max-width: 52ch;
+      margin-bottom: 3.6rem;
+    }
+
+    .q-opts { display: flex; flex-direction: column; gap: 1.2rem; }
+    .q-opt {
+      text-align: left;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.6rem;
+      color: var(--cream);
+      background: rgba(252,243,233,0.05);
+      border: 1px solid rgba(252,243,233,0.14);
+      border-radius: 1.4rem;
+      padding: 2rem 2.4rem;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+      line-height: 1.5;
+    }
+    .q-opt:hover { border-color: var(--coral); background: rgba(243,152,120,0.08); transform: translateY(-1px); }
+    .q-opt.sel { border-color: var(--coral); background: rgba(243,152,120,0.12); }
+
+    .q-input, .q-text {
+      width: 100%;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.6rem;
+      color: var(--cream);
+      background: rgba(252,243,233,0.05);
+      border: 1px solid rgba(252,243,233,0.14);
+      border-radius: 1.4rem;
+      padding: 2rem 2.4rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .q-input::placeholder, .q-text::placeholder { color: rgba(252,243,233,0.35); }
+    .q-input:focus, .q-text:focus { border-color: var(--coral); }
+    .q-text { min-height: 12rem; resize: vertical; line-height: 1.6; }
+    .q-input + .q-input { margin-top: 1.2rem; }
+
+    .q-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 3.6rem;
+    }
+    .q-back {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.4rem;
+      color: rgba(252,243,233,0.5);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 1rem;
+    }
+    .q-back:hover { color: var(--cream); }
+    .q-next { border: none; cursor: pointer; }
+    .q-next[disabled] { opacity: 0.35; pointer-events: none; }
+
+    /* result */
+    .r-emoji { font-size: 4.4rem; display: block; margin-bottom: 2rem; }
+    .r-obs {
+      border-left: 2px solid var(--coral);
+      padding-left: 2.4rem;
+      margin: 3.2rem 0;
+    }
+    .r-obs p { font-size: 1.6rem; color: rgba(252,243,233,0.75); line-height: 1.75; max-width: 52ch; }
+
+    .r-plan { margin: 4rem 0; }
+    .r-plan-h {
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin-bottom: 2rem;
+    }
+    .r-tip {
+      background: rgba(252,243,233,0.05);
+      border: 1px solid rgba(252,243,233,0.12);
+      border-radius: 1.4rem;
+      padding: 2.4rem 2.8rem;
+    }
+    .r-tip + .r-tip { margin-top: 1.2rem; }
+    .r-tip-h { font-size: 1.6rem; font-weight: 600; color: var(--cream); margin-bottom: 0.8rem; }
+    .r-tip-p { font-size: 1.5rem; color: rgba(252,243,233,0.72); line-height: 1.75; }
+    .r-tip-p strong { color: var(--cream); font-weight: 600; }
+
+    .r-next {
+      font-family: 'Caveat', cursive;
+      font-size: 2.2rem;
+      color: var(--coral);
+      margin-bottom: 3.2rem;
+    }
+    .r-links { display: flex; gap: 1.6rem; flex-wrap: wrap; align-items: center; }
+    .r-alt { font-size: 1.4rem; color: rgba(252,243,233,0.5); }
+    .r-alt a { color: var(--cream); }
+  </style>
+  <script src="/assets/track.js"></script>
+</head>
+<body>
+
+  <nav class="nav nav--dark">
+    <a href="/" class="nav-logo"><img src="../assets/logo-lockup-cream.png" alt="Host-to-Host"></a>
+    <ul class="nav-links">
+      <li><a href="/recursos">Recursos</a></li>
+      <li><a href="https://tienda.hosttohost.co/">Tienda</a></li>
+      <li><a href="/coaching">Coaching</a></li>
+      <li><a href="https://tienda.hosttohost.co/" class="nav-cta">Ir a la tienda</a></li>
+    </ul>
+  </nav>
+
+  <main class="quiz-page">
+    <div class="quiz-shell">
+      <div class="q-progress" id="progress" aria-hidden="true"></div>
+      <div id="steps"></div>
+    </div>
+  </main>
+
+  <script>
+  // ——— DIAGNÓSTICO DE ETAPA DE HOST ———
+  // Logic per Marketing/specs/diagnostico-question-flow.md.
+  // [MAFE CONFIRMA] items ship with safe defaults (flags, not rejections) —
+  // pending her review; adjust diagnose() once she confirms her real criteria.
+  // Capture: MailerLite group "Diagnóstico - Etapa de Host" (id 192257428735133672)
+  // via embedded form 192257440420464594, account 2447022. Custom fields:
+  // etapa_host, freno_host, alerta_diagnostico (created 2026-07-06). Uses the
+  // default "phone" field for WhatsApp.
+
+  // — analytics: no-ops unless GoatCounter's script is loaded (see <head>) —
+  function track(ev) {
+    if (window.goatcounter && window.goatcounter.count) {
+      window.goatcounter.count({ path: 'diagnostico-' + ev, event: true });
+    }
+  }
+
+  const A = {}; // answers
+
+  const STEPS = [
+    {
+      id: 'intro', kicker: 'Diagnóstico gratis',
+      title: '¿En qué etapa de host <em>estás?</em>',
+      sub: 'Contame de tu propiedad y en 2 minuticos te digo dónde estás parada y cuál es tu próximo paso. Sin carreta. — Mafe',
+      type: 'start', btn: 'Empezar'
+    },
+    {
+      id: 'etapa', kicker: 'Pregunta 1',
+      title: '¿Cuál de estas suena más <em>a vos?</em>',
+      type: 'opts', opts: [
+        ['a', 'Sueño con tener un Airbnb pero todavía no tengo propiedad'],
+        ['b', 'Ya tengo la propiedad pero no la he publicado'],
+        ['c', 'Ya publiqué pero casi no me reservan'],
+        ['d', 'Opero hace rato y quiero mejorar números']
+      ]
+    },
+    {
+      id: 'propiedad', kicker: 'Pregunta 2',
+      title: 'Contame de tu <em>propiedad.</em>',
+      sub: '¿Qué es, dónde queda y para cuántas personas?',
+      type: 'text', ph: 'Ej: un apartamento de 2 habitaciones en Laureles, para 4 personas...',
+      when: () => A.etapa !== 'a',
+      alt: {
+        title: '¿Ya tenés vista alguna propiedad o <em>presupuesto?</em>',
+        sub: 'Contame en qué punto va el sueño — sin pena, todas empezamos ahí.',
+        when: () => A.etapa === 'a'
+      }
+    },
+    {
+      id: 'especial', kicker: 'Pregunta 3',
+      title: '¿Qué hace que alguien elija TU propiedad y no la <em>de al lado?</em>',
+      type: 'opts', when: () => A.etapa !== 'a', opts: [
+        ['ubicacion', 'La ubicación'],
+        ['vista', 'La vista o la naturaleza'],
+        ['diseno', 'El diseño y la decoración'],
+        ['amenities', 'Amenities especiales (jacuzzi, piscina...)'],
+        ['nose', 'Honestamente, todavía no sé']
+      ]
+    },
+    {
+      id: 'rnt', kicker: 'Pregunta 4',
+      title: '¿Ya tenés el RNT (Registro Nacional de <em>Turismo?</em>)',
+      type: 'opts', when: () => A.etapa !== 'a', opts: [
+        ['si', 'Sí, al día'],
+        ['tramite', 'Está en trámite'],
+        ['no', 'No'],
+        ['queeseso', '¿Qué es eso???']
+      ]
+    },
+    {
+      id: 'edificio', kicker: 'Pregunta 4b',
+      title: '¿Tu edificio o tu zona permiten alquiler <em>turístico?</em>',
+      type: 'opts', when: () => A.etapa !== 'a', opts: [
+        ['si', 'Sí, permitido'],
+        ['nosé', 'No estoy segura'],
+        ['no', 'Me han dicho que no']
+      ]
+    },
+    {
+      id: 'costos', kicker: 'Pregunta 5',
+      title: '¿Cuánto te cuesta tener la propiedad abierta, <em>por día?</em>',
+      sub: 'Sumá administración, servicios, internet y lo fijo de cada mes. Más o menos, en COP.',
+      type: 'opts', when: () => A.etapa !== 'a', opts: [
+        ['bajo', 'Menos de $30.000'],
+        ['medio', 'Entre $30.000 y $60.000'],
+        ['alto', 'Entre $60.000 y $120.000'],
+        ['muyalto', 'Más de $120.000'],
+        ['niidea', 'Ni idea, nunca lo he sacado']
+      ]
+    },
+    {
+      id: 'freno', kicker: 'Pregunta 6',
+      title: '¿Qué es lo que más te está frenando <em>hoy?</em>',
+      type: 'text', ph: 'Contame con confianza...'
+    },
+    {
+      id: 'cuando', kicker: 'Pregunta 7',
+      title: 'Si arrancamos, ¿cuándo querés tu Airbnb recibiendo <em>huéspedes?</em>',
+      type: 'opts', opts: [
+        ['mes', 'Este mes'],
+        ['trimestre', 'En 1 a 3 meses'],
+        ['ano', 'Este año'],
+        ['explorando', 'Solo estoy explorando']
+      ]
+    },
+    {
+      id: 'contacto', kicker: 'Última',
+      title: '¿A dónde te mando tu resultado y los pasos que <em>siguen?</em>',
+      sub: 'El correo es obligatorio — el WhatsApp es opcional, pero así te escribe Mafe más rápido.',
+      type: 'contact'
+    },
+    { id: 'result', type: 'result' }
+  ];
+
+  // — stage + result computation (v1 rules, no math) —
+  function diagnose() {
+    const hot = (A.cuando === 'mes' && (A.etapa === 'b' || A.etapa === 'c'));
+    const riskEdificio = (A.edificio === 'no'); // [MAFE CONFIRMA] flag, not reject
+    let stage;
+    if (A.etapa === 'a') stage = 'newborn';
+    else if (A.etapa === 'b') stage = 'baby';
+    else if (A.etapa === 'c') stage = 'teen';
+    else stage = 'operating';
+
+    let obs = '';
+    if (A.costos === 'niidea') obs = 'Me dijiste que nunca has sacado tu costo fijo por día. Ese número es lo PRIMERO — sin él, cualquier precio que pongas es adivinar. Abajo te dejo cómo sacarlo hoy mismo.';
+    else if (A.rnt === 'queeseso') obs = 'Tranquila, que no saber qué es el RNT es normal: nadie nos enseña esto. Abajo te lo explico clarito — es lo primero de tu plan.';
+    else if (riskEdificio) obs = 'Ojo: me contaste que te han dicho que tu edificio no permite alquiler turístico. Eso hay que confirmarlo ANTES de invertir un peso más.';
+    else if (A.especial === 'nose') obs = 'Todavía no tenés claro qué hace especial tu propiedad — y eso está bien. Definir eso ES el primer paso: de ahí sale el título, las fotos y el precio.';
+    else if (stage === 'teen') obs = 'Publicaste y no te reservan como querés. Casi siempre son las mismas tres cosas: las fotos, el título o el precio. La buena noticia: las tres se arreglan.';
+    else obs = 'Con lo que me contaste, hay con qué trabajar. Acá va tu punto de partida.';
+
+    // — the mini-plan: real method, chosen by their answers, max 3 tips —
+    const TIPS = {
+      rnt: { h: 'Sacá tu RNT antes de publicar', p: 'El <strong>Registro Nacional de Turismo</strong> es EL documento para operar legal en Colombia — activo y al día. Sin él estás expuesta a multas y cierres. Se tramita antes de publicar, no después. Y de una vez confirmá el <strong>Certificado de Tradición y Libertad</strong> de tu propiedad.' },
+      edificio: { h: 'Confirmá el reglamento de tu edificio', p: 'Pedí el <strong>Reglamento de Propiedad Horizontal</strong> y buscá si permite alquiler turístico. Si no lo permite, vas a chocar con la administración — mejor saberlo hoy que después de amoblar. Esto va ANTES que cualquier compra.' },
+      costos: { h: 'Sacá tu número de supervivencia (10 minutos)', p: 'Sumá lo fijo del mes: administración, servicios, internet, y dividilo <strong>entre 30</strong>. Ese es tu costo por día. La regla: lo que te entra por noche disponible (reserves o no) tiene que estar SIEMPRE por encima de ese número. Con ese dato, ya no adivinas precios: decides.' },
+      norte: { h: 'Definí tu norte con 3 preguntas', p: 'Antes de tocar el anuncio, respondé por escrito: <strong>¿por qué quieres ser anfitriona? ¿quién es tu huésped ideal? ¿qué hace única tu propiedad?</strong> El que mucho abarca, poco aprieta — tu niche decide el título, las fotos y el precio.' },
+      fotos5: { h: 'Revisá tus primeras 5 fotos — cada una tiene UN trabajo', p: '1) La portada (probala con amigas: "¿cuál te haría reservar?") · 2) Cómo se SIENTE estar adentro · 3) Tu mejor activo (la vista, el jacuzzi) · 4) El extra incluido · 5) Lo que el huésped puede HACER. Si dos fotos hacen el mismo trabajo, sobra una.' },
+      titulo: { h: 'Cambiá el título hoy', p: 'Nada de "Apartamento en Medellín". Usá tus atributos únicos: <strong>"Apartamento en Provenza con vista y jacuzzi"</strong>. El título tiene que gritar la escapada que vendes — romántica, familiar, de trabajo.' },
+      blanco: { h: 'Comprá como hotel, no como casa', p: 'Todo <strong>blanco</strong> lo que se mancha (sábanas, toallas): se recupera con blanqueador sin miedo. Un solo color, un solo juego — inventario auditable en segundos. Y contá por huésped máximo <strong>+1 o 2</strong> (2 huéspedes → 3-4 cucharas).' },
+      competencia: { h: 'Estudiá a tus 2 vecinos clave', p: 'Filtrá propiedades como la tuya en tu zona y mirá dos: <strong>la que vive llena y la que vive vacía</strong>. ¿Qué hace la primera que vos no? Esa comparación vale más que cualquier curso de precios.' },
+      restricciones: { h: 'Soltá restricciones para que Airbnb te muestre', p: 'El algoritmo muestra más los anuncios con <strong>menos restricciones</strong>: estadía mínima flexible, calendario abierto, respuesta rápida. Cada restricción que soltás es visibilidad gratis.' }
+    };
+
+    const plan = [];
+    if (stage !== 'newborn') {
+      if (A.rnt === 'no' || A.rnt === 'queeseso') plan.push(TIPS.rnt);
+      if (riskEdificio || A.edificio === 'nosé') plan.push(TIPS.edificio);
+      if (A.costos === 'niidea') plan.push(TIPS.costos);
+      if (A.especial === 'nose') plan.push(TIPS.norte);
+      if (stage === 'teen') { plan.push(TIPS.fotos5); plan.push(TIPS.titulo); }
+      if (stage === 'baby') plan.push(TIPS.blanco);
+      if (stage === 'operating') { plan.push(TIPS.competencia); plan.push(TIPS.restricciones); }
+    } else {
+      plan.push(TIPS.norte, TIPS.costos);
+    }
+    const plan3 = plan.slice(0, 3);
+
+    const R = {
+      newborn: {
+        emoji: '🐣', name: 'Etapa Newborn',
+        title: 'Soñando — y eso está <em>perfecto.</em>',
+        obs: 'Antes de comprar o montar nada, aprendé. Así llegás a tu primera propiedad sin pagar la "matrícula" que pagué yo.',
+        next: 'Tu próximo paso: mis guías gratis',
+        cta: { text: 'Llevate las guías', href: '/recursos' },
+        alt: 'Y seguime en <a href="https://www.instagram.com/demafetohost">@demafetohost</a> — ahí cuento todo lo que nadie me enseñó a mí.'
+      },
+      baby: {
+        emoji: '👶', name: 'Etapa Baby Host',
+        title: 'Estás a unos pasos de <em>publicar.</em>',
+        obs, next: 'Tu próximo paso: la llamada gratis de 30 minutos',
+        cta: null,
+        alt: 'Mientras tanto, date una vuelta por los <a href="/recursos">recursos gratis</a>.'
+      },
+      teen: {
+        emoji: '🧑', name: 'Etapa Teen Host',
+        title: 'Tu anuncio no está trabajando <em>para vos.</em>',
+        obs, next: 'Tu próximo paso: la llamada gratis de 30 minutos',
+        cta: null,
+        alt: '¿Querés saber exactamente qué arreglar? <a href="/auditoria/">Auditá tu anuncio</a> — puntaje gratis en 3 minutos. Y date una vuelta por los <a href="/recursos">recursos gratis</a>.'
+      },
+      operating: {
+        emoji: '💪', name: 'Anfitriona en operación',
+        title: 'Lo tuyo no es empezar — es <em>afinar.</em>',
+        obs, next: 'Tu próximo paso: una sesión 1:1 — empezamos con la llamada gratis',
+        cta: null,
+        alt: '¿Querés saber exactamente qué arreglar? <a href="/auditoria/">Auditá tu anuncio</a> — puntaje gratis en 3 minutos. Y date una vuelta por los <a href="/recursos">recursos gratis</a>.'
+      }
+    };
+    return { stage, hot, riskEdificio, plan: plan3, r: R[stage] };
+  }
+
+  // — render engine —
+  const stepsEl = document.getElementById('steps');
+  const progEl = document.getElementById('progress');
+  let flow = [], idx = 0;
+
+  function activeFlow() {
+    return STEPS.filter(s => !s.when || s.when() || (s.alt && s.alt.when()));
+  }
+
+  function render() {
+    flow = activeFlow();
+    const step = flow[idx];
+    const qSteps = flow.filter(s => s.type !== 'start' && s.type !== 'result');
+    progEl.innerHTML = qSteps.map((s, i) =>
+      `<span class="q-dot ${flow.indexOf(s) <= idx ? 'on' : ''}"></span>`).join('');
+    progEl.style.display = (step.type === 'start' || step.type === 'result') ? 'none' : 'flex';
+
+    let inner = '';
+    const useAlt = step.alt && step.alt.when && step.alt.when();
+    const title = useAlt ? step.alt.title : step.title;
+    const sub = useAlt ? step.alt.sub : step.sub;
+
+    if (step.type === 'result') {
+      const d = diagnose();
+      save(d);
+      track('completed');
+      inner = `
+        <span class="r-emoji">${d.r.emoji}</span>
+        <p class="q-kicker">${d.r.name}</p>
+        <h1 class="q-title">${d.r.title}</h1>
+        <div class="r-obs"><p>${d.r.obs}</p></div>
+        <div class="r-plan">
+          <p class="r-plan-h">Tu mini-plan — empezá hoy</p>
+          ${d.plan.map(t => `<div class="r-tip"><p class="r-tip-h">${t.h}</p><p class="r-tip-p">${t.p}</p></div>`).join('')}
+        </div>
+        <p class="r-next">${d.r.next}</p>
+        <div class="r-links">
+          ${d.r.cta ? `<a href="${d.r.cta.href}" class="btn-pill"><span>${d.r.cta.text}</span></a>`
+            : `<p class="q-sub" style="margin:0">Listo. Mafe te escribe por WhatsApp para cuadrar la hora. 💬</p>`}
+        </div>
+        <p class="r-alt" style="margin-top:2.4rem">${d.r.alt}</p>`;
+    } else {
+      inner = `
+        <p class="q-kicker">${step.kicker || ''}</p>
+        <h1 class="q-title">${title}</h1>
+        ${sub ? `<p class="q-sub">${sub}</p>` : ''}
+        ${step.type === 'opts' ? `<div class="q-opts">${step.opts.map(([v, t]) =>
+          `<button class="q-opt ${A[step.id] === v ? 'sel' : ''}" data-v="${v}">${t}</button>`).join('')}</div>` : ''}
+        ${step.type === 'text' ? `<textarea class="q-text" id="tin" placeholder="${step.ph || ''}">${A[step.id] || ''}</textarea>` : ''}
+        ${step.type === 'contact' ? `
+          <input class="q-input" id="cem" type="email" placeholder="Tu correo" value="${A.email || ''}">
+          <input class="q-input" id="cwa" type="tel" placeholder="Tu WhatsApp (opcional)" value="${A.whatsapp || ''}">` : ''}
+        <div class="q-nav">
+          ${idx > 0 ? '<button class="q-back" id="back">← Volver</button>' : '<span></span>'}
+          <button class="btn-pill q-next" id="next" ${step.type === 'opts' && !A[step.id] ? 'disabled' : ''}>
+            <span>${step.btn || (step.type === 'contact' ? 'Ver mi resultado' : 'Siguiente')}</span>
+          </button>
+        </div>`;
+    }
+
+    stepsEl.innerHTML = `<div class="q-step active">${inner}</div>`;
+    bind(step);
+  }
+
+  function bind(step) {
+    const next = document.getElementById('next');
+    const back = document.getElementById('back');
+    if (back) back.onclick = () => { idx--; render(); };
+
+    if (step.type === 'opts') {
+      stepsEl.querySelectorAll('.q-opt').forEach(b => b.onclick = () => {
+        A[step.id] = b.dataset.v;
+        idx++; render();  // tap = advance; no double-click needed
+      });
+    }
+    if (next) next.onclick = () => {
+      if (step.type === 'start') track('started');
+      if (step.type === 'text') A[step.id] = document.getElementById('tin').value.trim();
+      if (step.type === 'contact') {
+        const em = document.getElementById('cem').value.trim();
+        const wa = document.getElementById('cwa').value.trim();
+        if (!em || !em.includes('@')) { document.getElementById('cem').focus(); return; }
+        A.email = em; A.whatsapp = wa;
+      }
+      idx++; render();
+      window.scrollTo({ top: 0 });
+    };
+  }
+
+  // — send to MailerLite (fire-and-forget; the plan above is already
+  // delivered client-side, so a network hiccup here never blocks the user) —
+  function save(d) {
+    const alertas = [
+      d.hot ? 'hot-lead' : '',
+      d.riskEdificio ? 'riesgo-edificio' : '',
+      A.costos === 'niidea' ? 'costos-desconocidos' : '',
+      A.rnt === 'queeseso' ? 'rnt-desconocido' : ''
+    ].filter(Boolean).join(', ');
+
+    console.log('[diagnóstico] submission:', { answers: A, stage: d.stage, hot: d.hot, riskEdificio: d.riskEdificio });
+
+    if (!A.email) return;
+    const body = 'fields[email]=' + encodeURIComponent(A.email)
+      + '&fields[phone]=' + encodeURIComponent(A.whatsapp || '')
+      + '&fields[etapa_host]=' + encodeURIComponent(d.r.name)
+      + '&fields[freno_host]=' + encodeURIComponent(A.freno || '')
+      + '&fields[alerta_diagnostico]=' + encodeURIComponent(alertas)
+      + (window.HTH ? HTH.src('diagnostico-quiz') : '');
+
+    fetch('https://assets.mailerlite.com/jsonp/2447022/forms/192257440420464594/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body
+    }).catch(function () { /* silent — result already shown */ });
+  }
+
+  render();
+  </script>
+</body>
+</html>

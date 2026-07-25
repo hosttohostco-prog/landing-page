@@ -10,6 +10,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Space+Grotesk:wght@300;400;500;600&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../brand.css">
+  <!-- Analytics: uncomment + set code once James creates the GoatCounter account.
+  <script data-goatcounter="https://CODE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  -->
   <script>
     // Reveal animations run only when motion is allowed; no-JS / reduced-motion
     // always sees the fully rendered page (nothing stays hidden).
@@ -118,6 +121,7 @@
       .optin-btn { width: 100%; }
     }
   </style>
+  <script src="/assets/track.js"></script>
 </head>
 <body>
 
@@ -136,7 +140,7 @@
         <button class="optin-btn" type="submit">Enviármela →</button>
       </form>
       <p class="optin-msg" id="optin-msg"></p>
-      <p class="optin-privacy reveal">Al suscribirte aceptás la <a href="https://tienda.hosttohost.co/policies/privacy-policy" target="_blank" rel="noopener">política de privacidad</a>.</p>
+      <p class="optin-privacy reveal">Al suscribirte aceptás la <a href="/privacidad">política de privacidad</a>.</p>
 
       <p class="optin-trust reveal">Por Mafe, Superhost con 9 años recibiendo huéspedes en Colombia.</p>
     </div>
@@ -145,7 +149,7 @@
   <footer class="footer footer--slim">
     <div class="footer-bt">
       <p class="f-copy">© <span id="copyright-year">2026</span> Host-to-Host · Medellín, Colombia</p>
-      <nav class="f-leg"><a href="https://tienda.hosttohost.co/policies/privacy-policy" target="_blank" rel="noopener">Política de privacidad</a></nav>
+      <nav class="f-leg"><a href="/privacidad">Política de privacidad</a></nav>
     </div>
   </footer>
 
@@ -187,7 +191,8 @@
         fetch('https://assets.mailerlite.com/jsonp/2447022/forms/' + FORM_ID + '/subscribe', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: 'fields[email]=' + encodeURIComponent(email.value)
+          body: 'fields[email]=' + encodeURIComponent(email.value) +
+                (window.HTH ? HTH.src('oficina-page') : '')
         })
         .then(function (r) { return r.json(); })
         .then(function (data) {

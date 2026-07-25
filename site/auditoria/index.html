@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auditoría de Anuncio — ¿Cuántos puntos saca tu Airbnb? · Host-to-Host</title>
+  <meta name="description" content="Auditá tu anuncio de Airbnb con el método de Mafe: puntaje gratis en 4 categorías y un plan de mejoras priorizado. Sin carreta.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Space+Grotesk:wght@300;400;500;600&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../brand.css">
+  <!-- Analytics: uncomment + set code once James creates the GoatCounter account.
+  <script data-goatcounter="https://CODE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  -->
+  <style>
+    /* —— AUDITORÍA · same dark editorial quiz shell as /diagnostico —— */
+    .quiz-page {
+      min-height: 100dvh;
+      background: var(--ink-bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 12rem 2.4rem 8rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .quiz-page::before {
+      content: '';
+      position: absolute;
+      width: 56rem; height: 56rem;
+      top: -20rem; right: -16rem;
+      background: radial-gradient(circle, rgba(243,152,120,0.07) 0%, rgba(243,152,120,0) 65%);
+      pointer-events: none;
+    }
+
+    .quiz-shell { width: 100%; max-width: 64rem; position: relative; z-index: 1; }
+
+    .q-progress { display: flex; gap: 0.8rem; margin-bottom: 4rem; }
+    .q-dot {
+      height: 0.3rem; flex: 1;
+      background: rgba(252,243,233,0.15);
+      border-radius: 99px;
+      transition: background 0.3s;
+    }
+    .q-dot.on { background: var(--coral); }
+
+    .q-step { display: none; }
+    .q-step.active { display: block; animation: qin 0.45s cubic-bezier(0.22,1,0.36,1); }
+    @keyframes qin { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+
+    .q-kicker {
+      font-size: 1.3rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--coral); margin-bottom: 1.6rem;
+    }
+    .q-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 4vw, 4.2rem);
+      font-weight: 300; line-height: 1.15; letter-spacing: -0.015em;
+      color: var(--cream); text-wrap: balance;
+      margin-bottom: 1.6rem;
+    }
+    .q-title em { font-style: italic; color: var(--coral); }
+    .q-sub {
+      font-size: 1.6rem; color: rgba(252,243,233,0.65);
+      line-height: 1.7; max-width: 52ch; margin-bottom: 3.6rem;
+    }
+
+    .q-opts { display: flex; flex-direction: column; gap: 1.2rem; }
+    .q-opt {
+      text-align: left;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.6rem; color: var(--cream);
+      background: rgba(252,243,233,0.05);
+      border: 1px solid rgba(252,243,233,0.14);
+      border-radius: 1.4rem; padding: 2rem 2.4rem;
+      cursor: pointer; line-height: 1.5;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+    .q-opt:hover { border-color: var(--coral); background: rgba(243,152,120,0.08); transform: translateY(-1px); }
+    .q-opt.sel { border-color: var(--coral); background: rgba(243,152,120,0.12); }
+
+    .q-input {
+      width: 100%;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.6rem; color: var(--cream);
+      background: rgba(252,243,233,0.05);
+      border: 1px solid rgba(252,243,233,0.14);
+      border-radius: 1.4rem; padding: 2rem 2.4rem;
+      outline: none; transition: border-color 0.2s;
+    }
+    .q-input::placeholder { color: rgba(252,243,233,0.35); }
+    .q-input:focus { border-color: var(--coral); }
+    .q-input + .q-input { margin-top: 1.2rem; }
+    .q-hint { font-size: 1.3rem; color: rgba(252,243,233,0.45); margin-top: 1.2rem; line-height: 1.6; }
+
+    .q-nav { display: flex; align-items: center; justify-content: space-between; margin-top: 3.6rem; }
+    .q-back {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.4rem; color: rgba(252,243,233,0.5);
+      background: none; border: none; cursor: pointer; padding: 1rem;
+    }
+    .q-back:hover { color: var(--cream); }
+    .q-next { border: none; cursor: pointer; }
+    .q-next[disabled] { opacity: 0.35; pointer-events: none; }
+
+    /* — intro perks — */
+    .perk-list { display: flex; flex-direction: column; gap: 1.2rem; margin-bottom: 3.6rem; }
+    .perk {
+      display: flex; gap: 1.4rem; align-items: baseline;
+      font-size: 1.5rem; color: rgba(252,243,233,0.72); line-height: 1.6;
+    }
+    .perk::before { content: '—'; color: var(--coral); flex-shrink: 0; }
+    .perk strong { color: var(--cream); font-weight: 600; }
+
+    /* — result: score — */
+    .score-card {
+      border: 1px solid rgba(252,243,233,0.14);
+      border-radius: 2rem;
+      padding: 3.6rem 3.2rem;
+      margin: 3.2rem 0;
+      background: rgba(252,243,233,0.04);
+    }
+    .score-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 8rem; font-weight: 400; line-height: 1;
+      color: var(--cream);
+    }
+    .score-num small { font-size: 2.4rem; color: rgba(252,243,233,0.5); }
+    .score-tag {
+      font-family: 'Caveat', cursive;
+      font-size: 2.4rem; color: var(--coral);
+      margin-top: 0.8rem;
+    }
+    .cat-list { margin-top: 3.2rem; display: flex; flex-direction: column; gap: 2rem; }
+    .cat-row { }
+    .cat-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.8rem; }
+    .cat-name {
+      font-size: 1.3rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(252,243,233,0.85);
+    }
+    .cat-name small { color: rgba(252,243,233,0.4); font-weight: 400; letter-spacing: 0.04em; text-transform: none; }
+    .cat-score { font-size: 1.5rem; font-weight: 600; color: var(--cream); }
+    .cat-bar { height: 0.6rem; background: rgba(252,243,233,0.1); border-radius: 99px; overflow: hidden; }
+    .cat-fill { height: 100%; background: var(--coral); border-radius: 99px; transition: width 1s cubic-bezier(0.22,1,0.36,1); }
+
+    .r-obs {
+      border-left: 2px solid var(--coral);
+      padding-left: 2.4rem; margin: 3.2rem 0;
+    }
+    .r-obs p { font-size: 1.6rem; color: rgba(252,243,233,0.75); line-height: 1.75; max-width: 52ch; }
+
+    /* — paid section — */
+    .paywall {
+      border: 1px dashed rgba(243,152,120,0.4);
+      border-radius: 2rem;
+      padding: 3.6rem 3.2rem;
+      margin: 4rem 0 3.2rem;
+      position: relative;
+    }
+    .pw-kicker {
+      font-size: 1.3rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--coral); margin-bottom: 1.6rem;
+    }
+    .pw-h {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.8rem; font-weight: 400; line-height: 1.2;
+      color: var(--cream); margin-bottom: 2rem; text-wrap: balance;
+    }
+    .pw-list { display: flex; flex-direction: column; gap: 1.4rem; margin-bottom: 2.8rem; }
+    .pw-item {
+      display: flex; gap: 1.4rem; align-items: baseline;
+      font-size: 1.5rem; color: rgba(252,243,233,0.72); line-height: 1.65;
+    }
+    .pw-item::before { content: ''; width: 1.4rem; height: 1px; background: var(--coral); flex-shrink: 0; position: relative; top: -0.4em; }
+    .pw-item strong { color: var(--cream); font-weight: 600; }
+    .pw-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.2rem; color: var(--cream); margin-bottom: 2.4rem;
+    }
+    .pw-price small { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; color: rgba(252,243,233,0.5); }
+    .pw-soon {
+      font-family: 'Caveat', cursive; font-size: 2.2rem; color: var(--coral);
+    }
+    .pw-note { font-size: 1.35rem; color: rgba(252,243,233,0.45); margin-top: 1.6rem; line-height: 1.6; }
+
+    /* — unlocked plan — */
+    .plan-tip {
+      background: rgba(252,243,233,0.05);
+      border: 1px solid rgba(252,243,233,0.12);
+      border-radius: 1.4rem;
+      padding: 2.4rem 2.8rem;
+    }
+    .plan-tip + .plan-tip { margin-top: 1.2rem; }
+    .pt-cat {
+      font-size: 1.15rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--coral); margin-bottom: 0.8rem;
+    }
+    .pt-h { font-size: 1.6rem; font-weight: 600; color: var(--cream); margin-bottom: 0.8rem; }
+    .pt-p { font-size: 1.5rem; color: rgba(252,243,233,0.72); line-height: 1.75; }
+    .pt-p strong { color: var(--cream); font-weight: 600; }
+
+    .r-next {
+      font-family: 'Caveat', cursive;
+      font-size: 2.2rem; color: var(--coral); margin: 3.2rem 0;
+    }
+    .r-alt { font-size: 1.4rem; color: rgba(252,243,233,0.5); margin-top: 2.4rem; }
+    .r-alt a { color: var(--cream); }
+
+    .weights-note { font-size: 1.25rem; color: rgba(252,243,233,0.4); margin-top: 2rem; line-height: 1.6; }
+  </style>
+  <script src="/assets/track.js"></script>
+</head>
+<body>
+
+  <nav class="nav nav--dark">
+    <a href="/" class="nav-logo"><img src="../assets/logo-lockup-cream.png" alt="Host-to-Host"></a>
+    <ul class="nav-links">
+      <li><a href="/recursos">Recursos</a></li>
+      <li><a href="https://tienda.hosttohost.co/">Tienda</a></li>
+      <li><a href="/coaching">Coaching</a></li>
+      <li><a href="https://tienda.hosttohost.co/" class="nav-cta">Ir a la tienda</a></li>
+    </ul>
+  </nav>
+
+  <main class="quiz-page">
+    <div class="quiz-shell">
+      <div class="q-progress" id="progress" aria-hidden="true"></div>
+      <div id="steps"></div>
+    </div>
+  </main>
+
+  <script>
+  // ——— AUDITORÍA DE ANUNCIO ———
+  // Spec: Marketing/specs/auditoria-spec.md. Rubric = Mafe's 4-stage algorithm
+  // funnel (mafe-kb/14): Visibilidad, Consideración (first-5-photos, mafe-kb/12),
+  // Conversión (título/descripción mafe-kb/10, precio mafe-kb/11), Calidad.
+  // Weights [MAFE CONFIRMA]: Consideración 35 / Conversión 30 / Visibilidad 20 / Calidad 15.
+  // Capture: MailerLite group "Auditoría - Anuncio" (192533328835905218) via form
+  // 192533352306181214. Fields: puntaje_auditoria, link_anuncio, estado_auditoria, phone.
+  // Paid tier: instant templated plan + Mafe reviews the listing async (48h, WhatsApp).
+  // PAID_ENABLED stays false until James supplies the payment link + price.
+
+  const PAID_ENABLED = false;                 // Stage 2: flip to true
+  const PAYMENT_LINK = '#';                   // [OPEN] hosted COP payment link (Mercado Pago likely)
+  const PRICE_COP = null;                     // [OPEN] James sets, e.g. '89.000'
+  const ML_FORM = '192533352306181214';
+
+  // — analytics: no-ops unless GoatCounter's script is loaded (see <head>) —
+  function track(ev) {
+    if (window.goatcounter && window.goatcounter.count) {
+      window.goatcounter.count({ path: 'auditoria-' + ev, event: true });
+    }
+  }
+
+  const A = {}; // answers: { id: {v, pts} } for scored questions, plain values otherwise
+
+  // Each scored option = [value, label, points 0-10]
+  const STEPS = [
+    {
+      id: 'intro', type: 'start', kicker: 'Auditoría gratis',
+      title: '¿Cuántos puntos saca tu <em>anuncio?</em>',
+      subHtml: `
+        <div class="perk-list">
+          <p class="perk"><span><strong>Gratis:</strong> tu puntaje sobre 100, desglosado en las 4 etapas del algoritmo de Airbnb.</span></p>
+          <p class="perk"><span><strong>Si querés ir más allá:</strong> tu plan de mejoras priorizado — y yo reviso tu anuncio personalmente y te mando mis arreglos por WhatsApp.</span></p>
+          <p class="perk"><span>15 preguntas, 3 minuticos. Abrí tu anuncio en otra pestaña y respondé mirándolo. — Mafe</span></p>
+        </div>`,
+      btn: 'Empezar'
+    },
+    {
+      id: 'link', type: 'link', kicker: 'Tu anuncio',
+      title: 'Pegá el link de tu <em>anuncio.</em>',
+      sub: 'Abrilo en Airbnb, copiá la dirección y pegala acá. Lo necesito para poder revisarlo.',
+      ph: 'https://www.airbnb.com.co/rooms/...'
+    },
+
+    // ── VISIBILIDAD (peso 20) — mafe-kb/14: fewest restrictions get shown more ──
+    {
+      id: 'v1', type: 'score', cat: 'vis', kicker: 'Visibilidad · 1 de 3',
+      title: '¿Cuál es tu estadía <em>mínima?</em>',
+      opts: [
+        ['flex', '1 noche, flexible', 10],
+        ['media', '2 o 3 noches', 6],
+        ['alta', '4 noches o más', 2]
+      ]
+    },
+    {
+      id: 'v2', type: 'score', cat: 'vis', kicker: 'Visibilidad · 2 de 3',
+      title: '¿Cómo está tu <em>calendario?</em>',
+      opts: [
+        ['abierto', 'Abierto y actualizado — solo bloqueo lo real', 10],
+        ['olvidos', 'A veces se me queda desactualizado', 5],
+        ['bloqueos', 'Tengo bloqueos que ni recuerdo por qué están', 0]
+      ]
+    },
+    {
+      id: 'v3', type: 'score', cat: 'vis', kicker: 'Visibilidad · 3 de 3',
+      title: '¿Qué tan rápido respondés los <em>mensajes?</em>',
+      opts: [
+        ['rapido', 'En menos de una hora, casi siempre', 10],
+        ['dia', 'El mismo día', 6],
+        ['tarde', 'A veces se me pasan uno o dos días', 0]
+      ]
+    },
+
+    // ── CONSIDERACIÓN (peso 35) — mafe-kb/12: first-5-photos jobs ──
+    {
+      id: 'c1', type: 'score', cat: 'con', kicker: 'Fotos · 1 de 4',
+      title: 'Tu foto de portada — ¿cómo la <em>elegiste?</em>',
+      opts: [
+        ['votada', 'La votaron amigos o huéspedes entre varias opciones', 10],
+        ['gusto', 'La elegí yo porque me encanta', 5],
+        ['primera', 'Es la que quedó de primera, sin pensarlo mucho', 0]
+      ]
+    },
+    {
+      id: 'c2', type: 'score', cat: 'con', kicker: 'Fotos · 2 de 4',
+      title: 'Tus primeras 5 fotos — ¿cada una muestra algo <em>distinto?</em>',
+      sub: 'Cómo se siente estar adentro, tu mejor activo (la vista, el jacuzzi), el extra incluido, lo que se puede hacer...',
+      opts: [
+        ['jobs', 'Sí — cada una hace un trabajo diferente', 10],
+        ['repiten', 'Algunas se repiten (dos del mismo cuarto, por ejemplo)', 5],
+        ['espacio', 'Son todas del espacio, sin más', 2],
+        ['nose', 'La verdad, no sé cuáles son mis primeras 5', 0]
+      ]
+    },
+    {
+      id: 'c3', type: 'score', cat: 'con', kicker: 'Fotos · 3 de 4',
+      title: '¿Tus fotos tienen el mismo tono y la misma <em>edición?</em>',
+      opts: [
+        ['coherente', 'Sí — misma edición, se ven como una sola galería', 10],
+        ['mezcla', 'Hay mezcla: unas editadas, otras no, tonos distintos', 4],
+        ['crudas', 'Están tal como salieron de la cámara', 2]
+      ]
+    },
+    {
+      id: 'c4', type: 'score', cat: 'con', kicker: 'Fotos · 4 de 4',
+      title: 'Antes de tomar las fotos, ¿preparaste el <em>espacio?</em>',
+      sub: 'Todas las luces prendidas, puertas y ventanas abiertas, camas como para un rey, cero desorden.',
+      opts: [
+        ['staging', 'Sí — lo dejé como una tienda de lujo', 10],
+        ['algo', 'Arreglé un poco por encima', 5],
+        ['nada', 'Las tomé como estaba', 0]
+      ]
+    },
+
+    // ── CONVERSIÓN (peso 30) — mafe-kb/10 título/descripción, mafe-kb/11 precio ──
+    {
+      id: 'n1', type: 'score', cat: 'conv', kicker: 'Anuncio · 1 de 4',
+      title: '¿Cómo es tu <em>título?</em>',
+      opts: [
+        ['unico', 'Dice lo único de mi propiedad ("...con vista y jacuzzi")', 10],
+        ['generico', 'Tipo y ciudad ("Apartamento en Medellín")', 2],
+        ['airbnb', 'Lo dejó Airbnb / no me acuerdo', 0]
+      ]
+    },
+    {
+      id: 'n2', type: 'score', cat: 'conv', kicker: 'Anuncio · 2 de 4',
+      title: '¿Tu descripción invita a <em>vivir</em> el espacio?',
+      sub: 'Del estilo "te encantará desayunar en el patio mientras sale el sol" — no una lista de muebles.',
+      opts: [
+        ['invita', 'Sí — le habla directo al huésped', 10],
+        ['lista', 'Es más una lista de características', 3],
+        ['corta', 'Es cortica, un par de líneas', 2]
+      ]
+    },
+    {
+      id: 'n3', type: 'score', cat: 'conv', kicker: 'Anuncio · 3 de 4',
+      title: '¿Tu anuncio es honesto sobre los <em>defectos?</em>',
+      sub: 'Quinto piso sin ascensor, calle ruidosa los viernes... avisar gestiona expectativas y protege tus reseñas.',
+      opts: [
+        ['todo', 'Sí — aviso todo lo que un huésped debería saber', 10],
+        ['algunos', 'Algunos sí, otros prefiero no destacarlos', 5],
+        ['nada', 'Prefiero no mencionarlos', 0]
+      ]
+    },
+    {
+      id: 'n4', type: 'score', cat: 'conv', kicker: 'Anuncio · 4 de 4',
+      title: '¿Cómo pusiste tu <em>precio?</em>',
+      opts: [
+        ['costo', 'Sé mi costo fijo por día y el precio siempre lo cubre', 10],
+        ['vecinos', 'Lo comparo con propiedades parecidas de mi zona', 6],
+        ['ojo', 'Lo puse al ojo', 2]
+      ]
+    },
+
+    // ── CALIDAD (peso 15) — mafe-kb/14: reviews protect visibility; mafe-kb/13 basics ──
+    {
+      id: 'q1', type: 'score', cat: 'cal', kicker: 'Calidad · 1 de 3',
+      title: '¿En cuánto está tu <em>calificación?</em>',
+      opts: [
+        ['alta', '4.8 o más', 10],
+        ['media', 'Entre 4.5 y 4.7', 6],
+        ['baja', 'Menos de 4.5', 2],
+        ['nueva', 'Todavía no tengo reseñas', 5]
+      ]
+    },
+    {
+      id: 'q2', type: 'score', cat: 'cal', kicker: 'Calidad · 2 de 3',
+      title: 'En tus reseñas, ¿hay alguna queja que se <em>repite?</em>',
+      opts: [
+        ['ninguna', 'No — no hay quejas repetidas', 10],
+        ['arreglando', 'Hay una y la estoy arreglando', 6],
+        ['sinplan', 'Se repite y no sé qué hacer con ella', 2],
+        ['noleo', 'La verdad, no las leo con cuidado', 0]
+      ]
+    },
+    {
+      id: 'q3', type: 'score', cat: 'cal', kicker: 'Calidad · 3 de 3',
+      title: 'Los 3 básicos que protegen reseñas: wifi rápido, cama buena, baño impecable. ¿Los <em>tenés?</em>',
+      opts: [
+        ['tres', 'Los tres, seguro', 10],
+        ['dos', 'Dos de tres', 5],
+        ['dudas', 'No estoy segura', 0]
+      ]
+    },
+
+    {
+      id: 'contacto', type: 'contact', kicker: 'Última',
+      title: '¿A dónde te mando tu puntaje y tu <em>plan?</em>',
+      sub: 'El correo es obligatorio. El WhatsApp es opcional — pero si después querés que revise tu anuncio, por ahí te mando mis arreglos.'
+    },
+    { id: 'result', type: 'result' }
+  ];
+
+  // ── scoring ──
+  const CATS = {
+    vis:  { name: 'Visibilidad',   weight: 20, qs: ['v1','v2','v3'] },
+    con:  { name: 'Consideración', weight: 35, qs: ['c1','c2','c3','c4'] },
+    conv: { name: 'Conversión',    weight: 30, qs: ['n1','n2','n3','n4'] },
+    cal:  { name: 'Calidad',       weight: 15, qs: ['q1','q2','q3'] }
+  };
+
+  function scores() {
+    const cat = {};
+    let overall = 0;
+    for (const k in CATS) {
+      const c = CATS[k];
+      const pts = c.qs.reduce((s, q) => s + (A[q] ? A[q].pts : 0), 0);
+      cat[k] = Math.round((pts / (c.qs.length * 10)) * 100);
+      overall += cat[k] * (c.weight / 100);
+    }
+    return { cat, overall: Math.round(overall) };
+  }
+
+  function tag(n) {
+    if (n >= 85) return 'Muy bien armado — puliendo detalles llegás a otro nivel.';
+    if (n >= 70) return 'Vas bien, pero hay plata sobre la mesa.';
+    if (n >= 50) return 'Tu anuncio está trabajando a media máquina.';
+    return 'Hay mucho por ganar — y casi todo se arregla rapidito.';
+  }
+
+  // one headline observation: the weakest category speaks (Diagnóstico's obs pattern)
+  const CAT_OBS = {
+    vis: 'Tu punto más débil es la visibilidad: Airbnb muestra más los anuncios con menos restricciones. Antes de tocar fotos o textos, soltá amarras — estadía mínima, calendario, velocidad de respuesta.',
+    con: 'Tu punto más débil son las fotos — y es la mejor noticia posible, porque es lo que más mueve reservas y no necesitás fotógrafo para mejorarlas. Tus primeras 5 fotos deciden si alguien abre tu anuncio o sigue de largo.',
+    conv: 'Tu punto más débil es la conversión: la gente llega a tu anuncio pero el título, la descripción o el precio no cierran la reserva. Son textos — se arreglan hoy mismo.',
+    cal: 'Tu punto más débil es la calidad: las reseñas alimentan al algoritmo, y un anuncio "sano" se muestra más. Proteger la calificación es proteger tu visibilidad entera.'
+  };
+
+  // ── the paid templated plan: fixes selected by weak answers, per category ──
+  // Content sources: mafe-kb/10 (título/descripción), 12 (fotos), 11 (costo fijo), 14 (restricciones).
+  function buildPlan() {
+    const P = [];
+    const a = id => A[id] && A[id].v;
+    const low = id => A[id] && A[id].pts <= 5;
+
+    // Visibilidad
+    if (low('v1')) P.push({ cat: 'Visibilidad', h: 'Bajá tu estadía mínima', p: 'El algoritmo muestra más los anuncios con <strong>menos restricciones</strong>. Probá 1-2 noches durante 3 semanas y medí: más vistas casi siempre pagan el cambio de operación. Si el cambio te da miedo, empezá solo entre semana.' });
+    if (low('v2')) P.push({ cat: 'Visibilidad', h: 'Limpiá el calendario hoy', p: 'Revisá cada bloqueo y preguntate: ¿esto es real? Un calendario abierto y al día le dice al algoritmo que estás activa. Ponete un recordatorio semanal de 5 minutos — ese hábito solo ya te sube visibilidad.' });
+    if (low('v3')) P.push({ cat: 'Visibilidad', h: 'Respondé en menos de una hora', p: 'La velocidad de respuesta es una señal directa del algoritmo. Activá las notificaciones de la app y usá <strong>respuestas guardadas</strong> para las preguntas repetidas — respondés en segundos sin estar pegada al teléfono.' });
+
+    // Consideración
+    if (low('c1')) P.push({ cat: 'Fotos', h: 'Elegí la portada por votación', p: 'No la elijas vos. Mandá 3 candidatas a amigos o huéspedes pasados con UNA pregunta: <strong>"¿cuál te haría reservar?"</strong> La ganadora es tu portada. Así eligió Mafe la suya.' });
+    if (low('c2')) P.push({ cat: 'Fotos', h: 'Dale un trabajo a cada una de tus primeras 5', p: '1) La portada · 2) Cómo se <strong>siente</strong> estar adentro (copas servidas, TV prendida) · 3) Tu mejor activo (la vista, el jacuzzi) · 4) El extra incluido (el desayuno, el detalle) · 5) Lo que el huésped puede <strong>hacer</strong>. Si dos fotos hacen el mismo trabajo, una sobra.' });
+    if (low('c3')) P.push({ cat: 'Fotos', h: 'Unificá el tono de toda la galería', p: 'Todas las fotos con la <strong>misma edición y el mismo tono</strong> — un solo filtro, coherencia de principio a fin. Y todo "derechito": líneas rectas, foco que guía el ojo. Una galería coherente vende "un lugar único".' });
+    if (low('c4')) P.push({ cat: 'Fotos', h: 'Volvé a tomar las fotos clave, con staging', p: 'Antes de disparar: <strong>todas las luces prendidas</strong> (incluso de día), puertas y ventanas abiertas, camas como para un rey, cero desorden (los frascos de shampoo viejos, fuera). Con celular basta si el espacio está preparado.' });
+
+    // Conversión
+    if (low('n1')) P.push({ cat: 'Anuncio', h: 'Reescribí el título con esta fórmula', p: '<strong>[Tipo] en [lugar] con [tu atributo #1] y [atributo #2]</strong> — "Apartamento en Provenza con vista y jacuzzi". El título tiene que gritar la escapada que vendés: romántica, familiar, de trabajo. Nada de "Apartamento en Medellín".' });
+    if (low('n2')) P.push({ cat: 'Anuncio', h: 'Reescribí la descripción hablándole al huésped', p: 'Arrancá con una escena, no con un inventario: <strong>"Te encantará desayunar en el patio mientras sale el sol..."</strong>. Después sí, los detalles. El huésped compra cómo se va a sentir, no cuántas sillas hay.' });
+    if (low('n3')) P.push({ cat: 'Anuncio', h: 'Contá los defectos antes de que los descubran', p: 'El quinto piso sin ascensor se dice en el anuncio, no en la reseña. La honestidad <strong>gestiona expectativas</strong> — y las expectativas bien puestas son reseñas de 5 estrellas.' });
+    if (low('n4')) P.push({ cat: 'Anuncio', h: 'Sacá tu número de supervivencia', p: 'Sumá lo fijo del mes (administración, servicios, internet) y <strong>dividilo entre 30</strong>: ese es tu costo por día. Lo que te entra por noche disponible tiene que estar siempre por encima. Con ese número dejás de adivinar el precio.' });
+
+    // Calidad
+    if (low('q2')) P.push({ cat: 'Calidad', h: 'Atacá la queja repetida esta semana', p: 'Una queja que se repite es <strong>una instrucción del mercado</strong>. Arreglala, y en tus respuestas a esas reseñas contá que ya está resuelta — las respuestas las leen los huéspedes futuros, no el que se quejó.' });
+    if (low('q3')) P.push({ cat: 'Calidad', h: 'Asegurá los 3 básicos que cargan las reseñas', p: '<strong>Wifi rápido y estable</strong> (tan importante como el colchón), cama que dé sueño de 5 estrellas, y baño impecable — "baño limpio = reseña buena, sin excepción". Todo lo demás es secundario a esto.' });
+    if (a('q1') === 'nueva') P.push({ cat: 'Calidad', h: 'Tus primeras reseñas son tu campaña de lanzamiento', p: 'Sin historial, cada huésped cuenta doble: cuidá los 3 básicos como oro y pedí la reseña con calidez al checkout. Las primeras 5 calificaciones definen tu arranque en el algoritmo.' });
+
+    return P;
+  }
+
+  // ── render engine (same pattern as /diagnostico) ──
+  const stepsEl = document.getElementById('steps');
+  const progEl = document.getElementById('progress');
+  let idx = 0;
+
+  function render() {
+    const step = STEPS[idx];
+    const qSteps = STEPS.filter(s => s.type !== 'start' && s.type !== 'result');
+    progEl.innerHTML = qSteps.map(s =>
+      `<span class="q-dot ${STEPS.indexOf(s) <= idx ? 'on' : ''}"></span>`).join('');
+    progEl.style.display = (step.type === 'start' || step.type === 'result') ? 'none' : 'flex';
+
+    let inner = '';
+
+    if (step.type === 'result') {
+      const s = scores();
+      const worst = Object.keys(CATS).reduce((w, k) => s.cat[k] < s.cat[w] ? k : w, 'vis');
+      const paid = new URLSearchParams(location.search).get('pago') === 'ok';
+      save(s, paid);
+      track('completed');
+
+      const bars = Object.keys(CATS).map(k => `
+        <div class="cat-row">
+          <div class="cat-head">
+            <span class="cat-name">${CATS[k].name} <small>· pesa ${CATS[k].weight}%</small></span>
+            <span class="cat-score">${s.cat[k]}</span>
+          </div>
+          <div class="cat-bar"><div class="cat-fill" style="width:${s.cat[k]}%"></div></div>
+        </div>`).join('');
+
+      let paidSection = '';
+      if (paid) {
+        const plan = buildPlan();
+        paidSection = `
+          <p class="q-kicker" style="margin-top:4rem">Tu plan de mejoras — priorizado</p>
+          ${plan.length ? plan.map(t => `<div class="plan-tip"><p class="pt-cat">${t.cat}</p><p class="pt-h">${t.h}</p><p class="pt-p">${t.p}</p></div>`).join('')
+            : '<div class="plan-tip"><p class="pt-h">Tu anuncio salió fuerte en todo.</p><p class="pt-p">Poco que corregir por acá — lo tuyo es afinación fina, y eso es exactamente lo que Mafe va a buscar en tu revisión.</p></div>'}
+          <div class="paywall" style="border-style:solid; margin-top:3.2rem">
+            <p class="pw-kicker">Y ahora, la parte humana</p>
+            <p class="pw-h">Mafe va a revisar tu anuncio.</p>
+            <p class="pt-p">Listo — tu anuncio quedó en su lista. En las próximas <strong>48 horas</strong> te llegan sus arreglos por WhatsApp, directo de sus 9 años recibiendo huéspedes. 💬</p>
+          </div>`;
+      } else if (PAID_ENABLED) {
+        paidSection = `
+          <div class="paywall">
+            <p class="pw-kicker">¿Querés el plan completo?</p>
+            <p class="pw-h">Desbloqueá tu plan de mejoras — y yo reviso tu anuncio personalmente.</p>
+            <div class="pw-list">
+              <p class="pw-item"><span>Tu <strong>plan de mejoras priorizado</strong>, punto por punto según tus respuestas</span></p>
+              <p class="pw-item"><span>La fórmula del título + el esqueleto de descripción, listos para adaptar</span></p>
+              <p class="pw-item"><span>El checklist foto por foto de las primeras 5</span></p>
+              <p class="pw-item"><span><strong>Mafe revisa TU anuncio</strong> (el link que me diste) y te manda sus arreglos por WhatsApp en 48 horas</span></p>
+            </div>
+            ${PRICE_COP ? `<p class="pw-price">$${PRICE_COP} <small>COP · pago único</small></p>` : ''}
+            <a href="${PAYMENT_LINK}" class="btn-pill" onclick="track('payment-click')" target="_blank" rel="noopener"><span>Desbloquear mi plan</span></a>
+            <p class="pw-note">Después de pagar volvés acá y tu plan se abre solito. La revisión de Mafe llega por WhatsApp.</p>
+          </div>`;
+        track('paywall-view');
+      } else {
+        paidSection = `
+          <div class="paywall">
+            <p class="pw-kicker">Muy pronto</p>
+            <p class="pw-h">El plan completo — con revisión personal de Mafe.</p>
+            <div class="pw-list">
+              <p class="pw-item"><span>Tu plan de mejoras priorizado, punto por punto según tus respuestas</span></p>
+              <p class="pw-item"><span>La fórmula del título + el esqueleto de descripción</span></p>
+              <p class="pw-item"><span><strong>Mafe revisa TU anuncio</strong> y te manda sus arreglos por WhatsApp</span></p>
+            </div>
+            <p class="pw-soon">Ya te tengo el correo — te aviso apenas abra. 💌</p>
+          </div>`;
+      }
+
+      inner = `
+        <p class="q-kicker">Tu resultado</p>
+        <h1 class="q-title">Tu anuncio sacó <em>${s.overall} puntos.</em></h1>
+        <div class="score-card">
+          <p class="score-num">${s.overall}<small>/100</small></p>
+          <p class="score-tag">${tag(s.overall)}</p>
+          <div class="cat-list">${bars}</div>
+          <p class="weights-note">El puntaje pondera las 4 etapas del algoritmo de Airbnb según lo que más mueve reservas: fotos 35%, anuncio 30%, visibilidad 20%, calidad 15%.</p>
+        </div>
+        <div class="r-obs"><p>${CAT_OBS[worst]}</p></div>
+        ${paidSection}
+        <p class="r-next">¿Preferís que lo veamos juntas de una? Empezá con la llamada gratis.</p>
+        <div><a href="/diagnostico/" class="btn-pill"><span>Agendar la llamada gratis</span></a></div>
+        <p class="r-alt">Y date una vuelta por los <a href="/recursos">recursos gratis</a> mientras tanto.</p>`;
+    } else {
+      inner = `
+        <p class="q-kicker">${step.kicker || ''}</p>
+        <h1 class="q-title">${step.title}</h1>
+        ${step.sub ? `<p class="q-sub">${step.sub}</p>` : ''}
+        ${step.subHtml || ''}
+        ${step.type === 'score' ? `<div class="q-opts">${step.opts.map(([v, t]) =>
+          `<button class="q-opt ${A[step.id] && A[step.id].v === v ? 'sel' : ''}" data-v="${v}">${t}</button>`).join('')}</div>` : ''}
+        ${step.type === 'link' ? `
+          <input class="q-input" id="lin" type="url" placeholder="${step.ph}" value="${A.link || ''}">
+          <p class="q-hint" id="lhint"></p>` : ''}
+        ${step.type === 'contact' ? `
+          <input class="q-input" id="cem" type="email" placeholder="Tu correo" value="${A.email || ''}">
+          <input class="q-input" id="cwa" type="tel" placeholder="Tu WhatsApp (opcional)" value="${A.whatsapp || ''}">` : ''}
+        <div class="q-nav">
+          ${idx > 0 ? '<button class="q-back" id="back">← Volver</button>' : '<span></span>'}
+          <button class="btn-pill q-next" id="next" ${step.type === 'score' && !A[step.id] ? 'disabled' : ''}>
+            <span>${step.btn || (step.type === 'contact' ? 'Ver mi puntaje' : 'Siguiente')}</span>
+          </button>
+        </div>`;
+    }
+
+    stepsEl.innerHTML = `<div class="q-step active">${inner}</div>`;
+    bind(step);
+  }
+
+  function bind(step) {
+    const next = document.getElementById('next');
+    const back = document.getElementById('back');
+    if (back) back.onclick = () => { idx--; render(); };
+
+    if (step.type === 'score') {
+      stepsEl.querySelectorAll('.q-opt').forEach(b => b.onclick = () => {
+        const opt = step.opts.find(o => o[0] === b.dataset.v);
+        A[step.id] = { v: opt[0], pts: opt[2] };
+        idx++; render();
+        window.scrollTo({ top: 0 });
+      });
+    }
+    if (next) next.onclick = () => {
+      if (step.type === 'start') track('started');
+      if (step.type === 'link') {
+        const el = document.getElementById('lin');
+        const v = el.value.trim();
+        if (!v) { el.focus(); return; }
+        if (!/airbnb\./i.test(v)) {
+          const h = document.getElementById('lhint');
+          if (!A.linkWarned) {
+            A.linkWarned = true;
+            h.textContent = 'Mmm, eso no parece un link de Airbnb — revisalo, o tocá Siguiente otra vez si estás segura.';
+            return;
+          }
+        }
+        A.link = v;
+      }
+      if (step.type === 'contact') {
+        const em = document.getElementById('cem').value.trim();
+        const wa = document.getElementById('cwa').value.trim();
+        if (!em || !em.includes('@')) { document.getElementById('cem').focus(); return; }
+        A.email = em; A.whatsapp = wa;
+      }
+      idx++; render();
+      window.scrollTo({ top: 0 });
+    };
+  }
+
+  // persist answers so the ?pago=ok return can rebuild the report
+  function persist() {
+    try { localStorage.setItem('hth-auditoria', JSON.stringify({ A, idx })); } catch (e) {}
+  }
+  function restore() {
+    try {
+      const raw = localStorage.getItem('hth-auditoria');
+      if (!raw) return false;
+      const d = JSON.parse(raw);
+      Object.assign(A, d.A);
+      return !!A.email; // only jump to result if they finished
+    } catch (e) { return false; }
+  }
+
+  // — send to MailerLite (fire-and-forget; the result is already on screen) —
+  function save(s, paid) {
+    persist();
+    if (!A.email) return;
+    const resumen = `${s.overall}/100 · vis ${s.cat.vis} · fotos ${s.cat.con} · conv ${s.cat.conv} · cal ${s.cat.cal}`;
+    const body = 'fields[email]=' + encodeURIComponent(A.email)
+      + '&fields[phone]=' + encodeURIComponent(A.whatsapp || '')
+      + '&fields[puntaje_auditoria]=' + encodeURIComponent(resumen)
+      + '&fields[link_anuncio]=' + encodeURIComponent(A.link || '')
+      + '&fields[estado_auditoria]=' + encodeURIComponent(paid ? 'pagó - pendiente revisión Mafe' : 'solo puntaje gratis')
+      + (window.HTH ? HTH.src('auditoria-quiz') : '');
+    fetch('https://assets.mailerlite.com/jsonp/2447022/forms/' + ML_FORM + '/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body
+    }).catch(function () {});
+  }
+
+  // ?pago=ok → restore their answers and jump straight to the unlocked report
+  if (new URLSearchParams(location.search).get('pago') === 'ok' && restore()) {
+    idx = STEPS.length - 1;
+  }
+  render();
+  </script>
+</body>
+</html>

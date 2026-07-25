@@ -9,6 +9,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Space+Grotesk:wght@300;400;500;600&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="brand.css">
+  <!-- Analytics: uncomment + set code once James creates the GoatCounter account.
+  <script data-goatcounter="https://CODE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  -->
   <script>
     // Gate entrance-hidden states behind JS + motion preference so no-JS and
     // reduced-motion visitors always see a fully rendered page.
@@ -1114,6 +1117,7 @@
   <!-- MailerLite Universal -->
   <script>(function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[]).push(arguments);},l=d.createElement(e),l.async=1,l.src=u,n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})(window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');ml('account','2447022');</script>
   <!-- End MailerLite Universal -->
+  <script src="/assets/track.js"></script>
 </head>
 <body>
 
@@ -1256,7 +1260,8 @@
             fetch('https://assets.mailerlite.com/jsonp/2447022/forms/190361827797894240/subscribe', {
               method: 'POST',
               headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-              body: 'fields[email]=' + encodeURIComponent(email)
+              body: 'fields[email]=' + encodeURIComponent(email) +
+                    (window.HTH ? HTH.src('home-hero') : '')
             })
             .then(function(r) { return r.json(); })
             .then(function(data) {
@@ -1282,7 +1287,7 @@
             });
           });
         </script>
-        <p class="form-privacy">Te llega al correo en minutos. Al suscribirte aceptás la <a href="https://tienda.hosttohost.co/policies/privacy-policy" target="_blank" rel="noopener">política de privacidad</a>.</p>
+        <p class="form-privacy">Te llega al correo en minutos. Al suscribirte aceptás la <a href="/privacidad">política de privacidad</a>.</p>
       </div>
     </div>
   </section>
@@ -1405,8 +1410,8 @@
           <div class="db-inner-dark">
             <span class="eco-pillar-num">03</span>
             <h3 class="eco-pillar-h">Coaching</h3>
-            <p class="eco-pillar-p">Para quienes quieren acompañamiento directo. La misma lógica aplicada a tu propiedad, con alguien que ya recorrió el camino.</p>
-            <a href="/coaching" class="eco-pillar-cta">Ver coaching →</a>
+            <p class="eco-pillar-p">Para quienes quieren acompañamiento directo. Empezá con el diagnóstico gratis: en 2 minutos te digo en qué etapa estás y cuál es tu próximo paso.</p>
+            <a href="/diagnostico/" class="eco-pillar-cta">Hacer el diagnóstico gratis →</a>
           </div>
         </div>
 
@@ -1549,7 +1554,7 @@
     </div>
     <div class="footer-bt">
       <p class="f-copy">© <span id="copyright-year">2026</span> Host-to-Host · Medellín, Colombia</p>
-      <nav class="f-leg"><a href="#">Política de privacidad</a><a href="#">Términos</a></nav>
+      <nav class="f-leg"><a href="/privacidad">Política de privacidad</a><a href="#">Términos</a></nav>
     </div>
   </footer>
 

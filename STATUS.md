@@ -145,7 +145,7 @@ Three **free** lead magnets, all live, all delivered via MailerLite (account `24
 - **Popup copy is value-first:** "Gratis, a tu correo" / [magnet name] / "Te llega al correo en minutos." Button "Enviármelo →". (Rejected "Dejame tu correo" as ask-centric.)
 - **Delivery emails:** outcome-first, Mafe's voice (voseo), each kept a **products PS → hosttohost.co** (coaching deliberately NOT in first-touch; it belongs in the nurture sequence).
 - **Deliverability:** DKIM + SPF live in Namecheap; sender = `hola@hosttohost.co` (off gmail) as of 2026-06-15. Note: delivery email lands in Gmail **Promotions** (normal for ESP bulk mail) — decided not to chase Primary at the cost of design/PS.
-- **Privacy:** popup + home form + recursos footer all link to `tienda.hosttohost.co/policies/privacy-policy`.
+- **Privacy:** every form + footer now links to the on-site `/privacidad` page (see section below). Previously pointed at `tienda.hosttohost.co/policies/privacy-policy`, which was broken — the store is password-gated pre-launch, so that Shopify policy URL redirects to `/password` and is unreachable by the public.
 
 ## Dedicated opt-in pages (DONE 2026-06-24)
 Single-magnet landing pages for Instagram DM sharing — one link = one magnet = one email field, removing the "find the magnet" friction of sending people to `/recursos`. Built because MailerLite hosted landing pages aren't creatable via API/CLI/MCP (dashboard-only); these live on-site instead and reuse the existing JSONP capture, so they feed the same forms/groups and fire the same delivery + nurture.
@@ -155,9 +155,16 @@ Single-magnet landing pages for Instagram DM sharing — one link = one magnet =
 | Los 5 esenciales | `/esenciales` | `190361827797894240` |
 | Lista de compras primer Airbnb | `/lista-compras` | `190373641874048293` |
 | Manual de bienvenida | `/manual` | `190375217439179969` |
+| Tu alojamiento, su oficina | `/oficina` | `191273791381308704` |
 
+- **`/oficina` (NEW 2026-06-24):** 4th magnet, Notion `https://local-fisher-da7.notion.site/Tu-alojamiento-su-oficina-389cb70826d48154a2ece6592609147c`. Group `LM · Tu alojamiento oficina` `191273785310054182`. Delivery automation `191273987595044211` is **INACTIVE — James still needs to (in dashboard): turn double opt-in OFF on the form, write the delivery email (value-first, NO store link), set the button to the Notion URL, add a copy-to-`Nurture · Todos` step, then activate + test.**
 - **Design:** deliberately minimal — logo-only nav (no exit links), centered eyebrow + headline + subline + inline email field + button, trust line ("Por Mafe, Superhost…"), slim footer with privacy link. No imagery (James's call). Same brand.css tokens/fonts. `noindex` (DM-only, kept out of search). Reduced-motion / no-JS safe.
 - **Capture:** inline form POSTs to `assets.mailerlite.com/jsonp/2447022/forms/{id}/subscribe`; on success shows the magnet's Notion link inline.
+
+## Privacy page (DONE 2026-06-25)
+Standalone **public** legal page at `/privacidad` (`site/privacidad/index.html`), built because the store is password-gated and its Shopify privacy URL is therefore unreachable. Colombian Spanish (voseo), brand.css tokens, logo-only nav + slim footer. Covers: who we are, data collected (email/name via forms), purpose, MailerLite as processor, **rights under Ley 1581 de 2012 / Habeas Data**, retention, unsubscribe, contact. All 10 privacy links sitewide (home form, 4 opt-in pages, recursos popup + footer, all slim footers) now point here; verified live (200). **Caveats:** contact email used = `hola@hosttohost.co` (swap if that inbox isn't live); it's a solid template, not legal advice — worth a lawyer's glance.
+
+**Shopify password-page copy** (for James to paste at Online Store → Preferences → password message): *"¡Muy pronto abrimos! Estoy montando la tienda con los productos que de verdad uso en mis Airbnbs. Apenas esté lista, sos de los primeros en saber."*
 
 ## What's next
 - **Nurture sequence (MailerLite) — COPY DONE 2026-06-15, build pending.** ONE shared sequence (not per-magnet): all 3 magnets feed master group `Nurture · Todos`; one automation triggers on joining it, **re-entry OFF**, so emails 2-4 are IDENTICAL for everyone and you build it once. Emails: (2) día 2-3 why-HtH/convenience story, no ask · (3) día 5-6 products → hosttohost.co · (4) día 8-10 coaching → WhatsApp. v1 is intentionally good-enough: no A/B, no branching, no separate social-proof email (deferred to post-traction). Full bilingual copy + MailerLite build checklist: `Marketing/nurture sequence/nurture-emails.md`. Voice source = `Commerce/commerce-DNA.md` (Mafe's own voice files incoming). **Remaining to go live:** James uploads to MailerLite + builds the automation; WhatsApp link for Email 4 (placeholder, sorting tomorrow).

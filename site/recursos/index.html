@@ -9,6 +9,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Space+Grotesk:wght@300;400;500;600&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../brand.css">
+  <!-- Analytics: uncomment + set code once James creates the GoatCounter account.
+  <script data-goatcounter="https://CODE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  -->
   <script>
     // Gate entrance-hidden states behind JS + motion preference so no-JS and
     // reduced-motion visitors always see a fully rendered page.
@@ -351,6 +354,7 @@
       .banner { padding: 4.8rem 2.8rem; }
     }
   </style>
+  <script src="/assets/track.js"></script>
 </head>
 <body>
 
@@ -389,11 +393,26 @@
     <div class="library-grid">
 
       <article class="card" data-stagger>
+        <span class="badge badge--free">Gratis · Herramienta</span>
+        <div class="card-body">
+          <h3 class="card-h">¿En qué etapa de host estás?</h3>
+          <p class="card-p">8 preguntas, 2 minuticos. Te digo en qué etapa estás y cuál es tu próximo paso — sin carreta.</p>
+          <a href="/diagnostico/" class="card-link">
+            <span>Hacer el diagnóstico</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="card" data-stagger>
         <span class="badge badge--free">Gratis</span>
         <div class="card-body">
           <h3 class="card-h">Lista de compras para tu primer Airbnb</h3>
           <p class="card-p">Todo lo que necesitás comprar antes de recibir a tu primer huésped, en una sola lista. Sin olvidos de último momento.</p>
-          <a href="https://local-fisher-da7.notion.site/Lista-de-compras-para-tu-primer-Airbnb-36fcb70826d481d29161cc8b368a3352" class="card-link js-magnet" data-mlform="190373641874048293" data-title="Lista de compras para tu primer Airbnb" target="_blank" rel="noopener">
+          <a href="https://local-fisher-da7.notion.site/Lista-de-compras-para-tu-primer-Airbnb-36fcb70826d481d29161cc8b368a3352" class="card-link js-magnet" data-mlform="190373641874048293" data-fuente="recursos-lista-compras" data-title="Lista de compras para tu primer Airbnb" target="_blank" rel="noopener">
             <span>Descargala gratis</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
               <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -408,7 +427,7 @@
         <div class="card-body">
           <h3 class="card-h">Los 5 esenciales</h3>
           <p class="card-p">Los 5 productos que más mueven la aguja en las reseñas. Los mismos que uso en mis propios Airbnbs, listos para tu próximo check-in.</p>
-          <a href="https://local-fisher-da7.notion.site/Productos-2fccb70826d480078a05ca56a7778130" class="card-link js-magnet" data-mlform="190361827797894240" data-title="Los 5 esenciales" target="_blank" rel="noopener">
+          <a href="https://local-fisher-da7.notion.site/Productos-2fccb70826d480078a05ca56a7778130" class="card-link js-magnet" data-mlform="190361827797894240" data-fuente="recursos-esenciales" data-title="Los 5 esenciales" target="_blank" rel="noopener">
             <span>Descargalos gratis</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
               <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -423,8 +442,39 @@
         <div class="card-body">
           <h3 class="card-h">Manual de bienvenida para huéspedes</h3>
           <p class="card-p">Un manual de bienvenida escrito profesionalmente, listo para personalizar y entregar a tus huéspedes desde ya.</p>
-          <a href="https://local-fisher-da7.notion.site/Manual-Airbnb-28ccb70826d480e39792d6bc270ae71a" class="card-link js-magnet" data-mlform="190375217439179969" data-title="Manual de bienvenida para huéspedes" target="_blank" rel="noopener">
+          <a href="https://local-fisher-da7.notion.site/Manual-Airbnb-28ccb70826d480e39792d6bc270ae71a" class="card-link js-magnet" data-mlform="190375217439179969" data-fuente="recursos-manual" data-title="Manual de bienvenida para huéspedes" target="_blank" rel="noopener">
             <span>Descargalo gratis</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="card" data-stagger>
+        <!-- Stage 2: flip badge to badge--paid + "Herramienta" when the paid tier goes live -->
+        <span class="badge badge--free">Gratis · Herramienta</span>
+        <div class="card-body">
+          <h3 class="card-h">Auditoría de anuncio</h3>
+          <p class="card-p">15 preguntas y te digo cuántos puntos saca tu anuncio en las 4 etapas del algoritmo de Airbnb — y qué es lo primero que arreglaría.</p>
+          <a href="/auditoria/" class="card-link">
+            <span>Auditá tu anuncio</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+      </article>
+
+      <article class="card" data-stagger>
+        <span class="badge badge--free">Gratis</span>
+        <div class="card-body">
+          <h3 class="card-h">Tu alojamiento, su oficina</h3>
+          <p class="card-p">Cada vez más huéspedes viajan y trabajan al mismo tiempo. Preparate para recibirlos y atraé estadías más largas y mejores reseñas.</p>
+          <a href="/oficina" class="card-link">
+            <span>Descargala gratis</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
               <line x1="5" y1="12" x2="19" y2="12"></line>
               <polyline points="12 5 19 12 12 19"></polyline>
@@ -518,7 +568,7 @@
     </div>
     <div class="footer-bt">
       <p class="f-copy">© <span id="copyright-year">2026</span> Host-to-Host · Medellín, Colombia</p>
-      <nav class="f-leg"><a href="https://tienda.hosttohost.co/policies/privacy-policy" target="_blank" rel="noopener">Política de privacidad</a><a href="#">Términos</a></nav>
+      <nav class="f-leg"><a href="/privacidad">Política de privacidad</a><a href="#">Términos</a></nav>
     </div>
   </footer>
 
@@ -534,7 +584,7 @@
         <button class="magnet-btn" type="submit">Enviármelo →</button>
       </form>
       <p class="magnet-msg" id="magnet-msg"></p>
-      <p class="magnet-privacy">Al suscribirte aceptás la <a href="https://tienda.hosttohost.co/policies/privacy-policy" target="_blank" rel="noopener">política de privacidad</a>.</p>
+      <p class="magnet-privacy">Al suscribirte aceptás la <a href="/privacidad">política de privacidad</a>.</p>
     </div>
   </div>
 
@@ -651,7 +701,7 @@
       var msg = document.getElementById('magnet-msg');
       var titleEl = document.getElementById('magnet-title');
       var btn = form.querySelector('.magnet-btn');
-      var current = { formId: null, url: null };
+      var current = { formId: null, url: null, fuente: null };
 
       function resetForm() {
         msg.style.display = 'none';
@@ -661,9 +711,10 @@
         btn.textContent = 'Enviármelo →';
       }
 
-      function openModal(formId, url, title) {
+      function openModal(formId, url, title, fuente) {
         current.formId = formId;
         current.url = url;
+        current.fuente = fuente || 'recursos-card';
         titleEl.textContent = title || 'Recibí el recurso';
         resetForm();
         overlay.classList.add('open');
@@ -679,7 +730,7 @@
       document.querySelectorAll('.js-magnet').forEach(function (link) {
         link.addEventListener('click', function (e) {
           e.preventDefault();
-          openModal(link.getAttribute('data-mlform'), link.getAttribute('href'), link.getAttribute('data-title'));
+          openModal(link.getAttribute('data-mlform'), link.getAttribute('href'), link.getAttribute('data-title'), link.getAttribute('data-fuente'));
         });
       });
 
@@ -701,7 +752,8 @@
         fetch('https://assets.mailerlite.com/jsonp/2447022/forms/' + current.formId + '/subscribe', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: 'fields[email]=' + encodeURIComponent(emailInput.value)
+          body: 'fields[email]=' + encodeURIComponent(emailInput.value) +
+                (window.HTH ? HTH.src(current.fuente) : '')
         })
         .then(function (r) { return r.json(); })
         .then(function (data) {
