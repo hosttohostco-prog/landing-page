@@ -1107,11 +1107,17 @@
       font-size: 3rem; font-weight: 500; line-height: 1.2; color: var(--ink);
       margin-bottom: 1rem; text-wrap: balance;
     }
-    .ty-sub { font-size: 1.5rem; color: var(--ink-s); line-height: 1.65; margin-bottom: 2.4rem; }
+    /* the download leads, the email is the footnote */
+    .ty-sub { font-size: 1.35rem; color: var(--ink-s); line-height: 1.65; margin: 1.8rem 0 0; }
     .ty-link {
-      display: inline-block; font-size: 1.4rem; font-weight: 600;
-      color: var(--coral-d); text-decoration: underline;
+      display: inline-block; padding: 1.3rem 2.6rem;
+      font-family: inherit; font-size: 1.3rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--cream); background: var(--ink);
+      border-radius: 0.8rem; text-decoration: none;
+      transition: background 0.3s;
     }
+    .ty-link:hover { background: var(--coral); }
     body.ty-open { overflow: hidden; }
   </style>
   <!-- MailerLite Universal -->
@@ -1287,7 +1293,7 @@
             });
           });
         </script>
-        <p class="form-privacy">Te llega al correo en minutos. Al suscribirte aceptás la <a href="/privacidad">política de privacidad</a>.</p>
+        <p class="form-privacy">La abrís al instante y también te la mando al correo. Al suscribirte aceptás la <a href="/privacidad">política de privacidad</a>.</p>
       </div>
     </div>
   </section>
@@ -1785,9 +1791,9 @@
     <div class="ty-dialog">
       <button class="ty-close" type="button" aria-label="Cerrar" data-ty-close>&times;</button>
       <div class="ty-check" aria-hidden="true">✓</div>
-      <h3 class="ty-title" id="ty-title">¡Listo! Revisá tu correo.</h3>
-      <p class="ty-sub">Te acabo de mandar la checklist de los 5 esenciales. Llega en minutos. Si no la ves, mirá en Promociones o Spam.</p>
-      <a class="ty-link" href="https://local-fisher-da7.notion.site/Productos-2fccb70826d480078a05ca56a7778130" target="_blank" rel="noopener">¿No querés esperar? Mirala ahora →</a>
+      <h3 class="ty-title" id="ty-title">¡Listo! Acá está tu checklist.</h3>
+      <a class="ty-link" href="https://local-fisher-da7.notion.site/Productos-2fccb70826d480078a05ca56a7778130" target="_blank" rel="noopener">Abrir la checklist →</a>
+      <p class="ty-sub">También te la mandé al correo, para que la tengas guardada.</p>
     </div>
   </div>
   <script>

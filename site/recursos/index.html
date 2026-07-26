@@ -252,6 +252,19 @@
     .magnet-btn:disabled { opacity: 0.6; cursor: default; }
     .magnet-msg { display: none; margin-top: 1.4rem; font-size: 1.4rem; line-height: 1.6; }
     .magnet-msg a { color: var(--coral); text-decoration: underline; font-weight: 600; }
+
+    /* success state: the download leads, the email is the footnote */
+    .magnet-msg .msg-lead { display: block; font-weight: 600; margin-bottom: 1.2rem; }
+    .magnet-msg .msg-cta {
+      display: inline-block; padding: 1.2rem 2.2rem;
+      font-family: inherit; font-size: 1.2rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--cream); background: var(--ink);
+      border-radius: 0.8rem; text-decoration: none;
+      transition: background 0.3s;
+    }
+    .magnet-msg .msg-cta:hover { background: var(--coral); }
+    .magnet-msg .msg-note { display: block; margin-top: 1.2rem; font-size: 1.2rem; color: var(--ink-s); }
     .magnet-privacy { margin-top: 1.6rem; font-size: 1.15rem; color: var(--ink-s); }
     .magnet-privacy a { text-decoration: underline; }
     body.magnet-open { overflow: hidden; }
@@ -578,7 +591,7 @@
       <button class="magnet-close" type="button" aria-label="Cerrar" data-magnet-close>&times;</button>
       <p class="magnet-eyebrow">Gratis, a tu correo</p>
       <h3 class="magnet-title" id="magnet-title">Recibí el recurso</h3>
-      <p class="magnet-sub">Te llega al correo en minutos.</p>
+      <p class="magnet-sub">Lo abrís al instante y también te lo mando al correo.</p>
       <form class="magnet-form" id="magnet-form">
         <input class="magnet-input" id="magnet-email" type="email" name="email" placeholder="tu@correo.com" aria-label="Correo electrónico" required>
         <button class="magnet-btn" type="submit">Enviármelo →</button>
@@ -759,8 +772,10 @@
         .then(function (data) {
           msg.style.display = 'block';
           if (data.success) {
-            msg.innerHTML = '¡Listo! Te llega al correo en minutos.<br>¿No querés esperar? <a href="' + current.url + '" target="_blank" rel="noopener">Abrilo ahora →</a>';
-            msg.style.color = 'var(--badge-free)';
+            msg.innerHTML = '<span class="msg-lead">¡Listo! Acá lo tenés.</span>' +
+              '<a class="msg-cta" href="' + current.url + '" target="_blank" rel="noopener">Abrir el recurso →</a>' +
+              '<span class="msg-note">También te lo mandé al correo, para que lo tengas guardado.</span>';
+            msg.style.color = '';
             emailInput.value = '';
             btn.textContent = 'Enviado ✓';
           } else {

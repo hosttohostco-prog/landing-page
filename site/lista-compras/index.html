@@ -102,6 +102,19 @@
     .optin-msg { display: none; margin: 1.8rem auto 0; font-size: 1.5rem; line-height: 1.6; max-width: 46rem; }
     .optin-msg a { color: var(--coral); text-decoration: underline; font-weight: 600; }
 
+    /* success state: the download leads, the email is the footnote */
+    .optin-msg .msg-lead { display: block; font-weight: 600; margin-bottom: 1.4rem; }
+    .optin-msg .msg-cta {
+      display: inline-block; padding: 1.3rem 2.4rem;
+      font-family: inherit; font-size: 1.3rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--cream); background: var(--ink);
+      border-radius: 0.8rem; text-decoration: none;
+      transition: background 0.3s;
+    }
+    .optin-msg .msg-cta:hover { background: var(--coral); }
+    .optin-msg .msg-note { display: block; margin-top: 1.4rem; font-size: 1.3rem; color: var(--ink-s); }
+
     .optin-privacy { margin: 1.8rem auto 0; font-size: 1.2rem; color: var(--ink-s); max-width: 46rem; }
     .optin-privacy a { text-decoration: underline; }
 
@@ -198,8 +211,10 @@
         .then(function (data) {
           msg.style.display = 'block';
           if (data.success) {
-            msg.innerHTML = '¡Listo! Te llega al correo en minutos.<br>¿No querés esperar? <a href="' + MAGNET_URL + '" target="_blank" rel="noopener">Abrila ahora →</a>';
-            msg.style.color = 'var(--badge-free)';
+            msg.innerHTML = '<span class="msg-lead">¡Listo! Acá la tenés.</span>' +
+              '<a class="msg-cta" href="' + MAGNET_URL + '" target="_blank" rel="noopener">Abrir la lista →</a>' +
+              '<span class="msg-note">También te la mandé al correo, para que la tengas guardada.</span>';
+            msg.style.color = '';
             email.value = '';
             btn.textContent = 'Enviado ✓';
           } else {
