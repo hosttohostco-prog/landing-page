@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coaching — Host-to-Host</title>
+  <title>Coaching · Host to Host</title>
   <meta name="description" content="Coaching 1:1 para anfitriones en Colombia. Una conversación con Mafe puede ahorrarte semanas de investigación, compras equivocadas y reseñas costosas.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Space+Grotesk:wght@300;400;500;600&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Archivo:wght@500;600;700&family=Shantell+Sans:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../brand.css">
   <!-- Analytics: uncomment + set code once James creates the GoatCounter account.
   <script data-goatcounter="https://CODE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
@@ -29,96 +29,179 @@
 
     /* Entrance-hidden states — motion mode only, revealed by GSAP */
     html.motion .hero-content,
-    html.motion .hero-media { visibility: hidden; }
+    html.motion .hero-media,
+    html.motion .hero-photo { visibility: hidden; }
 
-    /* ── HERO — dark, photo behind, text over the left ── */
+    /* ══ BRAND KIT — tokens y tipografia (migracion 2026-08-26) ══ */
+    :root {
+      --periwinkle: #96a1d2;
+      --indigo:     #597bbd;
+      --orange:     #f1602b;
+      --yellow:     #fab95b;
+      --yellow-lt:  #fde0b4;
+      --green-deep: #566041;
+      --sage:       #ebf1db;
+      --warm-gray:  #e6e2d9;
+      --font-display: 'Outfit', system-ui, sans-serif;
+      --font-hand:    'Shantell Sans', cursive;
+      --font-label:   'Archivo', sans-serif;
+    }
+    body { font-family: var(--font-display); }
+    h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; }
+    .c-label {
+      font-family: var(--font-label);
+      font-weight: 600;
+      letter-spacing: 0.2em;
+    }
+    .hand { font-family: var(--font-hand); font-weight: 600; }
+
+    /* Acento de la pagina: periwinkle en vez de coral */
+    .c-label { color: var(--indigo); }
+    .c-label::after { background: var(--indigo); }
+    .c-label--cream { color: var(--cream); }
+    .c-label--cream::after { background: var(--periwinkle); }
+    .btn-pill {
+      background: var(--periwinkle);
+      border-radius: 0;
+      font-family: var(--font-label);
+    }
+    .btn-pill:hover { background: var(--indigo); }
+
+    /* ── HERO — banner de fondo + retrato de Mafe encima ── */
     .hero {
       position: relative;
+      background: var(--ink-bg);
+      display: grid;
+      grid-template-columns: 1fr 0.98fr;
+      align-items: center;
+      gap: 5.6rem;
+      padding: 16rem 12rem 12rem 12rem;
       min-height: 100dvh;
       max-height: 96rem;
-      background: var(--ink-bg);
-      display: flex;
-      align-items: center;
       overflow: hidden;
-      padding: 14rem 6.4rem 10rem;
     }
-
-    /* PLACEHOLDER — James supplies assets/coaching-hero.jpg
-       (laptop with panel de reservas, libreta "Plan de acción", vela, florero).
-       Until then the section degrades to the warm dark base + glow below. */
-    .hero-media {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-    }
+    .hero-media { position: absolute; inset: 0; z-index: 0; }
     .hero-img {
       width: 100%;
-      height: 112%; /* parallax headroom */
+      height: 112%;
       object-fit: cover;
       object-position: center;
+      display: block;
     }
     .hero--noimg .hero-media { display: none; }
-
-    /* Legibility wash over the photo + warm glow fallback */
     .hero::before {
       content: '';
       position: absolute;
       inset: 0;
       z-index: 1;
-      background: linear-gradient(to right, rgba(28,24,21,0.92) 0%, rgba(28,24,21,0.55) 42%, rgba(28,24,21,0.08) 72%),
-                  linear-gradient(to top, rgba(28,24,21,0.55) 0%, rgba(28,24,21,0) 30%);
+      background: linear-gradient(to right, rgba(28,24,21,0.94) 0%, rgba(28,24,21,0.78) 46%, rgba(28,24,21,0.42) 100%),
+                  linear-gradient(to top, rgba(28,24,21,0.6) 0%, rgba(28,24,21,0) 34%);
       pointer-events: none;
     }
     .hero--noimg::before {
-      background: radial-gradient(circle at 70% 45%, rgba(243,152,120,0.07) 0%, rgba(243,152,120,0) 55%);
+      background: radial-gradient(circle at 74% 42%, rgba(243,152,120,0.09) 0%, rgba(243,152,120,0) 56%);
     }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      min-width: 0;
-      max-width: 56rem;
-    }
-
+    .hero-content { position: relative; z-index: 2; min-width: 0; }
     .hero-label { margin-bottom: 1.4rem; }
-
     .hero-h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(4.6rem, 5.4vw, 7.4rem);
-      font-weight: 300;
-      line-height: 1.04;
-      letter-spacing: -0.02em;
+      font-family: var(--font-display);
+      font-size: clamp(3.8rem, 4.4vw, 6rem);
+      font-weight: 700;
+      line-height: 1.02;
+      letter-spacing: -0.03em;
       color: var(--cream);
       text-wrap: balance;
-      margin: 3.2rem 0 3.2rem;
+      margin: 2.8rem 0 3.2rem;
     }
-    .hero-h1 em { font-style: italic; color: var(--coral); }
-
+    .hero-h1 em { font-style: normal; color: var(--periwinkle); }
     .hero-p {
       font-size: 1.7rem;
-      color: rgba(252,243,233,0.72);
+      color: rgba(252,243,233,0.76);
       line-height: 1.75;
       max-width: 44ch;
     }
-    .hero-p + .hero-p { margin-top: 2rem; }
-
+    .hero-p + .hero-p { margin-top: 1.6rem; }
     .hero-content .btn-pill { margin-top: 4rem; }
+
+    .hero-float {
+      position: absolute;
+      z-index: 3;
+      font-family: var(--font-hand);
+      font-weight: 600;
+      color: var(--cream);
+      opacity: 0.92;
+      pointer-events: none;
+      user-select: none;
+      text-shadow: 0 .2rem 1.2rem rgba(28,24,21,0.95), 0 0 3.2rem rgba(28,24,21,0.8);
+      white-space: nowrap;
+    }
+    /* centradas sobre el borde derecho de la foto: mitad encima, mitad afuera */
+    .hero-float { right: 0; }
+    .hero-float.f1 { top: 16%; font-size: clamp(1.6rem, 1.7vw, 2.2rem); transform: translateX(50%) rotate(-7deg); }
+    .hero-float.f2 { top: 31%; font-size: clamp(1.5rem, 1.6vw, 2rem);   transform: translateX(50%) rotate(4deg); }
+    .hero-float.f3 {
+      top: 45%;
+      font-size: clamp(1.4rem, 1.5vw, 1.9rem);
+      transform: translateX(50%) rotate(-3deg);
+      white-space: normal;
+      text-align: center;
+      max-width: 14ch;
+      line-height: 1.15;
+    }
+    @media (max-width: 1100px) { .hero-float { display: none; } }
+
+    .hero-right {
+      position: relative;
+      z-index: 2;
+      justify-self: start;
+      width: 100%;
+      max-width: 46rem;
+    }
+    .hero-photo {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      margin: 0;
+      overflow: hidden;
+      border-radius: 2px;
+      box-shadow: 0 4rem 8rem -3rem rgba(0,0,0,0.75);
+      outline: 1px solid rgba(252,243,233,0.16);
+      outline-offset: -1px;
+    }
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 34%;
+      display: block;
+    }
 
     /* ── EN QUÉ TRABAJAMOS — 6 columns, hairline dividers ── */
     .work {
       background: var(--cream);
-      padding: 0 6.4rem 10.4rem;
+      padding: 0 6.4rem 7.2rem;
     }
     .work-inner {
       border-top: 1px solid rgba(64,62,63,0.1);
       padding-top: 9.6rem;
     }
 
+    .work-h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2.6rem, 2.8vw, 3.6rem);
+      font-weight: 600;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-wrap: balance;
+      margin-top: 2.4rem;
+      max-width: 22ch;
+    }
+    .work-h2 em { font-style: normal; color: var(--indigo); }
     .work-grid {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
-      margin-top: 6.4rem;
+      margin-top: 4.8rem;
     }
 
     .work-item {
@@ -183,15 +266,15 @@
     }
 
     .banner-h {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3.2rem, 3.4vw, 4.6rem);
-      font-weight: 300;
+      font-family: var(--font-display);
+      font-size: clamp(2.9rem, 3.1vw, 4.2rem);
+      font-weight: 600;
       line-height: 1.12;
       letter-spacing: -0.015em;
       color: var(--cream);
       text-wrap: balance;
     }
-    .banner-h em { font-style: italic; color: var(--coral); }
+    .banner-h em { font-style: normal; color: var(--periwinkle); }
 
     .banner-meta {
       display: flex;
@@ -226,13 +309,13 @@
     /* ── ETAPAS — the ladder narrative ── */
     .stages {
       background: var(--cream);
-      padding: 9.6rem 6.4rem 10.4rem;
+      padding: 4.8rem 6.4rem 6.4rem;
     }
     .stages-inner { border-top: none; padding-top: 0; }
     .stages-h {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3rem, 3.2vw, 4.4rem);
-      font-weight: 300;
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 3vw, 4rem);
+      font-weight: 600;
       line-height: 1.12;
       letter-spacing: -0.015em;
       color: var(--ink);
@@ -242,157 +325,394 @@
     }
     .stages-h em { font-style: italic; color: var(--coral-d); }
 
-    .stages-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      margin-top: 6.4rem;
-    }
-    .stage-item {
-      padding: 0 3.2rem 0 0;
-    }
-    .stage-item + .stage-item {
-      border-left: 1px solid rgba(64,62,63,0.1);
-      padding-left: 3.2rem;
-    }
-    .stage-emoji { font-size: 2.8rem; display: block; margin-bottom: 1.6rem; }
-    .stage-name {
-      font-size: 1.3rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--coral-d);
-      margin-bottom: 1.2rem;
-    }
-    .stage-p {
-      font-size: 1.5rem;
-      color: var(--ink-s);
-      line-height: 1.65;
-    }
-
-    /* ── PAQUETES — the two packages + add-on ── */
-    .packages {
-      background: var(--cream);
-      padding: 0 6.4rem 10.4rem;
-    }
-    .packages-inner {
-      border-top: 1px solid rgba(64,62,63,0.1);
-      padding-top: 9.6rem;
-    }
-    .pk-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3.2rem;
-      margin-top: 6.4rem;
-    }
-    .pk-card {
-      border: 1px solid rgba(64,62,63,0.14);
-      border-radius: 2rem;
-      padding: 4.8rem 4.4rem;
-      display: flex;
-      flex-direction: column;
-    }
-    .pk-card--featured {
-      background: var(--ink-bg);
-      border-color: transparent;
-    }
-    .pk-stage {
-      font-size: 1.3rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--coral-d);
-      margin-bottom: 1.6rem;
-    }
-    .pk-card--featured .pk-stage { color: var(--coral); }
-    .pk-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 3.2rem;
-      font-weight: 400;
+    /* ── TIMELINE DE ETAPAS ── */
+    .stage-note {
+      margin: 4rem 0 0 auto;
+      max-width: 46ch;
+      text-align: right;
+      font-size: clamp(1.9rem, 1.9vw, 2.4rem);
+      line-height: 1.4;
       color: var(--ink);
-      margin-bottom: 0.8rem;
+      transform: rotate(-1.6deg);
     }
-    .pk-card--featured .pk-name { color: var(--cream); }
-    .pk-tag {
-      font-size: 1.5rem;
-      color: var(--ink-s);
-      line-height: 1.6;
-      margin-bottom: 2.8rem;
-    }
-    .pk-card--featured .pk-tag { color: rgba(252,243,233,0.72); }
-    .pk-price {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 4rem;
-      font-weight: 400;
-      color: var(--ink);
-      line-height: 1;
-    }
-    .pk-card--featured .pk-price { color: var(--cream); }
-    .pk-price small {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.3rem;
-      color: var(--ink-s);
-      letter-spacing: 0.04em;
-    }
-    .pk-card--featured .pk-price small { color: rgba(252,243,233,0.6); }
-    .pk-nights {
-      font-family: 'Caveat', cursive;
-      font-size: 1.9rem;
-      color: var(--coral-d);
-      margin-top: 0.8rem;
-    }
-    .pk-card--featured .pk-nights { color: var(--coral); }
-    .pk-list {
-      list-style: none;
-      margin: 3.2rem 0 4rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.4rem;
-      flex-grow: 1;
-    }
-    .pk-list li {
-      font-size: 1.5rem;
-      color: var(--ink-s);
-      line-height: 1.55;
-      padding-left: 2.6rem;
+    .stage-note em { font-style: normal; color: var(--coral-d); }
+    .tl { margin-top: 0; scroll-margin-top: 6.4rem; }
+    .tl-rail {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1.6rem;
       position: relative;
     }
-    .pk-card--featured .pk-list li { color: rgba(252,243,233,0.72); }
-    .pk-list li::before {
+    .tl-rail::before {
+      content: '';
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      top: 5.6rem;
+      height: 1px;
+      background: rgba(150,161,210,0.35);
+      z-index: 0;
+    }
+    .tl-step {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.2rem;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      font: inherit;
+      text-align: center;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .tl-av {
+      width: 11.2rem;
+      height: 11.2rem;
+      border-radius: 50%;
+      background: var(--cream-d);
+      display: grid;
+      place-items: center;
+      transition: background .3s ease, box-shadow .3s ease, transform .3s ease;
+    }
+    .tl-av img { width: 82%; height: 82%; object-fit: contain; display: block; transition: filter .3s ease; }
+    .tl-name {
+      font-family: var(--font-label);
+      font-size: 1.2rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-s);
+      transition: color .3s ease;
+    }
+    .tl-step:hover .tl-av { transform: translateY(-3px); }
+    .tl-step[aria-selected="true"] .tl-av {
+      background: var(--periwinkle);
+      box-shadow: 0 0 0 6px rgba(150,161,210,0.20);
+    }
+    .tl-step[aria-selected="true"] .tl-av img { filter: brightness(0) invert(1); }
+    .tl-step[aria-selected="true"] .tl-name { color: var(--indigo); }
+
+    .tl-panels { margin-top: 3.6rem; }
+    .tl-panel {
+      border-top: 1px solid rgba(64,62,63,0.12);
+      padding-top: 3.2rem;
+      display: grid;
+      grid-template-columns: 22rem minmax(0, 1fr);
+      gap: 3.2rem;
+      align-items: start;
+    }
+    .tl-panel[hidden] { display: none; }
+    .tl-panel-h {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 2.4vw, 3.2rem);
+      font-weight: 600;
+      line-height: 1.1;
+      color: var(--ink);
+      text-wrap: balance;
+      margin: 0;
+    }
+    .tl-panel-p { font-size: 2rem; color: var(--ink); line-height: 1.5; margin: 0; max-width: 44ch; }
+    .tl-svc-label {
+      font-family: var(--font-label);
+      font-size: 1.2rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-s);
+      margin: 3.2rem 0 1.6rem;
+    }
+    .tl-svc {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(27rem, 1fr));
+      gap: 1.6rem;
+      margin-top: 2rem;
+    }
+    .svc-card {
+      display: flex;
+      flex-direction: column;
+      gap: .6rem;
+      background: var(--white);
+      border: 1px solid rgba(64,62,63,0.12);
+      border-radius: 14px;
+      padding: 2rem 2.2rem 1.8rem;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color .25s ease, transform .25s ease, box-shadow .25s ease;
+    }
+    a.svc-card:hover {
+      border-color: var(--periwinkle);
+      transform: translateY(-2px);
+      box-shadow: 0 1.6rem 3.2rem -2rem rgba(64,62,63,0.45);
+    }
+    .svc-name {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+    .svc-price {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--indigo);
+      line-height: 1.2;
+    }
+    .svc-price small {
+      font-family: var(--font-label);
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-s);
+      display: block;
+      margin-bottom: .2rem;
+    }
+    .svc-list {
+      list-style: none;
+      margin: 1.6rem 0 0;
+      padding: 1.6rem 0 0;
+      border-top: 1px solid rgba(64,62,63,0.1);
+      display: flex;
+      flex-direction: column;
+      gap: .8rem;
+    }
+    .svc-list li {
+      position: relative;
+      padding-left: 1.8rem;
+      font-size: 1.45rem;
+      line-height: 1.45;
+      color: var(--ink-s);
+    }
+    .svc-list li::before {
       content: '';
       position: absolute;
       left: 0;
-      top: 0.7em;
-      width: 1.4rem;
-      height: 1px;
-      background: var(--coral-d);
+      top: .8rem;
+      width: .6rem;
+      height: .6rem;
+      border-radius: 50%;
+      background: var(--periwinkle);
     }
-    .pk-card--featured .pk-list li::before { background: var(--coral); }
-
-    .pk-addon {
-      margin-top: 3.2rem;
-      border: 1px dashed rgba(64,62,63,0.25);
-      border-radius: 2rem;
-      padding: 3.2rem 4.4rem;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 3.2rem;
+    .svc-go {
+      display: inline-flex;
       align-items: center;
+      gap: .8rem;
+      margin-top: auto;
+      padding-top: 1.8rem;
+      font-family: var(--font-label);
+      font-size: 1.2rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--coral-d);
     }
-    .pk-addon-h { font-size: 1.7rem; font-weight: 600; color: var(--ink); margin-bottom: 0.8rem; }
-    .pk-addon-p { font-size: 1.5rem; color: var(--ink-s); line-height: 1.65; max-width: 62ch; }
-    .pk-addon-price {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 3rem;
+    .svc-go svg { width: 1.5rem; height: 1.5rem; transition: transform .25s ease; }
+    a.svc-card:hover .svc-go svg { transform: translateX(4px); }
+    .svc-card--soon {
+      background: none;
+      border-style: dashed;
+      justify-content: center;
+    }
+    .svc-card--soon .svc-name { color: var(--ink-s); }
+
+    /* ── SESIÓN 1:1 — foto a todo el ancho con el texto encima ── */
+    .uno {
+      position: relative;
+      display: grid;
+      align-items: center;
+      min-height: 78vh;
+      padding: 10rem 6.4rem;
+      overflow: hidden;
+      background: var(--ink-bg);
+    }
+    .uno-media { position: absolute; inset: 0; z-index: 0; }
+    .uno-media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 55%; display: block; }
+    .uno::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(to right, rgba(28,24,21,0.93) 0%, rgba(28,24,21,0.82) 38%, rgba(28,24,21,0.35) 66%, rgba(28,24,21,0.12) 100%),
+                  linear-gradient(to top, rgba(28,24,21,0.5) 0%, rgba(28,24,21,0) 42%);
+      pointer-events: none;
+    }
+    .uno-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 132rem;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .uno-content { max-width: 58rem; }
+    .uno-h {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 3.4vw, 4.6rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--cream);
+      text-wrap: balance;
+      margin: 1.8rem 0 2rem;
+    }
+    .uno-h em { font-style: normal; color: var(--periwinkle); }
+    .uno-p { font-size: 1.75rem; color: rgba(252,243,233,0.82); line-height: 1.6; max-width: 46ch; }
+    .uno-list {
+      list-style: none;
+      margin: 2.8rem 0 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.1rem 2.4rem;
+    }
+    .uno-list li {
+      position: relative;
+      padding-left: 1.9rem;
+      font-size: 1.5rem;
+      line-height: 1.45;
+      color: rgba(252,243,233,0.76);
+    }
+    .uno-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: .85rem;
+      width: .6rem;
+      height: .6rem;
+      border-radius: 50%;
+      background: var(--periwinkle);
+    }
+    .uno-price {
+      display: flex;
+      align-items: baseline;
+      gap: 1.2rem;
+      margin-top: 3.2rem;
+      flex-wrap: wrap;
+    }
+    .uno-price-old {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 500;
+      color: rgba(252,243,233,0.45);
+      text-decoration: line-through;
+      text-decoration-thickness: 1px;
+      line-height: 1;
+    }
+    .uno-price b {
+      font-family: var(--font-display);
+      font-size: 3.4rem;
+      font-weight: 700;
+      color: var(--cream);
+      line-height: 1;
+    }
+    .uno-price span {
+      font-family: var(--font-label);
+      font-size: 1.2rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(252,243,233,0.62);
+    }
+    .uno .btn-pill { margin-top: 2.8rem; }
+    .uno-note {
+      margin-top: 1.8rem;
+      font-size: 1.4rem;
+      color: rgba(252,243,233,0.6);
+    }
+
+    /* ── CABAÑAS — la prueba ── */
+    .proof {
+      background: var(--cream);
+      padding: 0 0 6.4rem;
+    }
+    .proof-inner {
+      max-width: 132rem;
+      margin: 0 auto;
+      padding: 5.6rem 6.4rem 0;
+      border-top: 1px solid rgba(64,62,63,0.1);
+    }
+    .proof-h {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 3vw, 4rem);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
       color: var(--ink);
-      white-space: nowrap;
+      text-wrap: balance;
+      margin: 1.8rem 0 1.6rem;
+      max-width: 22ch;
     }
-    .pk-note {
-      margin-top: 2.8rem;
-      font-size: 1.45rem;
-      color: var(--ink-s);
-      line-height: 1.7;
-      max-width: 78ch;
+    .proof-h em { font-style: normal; color: var(--indigo); }
+    .proof-p { font-size: 1.8rem; color: var(--ink-s); line-height: 1.6; max-width: 56ch; }
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-top: 4rem;
+      width: 100%;
     }
+    .cab {
+      position: relative;
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      overflow: hidden;
+      aspect-ratio: 4 / 5;
+      background: var(--periwinkle);
+    }
+    .cab img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .7s cubic-bezier(0.32,0.72,0,1);
+    }
+    .cab:hover img { transform: scale(1.05); }
+    .cab--noimg img { display: none; }
+    .cab-body {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      padding: 3.2rem 2.8rem 2.8rem;
+      background: linear-gradient(to top, rgba(28,24,21,0.88) 0%, rgba(28,24,21,0.45) 55%, rgba(28,24,21,0) 100%);
+    }
+    .cab-name {
+      display: block;
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 1.4vw, 2rem);
+      font-weight: 600;
+      color: var(--cream);
+      line-height: 1.25;
+    }
+    .cab-meta {
+      display: block;
+      font-family: var(--font-label);
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(252,243,233,0.7);
+      margin-top: .8rem;
+    }
+    .cab-go {
+      display: inline-flex;
+      align-items: center;
+      gap: .8rem;
+      margin-top: 1.6rem;
+      font-family: var(--font-label);
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cream);
+    }
+    .cab-go svg { width: 1.4rem; height: 1.4rem; transition: transform .25s ease; }
+    .cab:hover .cab-go svg { transform: translateX(4px); }
+
+    .banner-sub--alt { margin-top: 1.6rem; opacity: 0.72; }
+    .banner-sub--alt a { color: var(--cream); text-decoration: underline; text-underline-offset: 3px; }
 
     /* ── CÓMO TRABAJO + FAQ ── */
     .how {
@@ -407,7 +727,7 @@
       gap: 6.4rem;
     }
     .how-h {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-display);
       font-size: clamp(2.8rem, 3vw, 4rem);
       font-weight: 300;
       line-height: 1.15;
@@ -416,7 +736,7 @@
       margin-top: 2.4rem;
       max-width: 18ch;
     }
-    .how-h em { font-style: italic; color: var(--coral-d); }
+    .how-h em { font-style: normal; color: var(--indigo); }
     .faq-list { display: flex; flex-direction: column; }
     .faq-item {
       border-top: 1px solid rgba(64,62,63,0.1);
@@ -428,12 +748,29 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 1100px) {
-      .work-grid { grid-template-columns: repeat(3, 1fr); row-gap: 5.6rem; }
+      .hero { gap: 4.8rem; padding: 14rem 6.4rem 10rem 9rem; }
+      .hero-right { max-width: 32rem; }
+      .work-h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2.6rem, 2.8vw, 3.6rem);
+      font-weight: 600;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-wrap: balance;
+      margin-top: 2.4rem;
+      max-width: 22ch;
+    }
+    .work-h2 em { font-style: normal; color: var(--indigo); }
+    .work-grid { grid-template-columns: repeat(3, 1fr); row-gap: 5.6rem; }
       .work-item:nth-child(4) { border-left: none; }
 
-      .stages-grid { grid-template-columns: 1fr 1fr; row-gap: 4.8rem; }
-      .stage-item:nth-child(3) { border-left: none; padding-left: 0; }
-      .pk-grid { grid-template-columns: 1fr; }
+      .tl-rail { grid-template-columns: repeat(3, 1fr); row-gap: 3.2rem; }
+      .tl-rail::before { display: none; }
+      .tl-panel { grid-template-columns: 1fr; gap: 1.6rem; }
+      .proof-grid { grid-template-columns: 1fr 1fr; }
+      .uno { padding: 8rem 4.8rem; min-height: 0; }
+      .uno-content { max-width: 100%; }
       .how-inner { grid-template-columns: 1fr; gap: 4.8rem; }
 
       .banner { grid-template-columns: 1fr; gap: 4.4rem; padding: 5.6rem 4.8rem; text-align: center; }
@@ -443,20 +780,34 @@
 
     @media (max-width: 768px) {
       .hero {
-        padding: 12rem 2.4rem 8rem;
-        min-height: 92dvh;
-        max-height: none;
+        grid-template-columns: 1fr;
+        gap: 4.8rem;
+        padding: 12rem 2.4rem 7.2rem;
       }
-      .hero::before {
-        background: linear-gradient(to right, rgba(28,24,21,0.88) 0%, rgba(28,24,21,0.72) 60%, rgba(28,24,21,0.5) 100%);
-      }
-      .hero--noimg::before {
-        background: radial-gradient(circle at 70% 30%, rgba(243,152,120,0.07) 0%, rgba(243,152,120,0) 55%);
-      }
+      .hero-right { max-width: 100%; justify-self: stretch; }
+      .hero-photo { aspect-ratio: 3 / 4; }
 
+      .proof { padding: 0 2.4rem 8rem; }
+      .proof-inner { padding-top: 8rem; }
+      .proof-grid { grid-template-columns: 1fr 1fr; }
+      .uno { padding: 7.2rem 2.4rem; }
+      .uno-list { grid-template-columns: 1fr; }
+      .uno::after { background: linear-gradient(to right, rgba(28,24,21,0.94) 0%, rgba(28,24,21,0.88) 60%, rgba(28,24,21,0.7) 100%); }
       .work { padding: 0 2.4rem 8rem; }
       .work-inner { padding-top: 8rem; }
-      .work-grid { grid-template-columns: 1fr 1fr; gap: 0; margin-top: 4.8rem; }
+      .work-h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2.6rem, 2.8vw, 3.6rem);
+      font-weight: 600;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-wrap: balance;
+      margin-top: 2.4rem;
+      max-width: 22ch;
+    }
+    .work-h2 em { font-style: normal; color: var(--indigo); }
+    .work-grid { grid-template-columns: 1fr 1fr; gap: 0; margin-top: 4.8rem; }
       .work-item { padding: 3.2rem 1.6rem; }
       .work-item + .work-item { border-left: none; }
       .work-item:nth-child(even) { border-left: 1px solid rgba(64,62,63,0.1); }
@@ -475,14 +826,24 @@
 
       .stages { padding: 8rem 2.4rem; }
       .stages-inner { padding-top: 8rem; }
-      .stages-grid { grid-template-columns: 1fr; }
-      .stage-item, .stage-item + .stage-item { border-left: none; padding: 2.4rem 0; }
-      .stage-item + .stage-item { border-top: 1px solid rgba(64,62,63,0.1); }
+      .tl-rail {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 2rem;
+        padding-bottom: 1.2rem;
+        -webkit-overflow-scrolling: touch;
+      }
+      .tl-rail::-webkit-scrollbar { display: none; }
+      .tl-step { flex: 0 0 auto; scroll-snap-align: center; width: 11.2rem; }
+      .tl-name { white-space: nowrap; font-size: 1.1rem; }
+      .tl-av { width: 8.8rem; height: 8.8rem; }
+      .tl-panels { margin-top: 4rem; }
+      .tl-panel { padding-top: 3.2rem; gap: 2rem; }
+      .tl-svc { grid-template-columns: 1fr; }
+      .tl-panel { grid-template-columns: 1fr; }
+      .tl-panel-p { font-size: 1.8rem; }
 
-      .packages { padding: 0 2.4rem 8rem; }
-      .packages-inner { padding-top: 8rem; }
-      .pk-card { padding: 3.6rem 2.8rem; }
-      .pk-addon { grid-template-columns: 1fr; gap: 1.6rem; padding: 2.8rem; }
 
       .how { padding: 0 2.4rem 8rem; }
       .how-inner { padding-top: 8rem; }
@@ -501,30 +862,39 @@
     </ul>
   </nav>
 
-  <!-- HERO — photo behind, text over the left -->
+  <!-- HERO — banner de fondo, texto a la izquierda, retrato de Mafe encima -->
   <header class="hero">
     <div class="hero-media">
       <img class="hero-img"
         src="../assets/coaching-hero.jpg"
-        alt="Escritorio con panel de reservas en un portátil, libreta con plan de acción y una vela encendida"
+        alt=""
+        aria-hidden="true"
         onerror="this.closest('.hero').classList.add('hero--noimg')">
     </div>
     <div class="hero-content">
       <p class="c-label c-label--cream hero-label">Coaching</p>
-      <h1 class="hero-h1">El consejo correcto antes de la próxima <em>gran decisión.</em></h1>
+      <h1 class="hero-h1">Deja de decidir con el corazón. <em>Decide con datos y experiencia.</em></h1>
       <p class="hero-p">
-        Una conversación puede ahorrarte semanas de investigación, compras equivocadas, dolores de cabeza operativos y reseñas que cuestan caro.
+        Hoy son 4 alojamientos propios, construidos y diseñados por mí, con calendarios entre el 75% y el 95%. Mi especialidad son los alojamientos de rentas cortas rurales.
       </p>
       <p class="hero-p">
-        Llevo más de 9 años operando alojamientos. Todo lo que enseño lo aprendí haciéndolo — y me encanta ahorrarle a otras anfitrionas la "matrícula" que pagué yo.
+        Ahora todo lo que aprendí, te lo quiero enseñar a ti.
       </p>
-      <a href="#etapas" class="btn-pill">
-        <span>¿En qué etapa estás?</span>
+      <a href="#timeline" class="btn-pill">
+        <span>Empecemos por aquí ¿En qué etapa estás?</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
           <line x1="5" y1="12" x2="19" y2="12"></line>
           <polyline points="12 5 19 12 12 19"></polyline>
         </svg>
       </a>
+    </div>
+    <div class="hero-right">
+      <figure class="hero-photo">
+        <img src="../assets/mafe-coaching.jpg" alt="Mafe recostada en una de sus cabañas, con una bandeja de desayuno">
+      </figure>
+      <span class="hero-float f1" aria-hidden="true">Mafe</span>
+      <span class="hero-float f2" aria-hidden="true">arquitecta</span>
+      <span class="hero-float f3" aria-hidden="true">9 años operando alojamientos</span>
     </div>
   </header>
 
@@ -540,94 +910,57 @@
   </section>
   -->
 
-  <!-- ETAPAS — the ladder -->
-  <section class="stages" id="etapas">
-    <div class="stages-inner">
-      <p class="c-label" data-reveal>¿En qué etapa de host estás?</p>
-      <h2 class="stages-h" data-reveal>Cada etapa necesita una cosa distinta. <em>Empecemos por la tuya.</em></h2>
-      <div class="stages-grid">
+  <!-- CABAÑAS — la prueba: los alojamientos propios de Mafe, en vivo -->
+  <section class="proof" id="cabanas">
+    <div class="proof-inner">
+      <p class="c-label" data-reveal>Mis alojamientos</p>
+      <h2 class="proof-h" data-reveal>Te comparto mis alojamientos. <em>Revísalos.</em></h2>
+      <p class="proof-p" data-reveal>
+        Todo lo que te digo es real. Mientras lees esto estoy recibiendo una reserva. Y esto no es porque me senté a esperar. Es porque llevo 9 años, me actualizo todos los días y sé cómo funciona este negocio.
+      </p>
+    </div>
 
-        <div class="stage-item" data-stagger>
-          <span class="stage-emoji" aria-hidden="true">🐣</span>
-          <p class="stage-name">Newborn Host</p>
-          <p class="stage-p">Sueñas con tener un Airbnb pero todavía no tienes propiedad. Tu momento es de aprender: seguime en <a href="https://www.instagram.com/demafetohost">@demafetohost</a> y llevate mis <a href="/recursos">guías gratis</a>.</p>
-        </div>
-
-        <div class="stage-item" data-stagger>
-          <span class="stage-emoji" aria-hidden="true">👶</span>
-          <p class="stage-name">Baby Host</p>
-          <p class="stage-p">Ya tienes la propiedad y estás a pasos de publicar. Lo primero: confirmar que sí funciona para Airbnb. Eso lo vemos en una llamada de 30 minutos, gratis.</p>
-        </div>
-
-        <div class="stage-item" data-stagger>
-          <span class="stage-emoji" aria-hidden="true">🧑</span>
-          <p class="stage-name">Teen Host</p>
-          <p class="stage-p">Publicaste, pero el anuncio no está trabajando para vos. Con la guía correcta — fotos, título, precio — esto cambia rapidito.</p>
-        </div>
-
-        <div class="stage-item" data-stagger>
-          <span class="stage-emoji" aria-hidden="true">💪</span>
-          <p class="stage-name">Grown Host</p>
-          <p class="stage-p">Quieres tu anuncio impecable sin hacerlo vos misma. Yo lo construyo completo y te lo entrego listo para recibir huéspedes.</p>
-        </div>
-
-      </div>
+    <div class="proof-grid">
+        <a class="cab" href="https://www.airbnb.com/rooms/53638277" target="_blank" rel="noopener">
+          <img src="../assets/cabana-tangara.jpg" alt="Tangara, escapada romántica en El Peñol" onerror="this.closest('.cab').classList.add('cab--noimg')">
+          <span class="cab-body">
+            <span class="cab-name">Tangara</span>
+            <span class="cab-meta">Escapada romántica · El Peñol</span>
+            <span class="cab-go">Ver en Airbnb <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+          </span>
+        </a>
+        <a class="cab" href="https://www.airbnb.com/rooms/53772287" target="_blank" rel="noopener">
+          <img src="../assets/cabana-mimus.jpg" alt="Mimus, cabaña de lujo en El Peñol" onerror="this.closest('.cab').classList.add('cab--noimg')">
+          <span class="cab-body">
+            <span class="cab-name">Mimus</span>
+            <span class="cab-meta">Cabaña de lujo · El Peñol</span>
+            <span class="cab-go">Ver en Airbnb <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+          </span>
+        </a>
+        <a class="cab" href="https://www.airbnb.com/rooms/1647482905189047171" target="_blank" rel="noopener">
+          <img src="../assets/cabana-galeata.jpg" alt="Galeata, escapada familiar en El Peñol" onerror="this.closest('.cab').classList.add('cab--noimg')">
+          <span class="cab-body">
+            <span class="cab-name">Galeata</span>
+            <span class="cab-meta">Escapada familiar · El Peñol</span>
+            <span class="cab-go">Ver en Airbnb <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+          </span>
+        </a>
+        <a class="cab" href="https://www.airbnb.com/rooms/38672594" target="_blank" rel="noopener">
+          <img src="../assets/cabana-momot.jpg" alt="Momot, cabaña en El Peñol" onerror="this.closest('.cab').classList.add('cab--noimg')">
+          <span class="cab-body">
+            <span class="cab-name">Momot</span>
+            <span class="cab-meta">Cabaña · El Peñol</span>
+            <span class="cab-go">Ver en Airbnb <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+          </span>
+        </a>
     </div>
   </section>
   <!-- PAQUETES -->
-  <section class="packages" id="paquetes">
-    <div class="packages-inner">
-      <p class="c-label" data-reveal>Los paquetes</p>
-      <div class="pk-grid">
-
-        <div class="pk-card" data-stagger>
-          <p class="pk-stage">🧑 Teen Host</p>
-          <h3 class="pk-name">Yo te guío, vos lo construyes</h3>
-          <p class="pk-tag">Para la anfitriona que quiere hacerlo ella misma, con alguien que ya recorrió el camino.</p>
-          <ul class="pk-list">
-            <li>Llamada 1:1 de una hora para armar tu plan</li>
-            <li>Revisión completa de tu anuncio</li>
-            <li>Recomendaciones de fotos por escrito</li>
-            <li>Referido de fotógrafo de confianza</li>
-            <li>Mi guía de gestión: mensajes, precios y calendario</li>
-          </ul>
-          <a href="/diagnostico/" class="btn-pill"><span>Empezá con la llamada gratis</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-          </a>
-        </div>
-
-        <div class="pk-card pk-card--featured" data-stagger>
-          <p class="pk-stage">💪 Grown Host</p>
-          <h3 class="pk-name">Yo lo hago todo por vos</h3>
-          <p class="pk-tag">Tu anuncio completo, construido por mí, entregado listo para recibir huéspedes.</p>
-          <ul class="pk-list">
-            <li>Construyo tu listing completo: título, descripción, perfil</li>
-            <li>Curaduría de tus fotos, foto por foto</li>
-            <li>Optimización de tu perfil de anfitriona</li>
-            <li>Entrega lista para publicar</li>
-            <li>Mi guía de gestión: mensajes, precios y calendario</li>
-          </ul>
-          <a href="/diagnostico/" class="btn-pill"><span>Empezá con la llamada gratis</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-          </a>
-        </div>
-
-      </div>
-
-      <div class="pk-addon" data-reveal>
-        <div>
-          <p class="pk-addon-h">📸 Visita presencial (sobre Grown Host)</p>
-          <p class="pk-addon-p">Voy a tu propiedad, la reviso en persona y dirijo la sesión de fotos con un fotógrafo profesional. Medellín y alrededores (San Rafael, El Peñol, La Ceja, Santa Fe de Antioquia).</p>
-        </div>
-      </div>
-
-      <p class="pk-note">¿Ya llevas rato operando y quieres afinar precios, ocupación u operación? Trabajamos por sesión 1:1. Y todo empieza igual: con la llamada gratis — ahí te cuento precios y detalles.</p>
-    </div>
-  </section>
-  <!-- EN QUÉ PODEMOS TRABAJAR -->
-  <section class="work" id="trabajamos">
+  <!-- SESIÓN 1:1 — para quien no quiere un paquete completo -->
+<section class="work" id="trabajamos">
    <div class="work-inner">
-    <p class="c-label" data-reveal>En qué podemos trabajar</p>
+    <p class="c-label" data-reveal>Lo que está pasando</p>
+    <h2 class="work-h2" data-reveal>Casi siempre no es la propiedad. <em>Son las decisiones.</em></h2>
     <div class="work-grid">
 
       <div class="work-item" data-stagger>
@@ -638,8 +971,8 @@
             <path d="M10 21v-5.5h4V21"></path>
           </svg>
         </span>
-        <h3 class="work-h">Lanzamiento y montaje</h3>
-        <p class="work-p">Dejá tu propiedad lista para huéspedes desde el día uno.</p>
+        <h3 class="work-h">Montar a ciegas</h3>
+        <p class="work-p">Arrancas copiando al vecino, sin saber si a él le está funcionando.</p>
       </div>
 
       <div class="work-item" data-stagger>
@@ -653,8 +986,8 @@
             <path d="M15.5 3.5H19V7"></path>
           </svg>
         </span>
-        <h3 class="work-h">Ocupación e ingresos</h3>
-        <p class="work-p">Mejorá tus reservas, tu estrategia de precios y el rendimiento general.</p>
+        <h3 class="work-h">Precios puestos a ojo</h3>
+        <p class="work-p">Cobras lo que se te ocurrió. Nunca sabes si estás dejando plata sobre la mesa.</p>
       </div>
 
       <div class="work-item" data-stagger>
@@ -668,8 +1001,8 @@
             <path d="M13 17.5h4"></path>
           </svg>
         </span>
-        <h3 class="work-h">Optimización del anuncio</h3>
-        <p class="work-p">Fotos, descripción, amenities y un posicionamiento que convierte.</p>
+        <h3 class="work-h">Un anuncio que nadie encuentra</h3>
+        <p class="work-p">Título, descripción y amenities mal puestos te sacan de las búsquedas.</p>
       </div>
 
       <div class="work-item" data-stagger>
@@ -679,8 +1012,8 @@
             <path d="M5 21c0-3.9 3.1-7 7-7s7 3.1 7 7"></path>
           </svg>
         </span>
-        <h3 class="work-h">Experiencia del huésped</h3>
-        <p class="work-p">Los detalles pequeños que traen reseñas de 5 estrellas y huéspedes que vuelven.</p>
+        <h3 class="work-h">Fotos que no venden</h3>
+        <p class="work-p">El huésped decide en tres segundos, y decide mirando.</p>
       </div>
 
       <div class="work-item" data-stagger>
@@ -690,8 +1023,8 @@
             <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
           </svg>
         </span>
-        <h3 class="work-h">Operaciones y automatización</h3>
-        <p class="work-p">Sistemas, personal de aseo, mensajería, check-ins y más.</p>
+        <h3 class="work-h">Calendario quieto</h3>
+        <p class="work-p">Las tarifas se mueven cada semana. Si las dejas fijas, o regalas noches o te quedas vacía.</p>
       </div>
 
       <div class="work-item" data-stagger>
@@ -701,10 +1034,138 @@
             <path d="M9 10V6a3 3 0 0 1 6 0v4"></path>
           </svg>
         </span>
-        <h3 class="work-h">Proveedores y productos</h3>
-        <p class="work-p">Productos probados y proveedores confiables que ya conocemos.</p>
+        <h3 class="work-h">Comprar dos veces</h3>
+        <p class="work-p">Dotación que no aguanta el uso y proveedores que fallan. Plata que se va en reponer.</p>
       </div>
 
+    </div>
+  </section>
+  <!-- EN QUÉ PODEMOS TRABAJAR -->
+  <!-- CABAÑAS — la prueba: los alojamientos propios de Mafe, en vivo -->
+  <!-- ETAPAS — the ladder -->
+  <section class="stages" id="etapas">
+    <div class="stages-inner">
+      <div class="tl" id="timeline">
+        <div class="tl-rail" role="tablist" aria-label="Etapas de host">
+          <button class="tl-step" role="tab" id="tab-newborn" aria-controls="panel-newborn" aria-selected="false" data-stage="newborn">
+            <span class="tl-av"><img src="../assets/etapa-newborn.png" alt="" aria-hidden="true"></span>
+            <span class="tl-name">Newborn Host</span>
+          </button>
+          <button class="tl-step" role="tab" id="tab-baby" aria-controls="panel-baby" aria-selected="false" data-stage="baby">
+            <span class="tl-av"><img src="../assets/etapa-baby.png" alt="" aria-hidden="true"></span>
+            <span class="tl-name">Baby Host</span>
+          </button>
+          <button class="tl-step" role="tab" id="tab-teen" aria-controls="panel-teen" aria-selected="true" data-stage="teen">
+            <span class="tl-av"><img src="../assets/etapa-teen.png" alt="" aria-hidden="true"></span>
+            <span class="tl-name">Teen Host</span>
+          </button>
+          <button class="tl-step" role="tab" id="tab-grown" aria-controls="panel-grown" aria-selected="false" data-stage="grown">
+            <span class="tl-av"><img src="../assets/etapa-grown.png" alt="" aria-hidden="true"></span>
+            <span class="tl-name">Grown Host</span>
+          </button>
+          <button class="tl-step" role="tab" id="tab-super" aria-controls="panel-super" aria-selected="false" data-stage="super">
+            <span class="tl-av"><img src="../assets/etapa-super.png" alt="" aria-hidden="true"></span>
+            <span class="tl-name">Super Host</span>
+          </button>
+          <button class="tl-step" role="tab" id="tab-granny" aria-controls="panel-granny" aria-selected="false" data-stage="granny">
+            <span class="tl-av"><img src="../assets/etapa-granny.png" alt="" aria-hidden="true"></span>
+            <span class="tl-name">Granny Host</span>
+          </button>
+        </div>
+        <div class="tl-panels">
+        <div class="tl-panel" role="tabpanel" id="panel-newborn" aria-labelledby="tab-newborn" data-panel="newborn">
+          <h3 class="tl-panel-h">Newborn Host</h3>
+          <div>
+            <p class="tl-panel-p">Sueñas con tener un alojamiento, pero todavía no tienes la propiedad.</p>
+            <p class="tl-svc-label">Lo que te sirve</p>
+            <div class="tl-svc"><a class="svc-card" href="https://www.instagram.com/demafetohost" target="_blank" rel="noopener"><span class="svc-name">Sígueme en Instagram</span><span class="svc-price">Gratis</span><ul class="svc-list"><li>Todo lo que voy aprendiendo, gratis</li><li>Casos reales de mis propios alojamientos</li></ul><span class="svc-go">Ver <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></a><a class="svc-card" href="/recursos"><span class="svc-name">Mis guías</span><span class="svc-price">Gratis</span><ul class="svc-list"><li>Los 5 esenciales que no pueden faltar</li><li>Lista de compras y manual de gestión</li></ul><span class="svc-go">Ver <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></a></div>
+          </div>
+        </div>
+        <div class="tl-panel" role="tabpanel" id="panel-baby" aria-labelledby="tab-baby" data-panel="baby">
+          <h3 class="tl-panel-h">Baby Host</h3>
+          <div>
+            <p class="tl-panel-p">Tienes la propiedad y no sabes qué hacer con ella.</p>
+            <p class="tl-svc-label">Lo que te sirve</p>
+            <div class="tl-svc"><a class="svc-card" href="#agendar"><span class="svc-name">El estudio · Mapeo</span><span class="svc-price"><small>desde</small>$350.000</span><ul class="svc-list"><li>Tu propiedad en frío: qué tiene y qué le falta</li><li>Restricciones reales: reglamento, normativa, RNT</li><li>Quién compite contigo y qué cobra por noche</li><li>Cómo se ven sus calendarios y en qué fechas</li><li>Por qué plataformas se renta en tu zona</li><li>Renta corta vs. renta tradicional</li></ul><span class="svc-go">Reservar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></a></div>
+          </div>
+        </div>
+        <div class="tl-panel" role="tabpanel" id="panel-teen" aria-labelledby="tab-teen" data-panel="teen">
+          <h3 class="tl-panel-h">Teen Host</h3>
+          <div>
+            <p class="tl-panel-p">Ya decidiste, pero no sabes cómo montarlo.</p>
+            <p class="tl-svc-label">Lo que te sirve</p>
+            <div class="tl-svc"><a class="svc-card" href="#agendar"><span class="svc-name">El estudio · Mapeo</span><span class="svc-price"><small>desde</small>$350.000</span><ul class="svc-list"><li>Tu propiedad en frío: qué tiene y qué le falta</li><li>Restricciones reales: reglamento, normativa, RNT</li><li>Quién compite contigo y qué cobra por noche</li><li>Cómo se ven sus calendarios y en qué fechas</li><li>Por qué plataformas se renta en tu zona</li><li>Renta corta vs. renta tradicional</li></ul><span class="svc-go">Reservar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></a><a class="svc-card" href="#agendar"><span class="svc-name">Organizar el anuncio</span><span class="svc-price"><small>desde</small>$1.000.000</span><ul class="svc-list"><li>Título y descripción desde el ADN de tu alojamiento</li><li>Montaje y curaduría de tus fotos</li><li>Servicios, reglas de la casa y políticas</li><li>Optimización de tu perfil de anfitrión</li><li>Mensajes automáticos completos</li></ul><span class="svc-go">Reservar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></a><a class="svc-card" href="#agendar"><span class="svc-name">Fotografía</span><span class="svc-price"><small>desde</small>$350.000</span><ul class="svc-list"><li>Guía personalizada: qué tomar, desde dónde y en qué orden</li><li>Funciona en todo el país</li><li>O presencial: voy, organizo y dirijo la sesión foto a foto</li></ul><span class="svc-go">Reservar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></a></div>
+          </div>
+        </div>
+        <div class="tl-panel" role="tabpanel" id="panel-grown" aria-labelledby="tab-grown" data-panel="grown">
+          <h3 class="tl-panel-h">Grown Host</h3>
+          <div>
+            <p class="tl-panel-p">Ya estás rentando, pero no rinde lo que debería.</p>
+            <p class="tl-svc-label">Lo que te sirve</p>
+            <div class="tl-svc"><a class="svc-card" href="#agendar"><span class="svc-name">El estudio completo</span><span class="svc-price">$800.000</span><ul class="svc-list"><li>Todo lo del mapeo, más los números finos</li><li>Las amenities más buscadas de tu zona, con datos</li><li>Tus costos fijos y de operación</li><li>Cuánto te cuesta montarla</li><li>Los precios que deberías poner</li><li>Mi recomendación: si fuera mía, yo haría esto</li></ul><span class="svc-go">Reservar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></a><a class="svc-card" href="#agendar"><span class="svc-name">Trading de calendarios</span><span class="svc-price"><small>mínimo $500.000</small>10% mensual</span><ul class="svc-list"><li>Muevo tus tarifas semana a semana</li><li>Manejo del calendario y la disponibilidad</li><li>Reporte mensual de cómo va tu ocupación</li><li>Sin permanencia: mes a mes</li><li>Necesita el estudio completo antes</li></ul><span class="svc-go">Reservar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></a></div>
+          </div>
+        </div>
+        <div class="tl-panel" role="tabpanel" id="panel-super" aria-labelledby="tab-super" data-panel="super">
+          <h3 class="tl-panel-h">Super Host</h3>
+          <div>
+            <p class="tl-panel-p">Te va bien y quieres exprimirlo.</p>
+            <p class="tl-svc-label">Lo que te sirve</p>
+            <div class="tl-svc"><a class="svc-card" href="#agendar"><span class="svc-name">Trading de calendarios</span><span class="svc-price"><small>mínimo $500.000</small>10% mensual</span><ul class="svc-list"><li>Muevo tus tarifas semana a semana</li><li>Manejo del calendario y la disponibilidad</li><li>Reporte mensual de cómo va tu ocupación</li><li>Sin permanencia: mes a mes</li><li>Necesita el estudio completo antes</li></ul><span class="svc-go">Reservar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></a><a class="svc-card" href="https://checkout.wompi.co/l/AIFOov" target="_blank" rel="noopener"><span class="svc-name">Sesión 1:1</span><span class="svc-price"><small>por hora</small>$380.000</span><ul class="svc-list"><li>Precios, reseñas u ocupación baja</li><li>Un huésped complicado</li><li>Cualquier duda puntual de tu proyecto</li></ul><span class="svc-go">Reservar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></a></div>
+          </div>
+        </div>
+        <div class="tl-panel" role="tabpanel" id="panel-granny" aria-labelledby="tab-granny" data-panel="granny">
+          <h3 class="tl-panel-h">Granny Host</h3>
+          <div>
+            <p class="tl-panel-p">Preferirías que alguien más se encargue de toda la parte digital.</p>
+            <p class="tl-svc-label">Lo que te sirve</p>
+            <div class="tl-svc"><div class="svc-card svc-card--soon"><span class="svc-name">Próximamente</span></div></div>
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <p class="stage-note hand" data-reveal>Cada dueño está en un punto distinto, y eso es lo que define qué necesitas y, sobre todo, qué <em>no</em> necesitas todavía.</p>
+    </div>
+  </section>
+
+    <!-- SESIÓN 1:1 — foto de Mafe en sus cabañas, texto encima -->
+  <section class="uno" id="sesion">
+    <div class="uno-media">
+      <img src="../assets/uno-a-uno.jpg" alt="Mafe en la terraza de una de las cabañas que diseñó, frente al lago" aria-hidden="true">
+    </div>
+
+    <div class="uno-inner">
+      <div class="uno-content">
+        <p class="c-label c-label--cream" data-reveal>Sesión 1:1</p>
+        <h2 class="uno-h" data-reveal>1 : 1 <em>con Mafe</em></h2>
+        <p class="uno-p" data-reveal>
+          Si tienes dudas muy puntuales esta es la mejor opción. Una hora conmigo para resolver eso que te tiene trancado. Traes tus dudas, miramos tu caso y sales con respuestas y, lo mejor, con decisiones.
+        </p>
+
+        <ul class="uno-list" data-reveal>
+          <li>Precios que no sabes dónde poner</li>
+          <li>Una calificación que se te cayó</li>
+          <li>Ocupación baja y no entiendes por qué</li>
+          <li>Un huésped complicado</li>
+          <li>Tu anuncio, que sientes que no trabaja</li>
+          <li>Cualquier duda puntual de tu proyecto</li>
+        </ul>
+
+        <div class="uno-price" data-reveal>
+          <s class="uno-price-old">$400.000</s>
+          <b>$380.000</b>
+          <span>la hora · precio de lanzamiento</span>
+        </div>
+
+        <a href="https://checkout.wompi.co/l/AIFOov" target="_blank" rel="noopener" class="btn-pill" data-reveal>
+          <span>Reserva tu hora conmigo</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+        <p class="uno-note" data-reveal>Se paga antes de agendar.</p>
+      </div>
     </div>
   </section>
   <!-- CÓMO TRABAJO + FAQ -->
@@ -717,28 +1178,33 @@
       <div class="faq-list">
         <div class="faq-item" data-stagger>
           <p class="faq-q">¿Cómo empieza todo?</p>
-          <p class="faq-a">Con una llamada gratis de 30 minutos. Miramos tu propiedad y te digo con franqueza si funciona para Airbnb. Si no funciona, también te lo digo — y ahí termina, sin venderte nada.</p>
+          <p class="faq-a">Con una llamada de 30 minutos, gratis. Ahí te hago preguntas sobre tu propiedad y tu zona para entender bien tu caso. Es nuestra primera cita, para conocernos. Al final te digo qué servicio le sirve a lo tuyo y cuánto vale.</p>
         </div>
         <div class="faq-item" data-stagger>
-          <p class="faq-q">¿Qué pasa cuando terminamos?</p>
-          <p class="faq-a">Te entrego todo — el anuncio y mi guía de gestión — y de ahí en adelante lo operas vos sola. Ese es el diseño: salís sabiendo manejar tu Airbnb, no dependiendo de mí.</p>
+          <p class="faq-q">¿En esa llamada me dices qué hacer?</p>
+          <p class="faq-a">Todavía no. Las preguntas de fondo, qué precio poner, si te conviene renta corta o tradicional, si la zona da, se responden en el estudio, con datos de tu competencia y tus propios números. Contestarlas de memoria en 30 minutos sería inventar, y un número inventado te cuesta un año de ocupación baja.</p>
+        </div>
+        <div class="faq-item" data-stagger>
+          <p class="faq-q">¿Y si mi propiedad no sirve?</p>
+          <p class="faq-a">Te lo digo con todas las letras. Si el estudio muestra que no da, prefiero decírtelo a montarte algo que no va a funcionar. Esa respuesta sale del estudio, no de la llamada: para decírtela de verdad hay que mirar tu zona, tu competencia y tus costos.</p>
         </div>
         <div class="faq-item" data-stagger>
           <p class="faq-q">¿Cómo es el pago?</p>
-          <p class="faq-a">50% para agendar y 50% contra entrega. Siempre en pesos colombianos.</p>
+          <p class="faq-a">Depende del servicio. El estudio, la guía de fotos y la sesión 1:1 se pagan completos antes de agendar. Organizar el anuncio y la fotografía presencial van 50% de anticipo y 50% contra entrega. En el trading, el montaje va por adelantado y el mensual dentro de los primeros 5 días del mes siguiente. Siempre en pesos colombianos.</p>
         </div>
         <div class="faq-item" data-stagger>
-          <p class="faq-q">¿Y si mi propiedad no es viable?</p>
-          <p class="faq-a">Te lo digo en la llamada, gratis y de frente. Prefiero decirte la verdad hoy que cobrarte por un proyecto que no va a funcionar.</p>
+          <p class="faq-q">¿Qué pasa cuando terminamos?</p>
+          <p class="faq-a">Te entrego todo funcionando y de ahí en adelante lo manejas tú. Ese es el diseño: sales sabiendo manejar tu alojamiento, no dependiendo de mí. Si más adelante necesitas ayuda, para eso está la sesión 1:1.</p>
         </div>
       </div>
+    </div>
     </div>
   </section>
 
   <!-- CTA BANNER -->
   <section class="banner-wrap" id="agendar">
     <div class="banner" data-reveal>
-      <h2 class="banner-h">¿Tu propiedad funciona para Airbnb? <em>Averigüémoslo.</em></h2>
+      <h2 class="banner-h">Todo empieza con una conversación. <em>Hablemos 30 minutos.</em></h2>
 
       <div class="banner-meta">
         <div class="bm-item">
@@ -750,7 +1216,7 @@
               <path d="M16 3v4"></path>
             </svg>
           </span>
-          <span class="bm-text">Llamada de 30 minutos</span>
+          <span class="bm-text">30 minutos, por videollamada</span>
         </div>
         <div class="bm-item">
           <span class="bm-icon" aria-hidden="true">
@@ -761,19 +1227,20 @@
               <path d="M15.5 14.2c2.8 0 5 2.1 5 4.8"></path>
             </svg>
           </span>
-          <span class="bm-text">Gratis, sin compromiso</span>
+          <span class="bm-text">Gratis y sin compromiso</span>
         </div>
       </div>
 
       <div class="banner-cta">
-        <a href="/diagnostico/" class="btn-pill" data-magnetic>
-          <span>Empezá el diagnóstico</span>
+        <a href="https://cal.com/hosttohost/llamada" target="_blank" rel="noopener" class="btn-pill" data-magnetic>
+          <span>Agendar la llamada</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
             <line x1="5" y1="12" x2="19" y2="12"></line>
             <polyline points="12 5 19 12 12 19"></polyline>
           </svg>
         </a>
-        <p class="banner-sub">2 minuticos, 8 preguntas. Te digo en qué etapa estás y cuál es tu próximo paso.</p>
+        <p class="banner-sub">Te pregunto por tu propiedad y tu zona, entiendo tu caso y te digo qué servicio te sirve. Nada más.</p>
+        <p class="banner-sub banner-sub--alt">¿Prefieres escribirme primero? <a href="https://www.instagram.com/demafetohost" target="_blank" rel="noopener">Mándame un mensaje</a>. Y si todavía no sabes en qué etapa estás, <a href="/diagnostico/">responde 8 preguntas</a>.</p>
       </div>
     </div>
   </section>
@@ -854,13 +1321,14 @@
 
       // — HERO entrance: photo settles, line-masked headline —
       document.fonts.ready.then(() => {
-        gsap.set(['.hero-content', '.hero-media'], { visibility: 'visible' });
+        gsap.set(['.hero-content', '.hero-media', '.hero-photo'], { visibility: 'visible' });
 
         const split = SplitText.create('.hero-h1', { type: 'lines', mask: 'lines' });
 
         const tl = gsap.timeline({ defaults: { ease: EASE } });
         tl.from('.hero-media', { autoAlpha: 0, duration: 1.6, ease: 'power2.out' }, 0)
           .from('.hero-img', { scale: 1.12, duration: 2.2, ease: 'power3.out' }, 0)
+          .from('.hero-photo', { autoAlpha: 0, y: 36, duration: 1.3, ease: 'power2.out' }, 0.55)
           .from('.hero-label', { y: 24, autoAlpha: 0, duration: 0.9 }, 0.35)
           .from(split.lines, { yPercent: 115, duration: 1.2, stagger: 0.1 }, 0.45)
           .from('.hero-p', { y: 28, autoAlpha: 0, duration: 1, stagger: 0.12 }, 0.95)
@@ -910,6 +1378,40 @@
         el.addEventListener('mouseleave', () => { xTo(0); yTo(0); });
       });
     }
+  </script>
+
+  <!-- Timeline de etapas: progressive enhancement. Sin JS se ven los seis paneles. -->
+  <script>
+    (function () {
+      var rail = document.querySelector('.tl-rail');
+      if (!rail) return;
+      var tabs = [].slice.call(rail.querySelectorAll('.tl-step'));
+      var panels = [].slice.call(document.querySelectorAll('.tl-panel'));
+
+      function select(key, focus) {
+        tabs.forEach(function (t) {
+          t.setAttribute('aria-selected', String(t.dataset.stage === key));
+          t.tabIndex = t.dataset.stage === key ? 0 : -1;
+        });
+        panels.forEach(function (p) { p.hidden = p.dataset.panel !== key; });
+        if (focus) rail.querySelector('[data-stage="' + key + '"]').focus();
+      }
+
+      tabs.forEach(function (t) {
+        t.addEventListener('click', function () { select(t.dataset.stage); });
+      });
+
+      rail.addEventListener('keydown', function (e) {
+        var i = tabs.indexOf(document.activeElement);
+        if (i < 0) return;
+        var n = e.key === 'ArrowRight' ? i + 1 : e.key === 'ArrowLeft' ? i - 1 : -1;
+        if (n < 0 || n >= tabs.length) return;
+        e.preventDefault();
+        select(tabs[n].dataset.stage, true);
+      });
+
+      select('teen');
+    })();
   </script>
 </body>
 </html>

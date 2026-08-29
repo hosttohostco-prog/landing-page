@@ -2,3 +2,16 @@
 
 # Local Netlify folder
 .netlify
+
+# Archivos de trabajo local — no se publican
+site/_preview-*
+site/**/_preview-*
+site/assets/ChatGPT Image*
+
+# Originales pesados: se publican solo las versiones optimizadas
+site/assets/TANGARA.jpg
+site/assets/MOMOT.jpg
+site/assets/GALEATA.jpg
+site/assets/MIMUS.jpg
+site/assets/MAFE COACHING.JPEG
+site/assets/1 1 .jpg
