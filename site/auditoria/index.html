@@ -7,7 +7,7 @@
   <meta name="description" content="Auditá tu anuncio de Airbnb con el método de Mafe: puntaje gratis en 4 categorías y un plan de mejoras priorizado. Sin carreta.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Space+Grotesk:wght@300;400;500;600&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Archivo:wght@500;600;700&family=Shantell+Sans:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../brand.css">
   <!-- Analytics: uncomment + set code once James creates the GoatCounter account.
   <script data-goatcounter="https://CODE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
@@ -55,7 +55,7 @@
       color: var(--coral); margin-bottom: 1.6rem;
     }
     .q-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-display);
       font-size: clamp(2.8rem, 4vw, 4.2rem);
       font-weight: 300; line-height: 1.15; letter-spacing: -0.015em;
       color: var(--cream); text-wrap: balance;
@@ -70,7 +70,7 @@
     .q-opts { display: flex; flex-direction: column; gap: 1.2rem; }
     .q-opt {
       text-align: left;
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: var(--font-display);
       font-size: 1.6rem; color: var(--cream);
       background: rgba(252,243,233,0.05);
       border: 1px solid rgba(252,243,233,0.14);
@@ -83,7 +83,7 @@
 
     .q-input {
       width: 100%;
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: var(--font-display);
       font-size: 1.6rem; color: var(--cream);
       background: rgba(252,243,233,0.05);
       border: 1px solid rgba(252,243,233,0.14);
@@ -97,7 +97,7 @@
 
     .q-nav { display: flex; align-items: center; justify-content: space-between; margin-top: 3.6rem; }
     .q-back {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: var(--font-display);
       font-size: 1.4rem; color: rgba(252,243,233,0.5);
       background: none; border: none; cursor: pointer; padding: 1rem;
     }
@@ -123,13 +123,13 @@
       background: rgba(252,243,233,0.04);
     }
     .score-num {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-display);
       font-size: 8rem; font-weight: 400; line-height: 1;
       color: var(--cream);
     }
     .score-num small { font-size: 2.4rem; color: rgba(252,243,233,0.5); }
     .score-tag {
-      font-family: 'Caveat', cursive;
+      font-family: var(--font-hand);
       font-size: 2.4rem; color: var(--coral);
       margin-top: 0.8rem;
     }
@@ -166,7 +166,7 @@
       color: var(--coral); margin-bottom: 1.6rem;
     }
     .pw-h {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-display);
       font-size: 2.8rem; font-weight: 400; line-height: 1.2;
       color: var(--cream); margin-bottom: 2rem; text-wrap: balance;
     }
@@ -178,12 +178,12 @@
     .pw-item::before { content: ''; width: 1.4rem; height: 1px; background: var(--coral); flex-shrink: 0; position: relative; top: -0.4em; }
     .pw-item strong { color: var(--cream); font-weight: 600; }
     .pw-price {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: var(--font-display);
       font-size: 3.2rem; color: var(--cream); margin-bottom: 2.4rem;
     }
-    .pw-price small { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; color: rgba(252,243,233,0.5); }
+    .pw-price small { font-family: var(--font-display); font-size: 1.3rem; color: rgba(252,243,233,0.5); }
     .pw-soon {
-      font-family: 'Caveat', cursive; font-size: 2.2rem; color: var(--coral);
+      font-family: var(--font-hand); font-size: 2.2rem; color: var(--coral);
     }
     .pw-note { font-size: 1.35rem; color: rgba(252,243,233,0.45); margin-top: 1.6rem; line-height: 1.6; }
 
@@ -204,13 +204,28 @@
     .pt-p strong { color: var(--cream); font-weight: 600; }
 
     .r-next {
-      font-family: 'Caveat', cursive;
+      font-family: var(--font-hand);
       font-size: 2.2rem; color: var(--coral); margin: 3.2rem 0;
     }
     .r-alt { font-size: 1.4rem; color: rgba(252,243,233,0.5); margin-top: 2.4rem; }
     .r-alt a { color: var(--cream); }
 
     .weights-note { font-size: 1.25rem; color: rgba(252,243,233,0.4); margin-top: 2rem; line-height: 1.6; }
+
+    /* ──────────────────────────────────────────────────────────────
+       BRAND KIT · tipografia (migracion Cormorant Garamond → Outfit)
+       Cormorant se usaba en peso 300; en Outfit se ve anemico, asi que
+       los titulares suben a 500/600. Y Outfit NO tiene italica: los <em>
+       pasan a ser acento de color, nunca cursiva sintetizada (misma
+       regla que ya usaba /coaching). Para afinar, tocar solo esto.
+       ────────────────────────────────────────────────────────────── */
+    .q-title, .hero-h1, .banner-h, .legal-h1, .optin-h1 {
+      font-weight: 500; letter-spacing: -0.03em;
+    }
+    .magnet-title, .legal-inner h2, .score-num { font-weight: 600; font-style: normal; }
+    .q-title em, .hero-h1 em, .banner-h em, .legal-h1 em, .optin-h1 em {
+      font-style: normal; font-weight: 600;
+    }
   </style>
   <script src="/assets/track.js"></script>
 </head>

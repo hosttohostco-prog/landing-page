@@ -7,6 +7,10 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* Los controles de formulario no heredan la fuente por defecto: el navegador
+   les mete Arial. Sin esto, botones e inputs se salen del brand kit. */
+button, input, textarea, select { font-family: inherit; }
+
 :root {
   --cream:   #FCF3E9;
   --cream-d: #F0E2CF;
@@ -20,6 +24,11 @@
   --white:   #FDFCFA;
   --badge-free: #3E4232; /* deep olive-ink — "Gratis" pill */
   --badge-paid: #BC5B2E; /* burnt coral — "Pago" pill + card links on white */
+
+  /* Tipografia del brand kit (Canva kAGyeGPFg20). Outfit sustituye a Garet. */
+  --font-display: 'Outfit', system-ui, sans-serif;
+  --font-hand:    'Shantell Sans', cursive;
+  --font-label:   'Archivo', sans-serif;
 }
 
 html { font-size: 62.5%; }
@@ -33,7 +42,7 @@ html.lenis, html.lenis body { height: auto; }
 body {
   background: var(--cream);
   color: var(--ink);
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-size: 1.6rem;
   line-height: 1.6;
   overflow-x: hidden;
