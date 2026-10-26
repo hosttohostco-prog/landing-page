@@ -256,12 +256,13 @@
   // Weights [MAFE CONFIRMA]: Consideración 35 / Conversión 30 / Visibilidad 20 / Calidad 15.
   // Capture: MailerLite group "Auditoría - Anuncio" (192533328835905218) via form
   // 192533352306181214. Fields: puntaje_auditoria, link_anuncio, estado_auditoria, phone.
-  // Paid tier: instant templated plan + Mafe reviews the listing async (48h, WhatsApp).
-  // PAID_ENABLED stays false until James supplies the payment link + price.
+  // Paid tier: the templated plan, delivered on the spot. No manual review and no
+  // promised turnaround — the human step is the Diagnóstico 1:1 ($190.000) below.
+  // Checkout: Systeme.io funnel 7744050 -> Mercado Pago, COP. Live 2026-10-26.
 
-  const PAID_ENABLED = false;                 // Stage 2: flip to true
-  const PAYMENT_LINK = '#';                   // [OPEN] hosted COP payment link (Mercado Pago likely)
-  const PRICE_COP = null;                     // [OPEN] James sets, e.g. '89.000'
+  const PAID_ENABLED = true;
+  const PAYMENT_LINK = 'https://hosttohost-co.systeme.io/plan';
+  const PRICE_COP = '86.000';
   const ML_FORM = '192533352306181214';
 
   // — analytics: no-ops unless GoatCounter's script is loaded (see <head>) —
@@ -289,7 +290,7 @@
     {
       id: 'link', type: 'link', kicker: 'Tu anuncio',
       title: 'Pegá el link de tu <em>anuncio.</em>',
-      sub: 'Abrilo en Airbnb, copiá la dirección y pegala acá. Lo necesito para poder revisarlo.',
+      sub: 'Abrilo en Airbnb, copiá la dirección y pegala acá. Lo guardo para cuando lo veamos juntas.',
       ph: 'https://www.airbnb.com.co/rooms/...'
     },
 
@@ -506,6 +507,9 @@
     if (low('q3')) P.push({ cat: 'Calidad', h: 'Asegurá los 3 básicos que cargan las reseñas', p: '<strong>Wifi rápido y estable</strong> (tan importante como el colchón), cama que dé sueño de 5 estrellas, y baño impecable — "baño limpio = reseña buena, sin excepción". Todo lo demás es secundario a esto.' });
     if (a('q1') === 'nueva') P.push({ cat: 'Calidad', h: 'Tus primeras reseñas son tu campaña de lanzamiento', p: 'Sin historial, cada huésped cuenta doble: cuidá los 3 básicos como oro y pedí la reseña con calidez al checkout. Las primeras 5 calificaciones definen tu arranque en el algoritmo.' });
 
+    // El orden es el producto: mismos pesos que el puntaje.
+    const ORDER = { Fotos: 0, Anuncio: 1, Visibilidad: 2, Calidad: 3 };
+    P.sort((x, y) => ORDER[x.cat] - ORDER[y.cat]);
     return P;
   }
 
@@ -547,35 +551,35 @@
           ${plan.length ? plan.map(t => `<div class="plan-tip"><p class="pt-cat">${t.cat}</p><p class="pt-h">${t.h}</p><p class="pt-p">${t.p}</p></div>`).join('')
             : '<div class="plan-tip"><p class="pt-h">Tu anuncio salió fuerte en todo.</p><p class="pt-p">Poco que corregir por acá — lo tuyo es afinación fina, y eso es exactamente lo que Mafe va a buscar en tu revisión.</p></div>'}
           <div class="paywall" style="border-style:solid; margin-top:3.2rem">
-            <p class="pw-kicker">Y ahora, la parte humana</p>
-            <p class="pw-h">Mafe va a revisar tu anuncio.</p>
-            <p class="pt-p">Listo — tu anuncio quedó en su lista. En las próximas <strong>48 horas</strong> te llegan sus arreglos por WhatsApp, directo de sus 9 años recibiendo huéspedes. 💬</p>
+            <p class="pw-kicker">Cómo usar esto</p>
+            <p class="pw-h">De arriba hacia abajo. Uno por semana.</p>
+            <p class="pt-p">El orden no es casual: arriba está lo que más mueve reservas — primero las fotos, después el anuncio, después la visibilidad, después la calidad. <strong>Hacé el primero esta semana.</strong> Querer hacerlos todos de una es la mejor forma de no hacer ninguno.</p>
           </div>`;
       } else if (PAID_ENABLED) {
         paidSection = `
           <div class="paywall">
             <p class="pw-kicker">¿Querés el plan completo?</p>
-            <p class="pw-h">Desbloqueá tu plan de mejoras — y yo reviso tu anuncio personalmente.</p>
+            <p class="pw-h">Desbloqueá tu plan de mejoras.</p>
             <div class="pw-list">
               <p class="pw-item"><span>Tu <strong>plan de mejoras priorizado</strong>, punto por punto según tus respuestas</span></p>
               <p class="pw-item"><span>La fórmula del título + el esqueleto de descripción, listos para adaptar</span></p>
               <p class="pw-item"><span>El checklist foto por foto de las primeras 5</span></p>
-              <p class="pw-item"><span><strong>Mafe revisa TU anuncio</strong> (el link que me diste) y te manda sus arreglos por WhatsApp en 48 horas</span></p>
+              <p class="pw-item"><span><strong>El orden exacto en que arreglarlo</strong> — qué primero, qué después, según lo que más mueve reservas</span></p>
             </div>
             ${PRICE_COP ? `<p class="pw-price">$${PRICE_COP} <small>COP · pago único</small></p>` : ''}
-            <a href="${PAYMENT_LINK}" class="btn-pill" onclick="track('payment-click')" target="_blank" rel="noopener"><span>Desbloquear mi plan</span></a>
-            <p class="pw-note">Después de pagar volvés acá y tu plan se abre solito. La revisión de Mafe llega por WhatsApp.</p>
+            <a href="${PAYMENT_LINK}" class="btn-pill" onclick="track('payment-click')"><span>Desbloquear mi plan</span></a>
+            <p class="pw-note">Pago único, en pesos. Apenas pagás volvés acá y tu plan se abre solito.</p>
           </div>`;
         track('paywall-view');
       } else {
         paidSection = `
           <div class="paywall">
             <p class="pw-kicker">Muy pronto</p>
-            <p class="pw-h">El plan completo — con revisión personal de Mafe.</p>
+            <p class="pw-h">El plan completo de mejoras.</p>
             <div class="pw-list">
               <p class="pw-item"><span>Tu plan de mejoras priorizado, punto por punto según tus respuestas</span></p>
               <p class="pw-item"><span>La fórmula del título + el esqueleto de descripción</span></p>
-              <p class="pw-item"><span><strong>Mafe revisa TU anuncio</strong> y te manda sus arreglos por WhatsApp</span></p>
+              <p class="pw-item"><span><strong>El orden exacto en que arreglarlo</strong>, según lo que más mueve reservas</span></p>
             </div>
             <p class="pw-soon">Ya te tengo el correo — te aviso apenas abra. 💌</p>
           </div>`;
